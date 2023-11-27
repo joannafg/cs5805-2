@@ -3,14 +3,16 @@ project:
   output-dir: docs
 
 website:
-  title: "Blog"
+  title: "Ziming 'Joanna' Fang's Machine Learning's Journey (CS 5805)"
+  repo-url: https://github.com/joannafg/cs5805
+  repo-actions: [edit, issue]
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/joannafg/cs5805
+      - icon: linkedin
+        href: https://www.linkedin.com/in/joanna-fang-6122ba182/
 format:
   html:
     theme: quartz
