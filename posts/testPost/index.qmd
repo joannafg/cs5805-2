@@ -3,6 +3,7 @@ title: "Test"
 author: "Joanna Fang"
 date: "2023-11-17"
 categories: [code, analysis, test]
+jupyter: python3
 ---
 
 This is a test post. 
@@ -14,7 +15,30 @@ This is to test changes were deployed : D ---- 1:05PM
 
 Here's a simple Python code snippet:
 
-```python
-print("Hello, world!")
+```{python}
+print("Hello, world 123!")
+```
 
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import sys
+!{sys.executable} -m pip install numpy
+!{sys.executable} -m pip install matplotlib
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
 -Joanna 
