@@ -6,6 +6,7 @@ categories: [code, analysis, test]
 ---
 
 This is a test post. 
+This is to test changes were deployed : D ---- 12:21PM 
 
 ![](elena-cordery-RLlcbkemwnw-unsplash.jpg)
 
