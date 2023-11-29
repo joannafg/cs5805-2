@@ -6,21 +6,22 @@ categories: [ml, code, probability]
 jupyter: python3
 format:
   html: 
+    toc: true
+    # number-sections: true
+    code-block-bg: "#FFFFFF"
+    code-block-border-left: "#E83283"
     code-tools:
       source: true
       toggle: false
       caption: none
-code-block-bg: "#FFFFFF"
-code-block-border-left: "#E83283"
-toc: true
-toc-depth: 2
-toc-expand: 2
+# code-block-bg: "#FFFFFF"
+# code-block-border-left: "#E83283"
 
 ---
 
-# Probability Theory and Random Variables: Understanding the Poisson Distribution through Email Traffic Analysis
+# Probability Theory and Random Variables: Understanding the Poisson Distribution through Email Traffic Analysis 
 
-![](thumbnail.jpg){width="10%"}
+![](thumbnail.jpg){width="50%" fig-align="center"}
 
 ## Understanding the Binomial Distribution
 
