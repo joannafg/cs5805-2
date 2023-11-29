@@ -9,7 +9,7 @@
 <meta name="author" content="Joanna Fang">
 <meta name="dcterms.date" content="2023-11-17">
 
-<title>Blog - Test</title>
+<title>Ziming’s ML’s Journey (CS 5805) - Test</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Blog</span>
+    <span class="navbar-title">Ziming’s ML’s Journey (CS 5805)</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -216,16 +216,16 @@ WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: matplotlib in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (3.8.2)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
-Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
 Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
 Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
 Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.17.0)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
@@ -241,8 +241,56 @@ You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/b
 </div>
 </div>
 <p>-Joanna</p>
+<section id="understanding-the-poisson-distribution-through-email-traffic-analysis" class="level1">
+<h1>Understanding the Poisson Distribution through Email Traffic Analysis</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In the realm of probability and statistics, the Poisson distribution is a fundamental concept, often used to model the frequency of various types of events. This blog post aims to demystify the Poisson distribution by tracing its roots back to the Binomial distribution, and then, applying it to a real-world scenario: analyzing the number of emails received per hour.</p>
+</section>
+<section id="the-theoretical-underpinnings" class="level2">
+<h2 class="anchored" data-anchor-id="the-theoretical-underpinnings">The Theoretical Underpinnings</h2>
+<section id="binomial-distribution-a-starting-point" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-distribution-a-starting-point">Binomial Distribution: A Starting Point</h3>
+<p>The journey begins with the Binomial distribution, which calculates the probability of obtaining a certain number of successes in a fixed number of independent trials. It’s expressed as:</p>
+<p>[ P(X = k) = p^k (1-p)^{n-k} ]</p>
+<p>where: - ( n ) is the number of trials - ( k ) is the number of successes - ( p ) is the probability of success on a single trial.</p>
+</section>
+<section id="transitioning-to-poisson" class="level3">
+<h3 class="anchored" data-anchor-id="transitioning-to-poisson">Transitioning to Poisson</h3>
+<p>The Poisson distribution emerges as a special case of the Binomial distribution, particularly when the number of trials is large (( n )), and the probability of success is small (( p )), while their product (( = np )) remains constant.</p>
+<p>The Poisson distribution is given by:</p>
+<p>[ P(X = k) = ]</p>
+<p>where ( ) is the mean number of successes over the interval.</p>
+</section>
+<section id="graphical-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="graphical-interpretation">Graphical Interpretation</h3>
+<p>By graphically comparing the two distributions for varying values of ( n ) and ( p ), we can observe how the Binomial distribution converges to the Poisson distribution under these conditions.</p>
+</section>
+</section>
+<section id="practical-application-email-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="practical-application-email-analysis">Practical Application: Email Analysis</h2>
+<p>Now, let’s apply this knowledge to a practical scenario: estimating the number of emails one might receive in an hour.</p>
+<section id="setting-up-the-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-the-experiment">Setting Up the Experiment</h3>
+<p>For this experiment, we assume an average of 5 emails per hour. This rate (( )) serves as our parameter for the Poisson distribution.</p>
+</section>
+<section id="simulating-email-receipt" class="level3">
+<h3 class="anchored" data-anchor-id="simulating-email-receipt">Simulating Email Receipt</h3>
+<p>Using a programming tool like Python, we can simulate the receipt of emails over a 24-hour period. The Poisson distribution will allow us to model the probability of receiving a certain number of emails each hour.</p>
+</section>
+<section id="visualizing-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-results">Visualizing the Results</h3>
+<p>The simulation results can be visualized in a histogram, showing the frequency of hours with a specific number of emails. This graph provides a clear picture of the email distribution pattern over the course of a day.</p>
+</section>
+</section>
+<section id="conclusion-insights-and-applications" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-insights-and-applications">Conclusion: Insights and Applications</h2>
+<p>This analysis not only deepens our understanding of the Poisson distribution but also demonstrates its practical utility in everyday scenarios. Whether it’s for planning resources in customer service or managing workload in IT support, the Poisson distribution offers valuable insights into event frequencies.</p>
+<p>Understanding statistical concepts like the Poisson distribution and their derivation from more fundamental principles enriches our ability to interpret and analyze the world around us. Stay tuned for more explorations into the exciting world of probability and statistics!</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -482,4 +530,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/joannafg/cs5805/edit/main/posts/testPost/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/joannafg/cs5805/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>

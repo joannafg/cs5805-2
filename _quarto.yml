@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Ziming 'Joanna' Fang's Machine Learning's Journey (CS 5805)"
+  title: "Ziming's Journey in Machine Learning"
   repo-url: https://github.com/joannafg/cs5805
   repo-actions: [edit, issue]
   navbar:
