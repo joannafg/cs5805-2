@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joannafg.github.io/cs5805/about.html</loc>
-    <lastmod>2023-11-29T02:20:03.919Z</lastmod>
+    <lastmod>2023-11-29T16:31:26.908Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joannafg.github.io/cs5805/posts/clustering/index.html</loc>
+    <lastmod>2023-11-29T16:31:24.709Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805/posts/probability/index.html</loc>
-    <lastmod>2023-11-29T02:20:02.542Z</lastmod>
+    <lastmod>2023-11-29T16:31:22.390Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805/index.html</loc>
-    <lastmod>2023-11-29T02:20:03.390Z</lastmod>
+    <lastmod>2023-11-29T16:31:26.567Z</lastmod>
   </url>
 </urlset>
