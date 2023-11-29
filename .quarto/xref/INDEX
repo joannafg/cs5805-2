@@ -16,5 +16,8 @@
   },
   "posts/probability/index.qmd": {
     "index.html": "228bc38d"
+  },
+  "posts/clustering/index.qmd": {
+    "index.html": "23261b11"
   }
 }

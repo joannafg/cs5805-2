@@ -39,3 +39,5 @@ So, whether you're a fellow machine learning enthusiast, a curious learner, or s
 
 Happy reading and learning!
 Ziming ‘Joanna’ Fang 🌟🤖📊
+
+OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
