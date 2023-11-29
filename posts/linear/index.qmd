@@ -1,0 +1,22 @@
+---
+title: "Linear and Nonlinear Regression"
+author: "Joanna Fang"
+date: "2023-11-29"
+categories: [ml, code, linear regression, nonlinear regression, driving, kaggle]
+jupyter: python3
+format:
+  html: 
+    toc: true
+    code-block-bg: "#FFFFFF"
+    code-block-border-left: "#E83283"
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+
+---
+
+# Linear and Nonlinear Regression: Predictive Analysis of Driving Behavior 
+
+![](thumbnail.jpg){width="50%" fig-align="center"}
+

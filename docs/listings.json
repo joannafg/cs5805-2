@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/probability/index.html",
+      "/posts/linear/index.html",
       "/posts/clustering/index.html"
     ]
   }
