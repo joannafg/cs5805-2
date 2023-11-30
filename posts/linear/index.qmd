@@ -6,9 +6,9 @@ categories: [ml, code, linear regression, nonlinear regression, driving, kaggle]
 jupyter: python3
 format:
   html: 
-    toc: true
     code-block-bg: "#FFFFFF"
-    code-block-border-left: "#E83283"
+    # code-block-border-left: "#E83283"
+    toc: true
     code-tools:
       source: true
       toggle: false
