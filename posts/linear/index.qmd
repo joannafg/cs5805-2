@@ -2,7 +2,7 @@
 title: "Linear and Nonlinear Regression"
 author: "Joanna Fang"
 date: "2023-11-29"
-categories: [ml, code, linear regression, nonlinear regression, driving, kaggle]
+categories: [ml, code, linear regression, nonlinear regression, pollution]
 jupyter: python3
 format:
   html: 

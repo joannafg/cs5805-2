@@ -1107,29 +1107,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>By the end of this blog, you'll have a clearer understanding of how to implement these techniques in Python and interpret their results, equipping you with the tools needed for insightful environmental data analysis.</span>
 <span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Examining the Dataset</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Understanding the Dataset</span></span>
 <span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>Before diving into the regression models, it's crucial to understand the dataset we'll be working with. The dataset, named <span class="in">`air_data_all.csv`</span>, is a comprehensive collection of air quality measurements.</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>Before delving into regression models, it's essential to familiarize ourselves with the dataset at hand—<span class="in">`air_data_all.csv`</span>. This dataset contains hourly air quality measurements and meteorological data from Beijing, spanning from March 1st, 2013, to February 28th, 2017. The dataset is sourced from the Beijing Municipal Environmental Monitoring Center and is matched with meteorological data from the China Meteorological Administration. However, it's important to note that missing data points are marked as NA. Link to dataset is https://archive.ics.uci.edu/dataset/501/beijing+multi+site+air+quality+data. </span>
 <span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dataset Description and Relevance</span></span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>This dataset is a rich source of information, capturing various environmental conditions and pollutant concentrations. It includes temporal data (year, month, day, hour) and readings of several key air pollutants (PM2.5, PM10, SO2, NO2, CO, O3). Additionally, it records several meteorological factors like temperature (TEMP), pressure (PRES), dew point temperature (DEWP), precipitation (RAIN), wind direction (wd), and wind speed (WSPM). Such datasets are crucial for studying the dynamics of air pollution and its dependency on different environmental and temporal factors.</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dataset Overview</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>The dataset is a valuable resource, encompassing a wide range of environmental conditions and pollutant concentrations. It records temporal information, including the year, month, day, and hour, alongside readings of key air pollutants such as PM2.5, PM10, SO2, NO2, CO, and O3. Additionally, meteorological factors like temperature (TEMP), pressure (PRES), dew point temperature (DEWP), precipitation (RAIN), wind direction (wd), and wind speed (WSPM) are included. This comprehensive data is instrumental for studying air pollution dynamics and its correlation with various environmental and temporal factors.</span>
 <span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Database Columns</span></span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>Each column in this dataset plays a specific role:</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Column Descriptions</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>Each column in the dataset serves a specific purpose:</span>
 <span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Temporal Data (year, month, day, hour)**: Helps in understanding the variation in pollutant levels over different times of the day, months, or years.</span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Pollutant Concentrations (PM2.5, PM10, SO2, NO2, CO, O3)**: These are the primary pollutants, usually monitored in urban air quality studies.</span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Meteorological Data (TEMP, PRES, DEWP, RAIN, wd, WSPM)**: Weather conditions can significantly influence pollutant dispersion and concentration.</span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Station**: Identifies the monitoring site, which can be key in studying geographical variations in air quality.</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Temporal Data (year, month, day, hour)**: These columns provide insights into pollutant variations across different timescales.</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Pollutant Concentrations (PM2.5, PM10, SO2, NO2, CO, O3)**: These are primary pollutants, crucial for urban air quality analysis.</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Meteorological Data (TEMP, PRES, DEWP, RAIN, wd, WSPM)**: Weather conditions significantly impact pollutant dispersion and concentration.</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Station**: This column identifies the monitoring site, facilitating the study of geographical variations in air quality.</span>
 <span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Initial Observations and Potential Challenges</span></span>
-<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>Upon initial examination of the dataset, we observe the comprehensive nature of the data, which is excellent for a detailed analysis. However, we might face certain challenges:</span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Initial Insights and Challenges</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>Upon initial examination, it's evident that the dataset offers a comprehensive foundation for in-depth analysis. However, several challenges may arise:</span>
 <span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Missing Data**: Air quality datasets often have missing values, which need careful handling to avoid bias in the models.</span>
-<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**High Dimensionality**: With many variables, the risk of multicollinearity increases, where two or more variables are highly correlated.</span>
-<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Non-linear Relationships**: Not all relationships between the pollutants and environmental factors might be linear, necessitating the use of more complex models like Random Forest.</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Missing Data**: Handling missing values is imperative to prevent biases in the models.</span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**High Dimensionality**: The dataset's numerous variables may lead to multicollinearity issues, where variables are highly correlated.</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Non-linear Relationships**: Linear models may not capture all pollutant-environmental interactions, requiring more complex approaches like Random Forest.</span>
 <span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>In the following sections, we'll address these challenges as we prepare the data for regression analysis. By the end of this process, we'll be ready to apply linear and Random Forest regression to predict pollutant concentrations effectively.</span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>In the upcoming sections, we will address these challenges while preparing the data for regression analysis. By the end of this process, we will be well-equipped to employ linear and Random Forest regression for accurate pollutant concentration predictions.</span>
 <span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Selecting Target Pollutants</span></span>
 <span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a></span>
@@ -1343,136 +1343,146 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting SO2 values for the test set</span></span>
 <span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>lr_y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
-<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
-<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
-<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
-<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
-<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
-<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoom in </span></span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
+<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
 <span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.</span>
-<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating the Performance of the Linear Regression Model</span></span>
-<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a>Finally, we evaluate the performance of our model using common statistical metrics.</span>
-<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing performance metrics</span></span>
-<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a>lr_mse <span class="op">=</span> mean_squared_error(y_test, lr_y_pred)</span>
-<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a>lr_r2 <span class="op">=</span> r2_score(y_test, lr_y_pred)</span>
+<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
+<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
+<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
+<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
+<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
+<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
+<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>lr_mse<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>lr_r2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a>The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.</span>
-<span id="cb17-331"><a href="#cb17-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a>By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</span>
-<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a>Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:</span>
-<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Random Forest Regression Analysis</span></span>
+<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a>The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.</span>
+<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating the Performance of the Linear Regression Model</span></span>
+<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a>Finally, we evaluate the performance of our model using common statistical metrics.</span>
+<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing performance metrics</span></span>
+<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a>lr_mse <span class="op">=</span> mean_squared_error(y_test, lr_y_pred)</span>
+<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a>lr_r2 <span class="op">=</span> r2_score(y_test, lr_y_pred)</span>
 <span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Random Forest Regression</span></span>
-<span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a>Random Forest is an ensemble learning method predominantly used for classification and regression tasks. It operates by constructing a multitude of decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Compared to linear regression, Random Forest offers several advantages:</span>
+<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>lr_mse<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>lr_r2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Non-linear Data**: It can model complex relationships between features and the target variable, which linear regression may fail to capture.</span>
-<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reducing Overfitting**: By averaging multiple decision trees, it reduces the risk of overfitting to the training data.</span>
-<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Importance of Features**: Random Forest can provide insights into the relative importance of each feature in prediction.</span>
+<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.</span>
+<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a>By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</span>
 <span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implementing Random Forest Regression</span></span>
+<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a>Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:</span>
 <span id="cb17-347"><a href="#cb17-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a>Let's implement Random Forest regression to predict the concentration of sulfur dioxide (SO2) using 'TEMP' (temperature), 'PRES' (pressure), and 'DEWP' (dew point). We have already preprocessed and scaled our dataset. Now, we'll apply Random Forest regression:</span>
+<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Random Forest Regression Analysis</span></span>
 <span id="cb17-349"><a href="#cb17-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-352"><a href="#cb17-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb17-353"><a href="#cb17-353" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb17-354"><a href="#cb17-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-355"><a href="#cb17-355" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Random Forest model</span></span>
-<span id="cb17-356"><a href="#cb17-356" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb17-350"><a href="#cb17-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Random Forest Regression</span></span>
+<span id="cb17-351"><a href="#cb17-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-352"><a href="#cb17-352" aria-hidden="true" tabindex="-1"></a>Random Forest is an ensemble learning method predominantly used for classification and regression tasks. It operates by constructing a multitude of decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Compared to linear regression, Random Forest offers several advantages:</span>
+<span id="cb17-353"><a href="#cb17-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-354"><a href="#cb17-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Non-linear Data**: It can model complex relationships between features and the target variable, which linear regression may fail to capture.</span>
+<span id="cb17-355"><a href="#cb17-355" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reducing Overfitting**: By averaging multiple decision trees, it reduces the risk of overfitting to the training data.</span>
+<span id="cb17-356"><a href="#cb17-356" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Importance of Features**: Random Forest can provide insights into the relative importance of each feature in prediction.</span>
 <span id="cb17-357"><a href="#cb17-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-358"><a href="#cb17-358" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
-<span id="cb17-359"><a href="#cb17-359" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span>
-<span id="cb17-360"><a href="#cb17-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-361"><a href="#cb17-361" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting the SO2 values using the test set</span></span>
-<span id="cb17-362"><a href="#cb17-362" aria-hidden="true" tabindex="-1"></a>rf_y_pred <span class="op">=</span> rf_model.predict(X_test)</span>
-<span id="cb17-363"><a href="#cb17-363" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-364"><a href="#cb17-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-365"><a href="#cb17-365" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualization: Feature Importance and Prediction vs Actual</span></span>
+<span id="cb17-358"><a href="#cb17-358" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implementing Random Forest Regression</span></span>
+<span id="cb17-359"><a href="#cb17-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-360"><a href="#cb17-360" aria-hidden="true" tabindex="-1"></a>Let's implement Random Forest regression to predict the concentration of sulfur dioxide (SO2) using 'TEMP' (temperature), 'PRES' (pressure), and 'DEWP' (dew point). We have already preprocessed and scaled our dataset. Now, we'll apply Random Forest regression:</span>
+<span id="cb17-361"><a href="#cb17-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-364"><a href="#cb17-364" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-365"><a href="#cb17-365" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
 <span id="cb17-366"><a href="#cb17-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-367"><a href="#cb17-367" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Feature Importance Plot**: This graph illustrates the relative importance of each feature in predicting the SO2 levels.</span>
-<span id="cb17-368"><a href="#cb17-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-371"><a href="#cb17-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb17-372"><a href="#cb17-372" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb17-373"><a href="#cb17-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-374"><a href="#cb17-374" aria-hidden="true" tabindex="-1"></a>feature_importances <span class="op">=</span> rf_model.feature_importances_</span>
-<span id="cb17-375"><a href="#cb17-375" aria-hidden="true" tabindex="-1"></a>plt.barh([<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>], feature_importances)</span>
-<span id="cb17-376"><a href="#cb17-376" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature Importance'</span>)</span>
-<span id="cb17-377"><a href="#cb17-377" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Feature'</span>)</span>
-<span id="cb17-378"><a href="#cb17-378" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Feature Importance in Random Forest Model'</span>)</span>
-<span id="cb17-379"><a href="#cb17-379" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb17-380"><a href="#cb17-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-381"><a href="#cb17-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-382"><a href="#cb17-382" aria-hidden="true" tabindex="-1"></a>The feature importance plot shows 'TEMP' with the highest score, indicating it has the most significant impact on predicting SO2 levels, followed by 'PRES' and 'DEWP'. This suggests that temperature changes are potentially a more dominant factor in influencing SO2 concentrations in the atmosphere.</span>
-<span id="cb17-383"><a href="#cb17-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-384"><a href="#cb17-384" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Prediction vs Actual Plot**: This plot compares the actual vs. predicted SO2 levels using the Random Forest model.</span>
+<span id="cb17-367"><a href="#cb17-367" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Random Forest model</span></span>
+<span id="cb17-368"><a href="#cb17-368" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb17-369"><a href="#cb17-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-370"><a href="#cb17-370" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
+<span id="cb17-371"><a href="#cb17-371" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span>
+<span id="cb17-372"><a href="#cb17-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-373"><a href="#cb17-373" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting the SO2 values using the test set</span></span>
+<span id="cb17-374"><a href="#cb17-374" aria-hidden="true" tabindex="-1"></a>rf_y_pred <span class="op">=</span> rf_model.predict(X_test)</span>
+<span id="cb17-375"><a href="#cb17-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-376"><a href="#cb17-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-377"><a href="#cb17-377" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualization: Feature Importance and Prediction vs Actual</span></span>
+<span id="cb17-378"><a href="#cb17-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-379"><a href="#cb17-379" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Feature Importance Plot**: This graph illustrates the relative importance of each feature in predicting the SO2 levels.</span>
+<span id="cb17-380"><a href="#cb17-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-383"><a href="#cb17-383" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-384"><a href="#cb17-384" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb17-385"><a href="#cb17-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
-<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred)</span>
-<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
-<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
-<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: Actual vs Predicted SO2 Levels'</span>)</span>
-<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a>The Prediction vs Actual Plot for the Random Forest model reveals a tighter clustering of data points along the line of perfect prediction compared to the Linear Regression model. This clustering indicates a higher accuracy in predictions made by the Random Forest model.</span>
-<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparative Analysis and Conclusion</span></span>
-<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>We compare the performance metrics of Random Forest and Linear Regression:</span>
-<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random Forest**</span>
-<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 204.29218141691157</span>
-<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.5579337989410323</span>
-<span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Linear Regression**</span>
-<span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 411.5799313674985</span>
-<span id="cb17-412"><a href="#cb17-412" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.10938551133078755</span>
-<span id="cb17-413"><a href="#cb17-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-414"><a href="#cb17-414" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Interpretation</span></span>
-<span id="cb17-415"><a href="#cb17-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-416"><a href="#cb17-416" aria-hidden="true" tabindex="-1"></a>The Random Forest model shows a significantly lower Mean Squared Error (MSE) and higher R² value compared to Linear Regression. This indicates that the Random Forest model fits the data better and has a greater predictive accuracy. The reduced MSE suggests that the Random Forest model's predictions are closer to the actual data. The higher R² value indicates that a larger proportion of the variance in the SO2 concentration is being explained by the model.</span>
-<span id="cb17-417"><a href="#cb17-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-418"><a href="#cb17-418" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Comparison: Prediction vs Actual Plot for Both Models</span></span>
-<span id="cb17-419"><a href="#cb17-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-420"><a href="#cb17-420" aria-hidden="true" tabindex="-1"></a>This plot will compare the predictions of both models against the actual SO2 levels. Here, 'lr_y_pred' represents the predicted values from the Linear Regression model.</span>
-<span id="cb17-421"><a href="#cb17-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-424"><a href="#cb17-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb17-425"><a href="#cb17-425" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb17-426"><a href="#cb17-426" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
-<span id="cb17-427"><a href="#cb17-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-428"><a href="#cb17-428" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, label<span class="op">=</span><span class="st">'Linear Regression'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'b'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb17-429"><a href="#cb17-429" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred, label<span class="op">=</span><span class="st">'Random Forest'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'x'</span>)</span>
-<span id="cb17-430"><a href="#cb17-430" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
-<span id="cb17-431"><a href="#cb17-431" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
-<span id="cb17-432"><a href="#cb17-432" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Predictions: Linear Regression vs Random Forest'</span>)</span>
-<span id="cb17-433"><a href="#cb17-433" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb17-434"><a href="#cb17-434" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb17-435"><a href="#cb17-435" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb17-436"><a href="#cb17-436" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-437"><a href="#cb17-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-438"><a href="#cb17-438" aria-hidden="true" tabindex="-1"></a>The combined Prediction vs Actual Plot demonstrates a stark contrast between the two models. The Random Forest predictions are more concentrated around the line of perfect fit, while the Linear Regression predictions are more dispersed, indicating more errors in prediction. This visual reaffirms the quantitative metrics, illustrating that Random Forest provides a more accurate model for predicting SO2 levels based on 'TEMP', 'PRES', and 'DEWP'.</span>
+<span id="cb17-386"><a href="#cb17-386" aria-hidden="true" tabindex="-1"></a>feature_importances <span class="op">=</span> rf_model.feature_importances_</span>
+<span id="cb17-387"><a href="#cb17-387" aria-hidden="true" tabindex="-1"></a>plt.barh([<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>], feature_importances)</span>
+<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature Importance'</span>)</span>
+<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Feature'</span>)</span>
+<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Feature Importance in Random Forest Model'</span>)</span>
+<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a>The feature importance plot shows 'TEMP' with the highest score, indicating it has the most significant impact on predicting SO2 levels, followed by 'PRES' and 'DEWP'. This suggests that temperature changes are potentially a more dominant factor in influencing SO2 concentrations in the atmosphere.</span>
+<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Prediction vs Actual Plot**: This plot compares the actual vs. predicted SO2 levels using the Random Forest model.</span>
+<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred)</span>
+<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
+<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
+<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: Actual vs Predicted SO2 Levels'</span>)</span>
+<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a>The Prediction vs Actual Plot for the Random Forest model reveals a tighter clustering of data points along the line of perfect prediction compared to the Linear Regression model. This clustering indicates a higher accuracy in predictions made by the Random Forest model.</span>
+<span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparative Analysis and Conclusion</span></span>
+<span id="cb17-412"><a href="#cb17-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-413"><a href="#cb17-413" aria-hidden="true" tabindex="-1"></a>We compare the performance metrics of Random Forest and Linear Regression:</span>
+<span id="cb17-414"><a href="#cb17-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-415"><a href="#cb17-415" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random Forest**</span>
+<span id="cb17-416"><a href="#cb17-416" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 204.29218141691157</span>
+<span id="cb17-417"><a href="#cb17-417" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.5579337989410323</span>
+<span id="cb17-418"><a href="#cb17-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-419"><a href="#cb17-419" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Linear Regression**</span>
+<span id="cb17-420"><a href="#cb17-420" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 411.5799313674985</span>
+<span id="cb17-421"><a href="#cb17-421" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.10938551133078755</span>
+<span id="cb17-422"><a href="#cb17-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-423"><a href="#cb17-423" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Interpretation</span></span>
+<span id="cb17-424"><a href="#cb17-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-425"><a href="#cb17-425" aria-hidden="true" tabindex="-1"></a>The Random Forest model shows a significantly lower Mean Squared Error (MSE) and higher R² value compared to Linear Regression. This indicates that the Random Forest model fits the data better and has a greater predictive accuracy. The reduced MSE suggests that the Random Forest model's predictions are closer to the actual data. The higher R² value indicates that a larger proportion of the variance in the SO2 concentration is being explained by the model.</span>
+<span id="cb17-426"><a href="#cb17-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-427"><a href="#cb17-427" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Comparison: Prediction vs Actual Plot for Both Models</span></span>
+<span id="cb17-428"><a href="#cb17-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-429"><a href="#cb17-429" aria-hidden="true" tabindex="-1"></a>This plot will compare the predictions of both models against the actual SO2 levels. Here, 'lr_y_pred' represents the predicted values from the Linear Regression model.</span>
+<span id="cb17-430"><a href="#cb17-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-433"><a href="#cb17-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-434"><a href="#cb17-434" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, label<span class="op">=</span><span class="st">'Linear Regression'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'b'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb17-435"><a href="#cb17-435" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred, label<span class="op">=</span><span class="st">'Random Forest'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb17-436"><a href="#cb17-436" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
+<span id="cb17-437"><a href="#cb17-437" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
+<span id="cb17-438"><a href="#cb17-438" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Predictions: Linear Regression vs Random Forest'</span>)</span>
+<span id="cb17-439"><a href="#cb17-439" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb17-440"><a href="#cb17-440" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb17-441"><a href="#cb17-441" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-442"><a href="#cb17-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-443"><a href="#cb17-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-444"><a href="#cb17-444" aria-hidden="true" tabindex="-1"></a>The combined Prediction vs Actual Plot demonstrates a stark contrast between the two models. The Random Forest predictions are more concentrated around the line of perfect fit, while the Linear Regression predictions are more dispersed, indicating more errors in prediction. This visual reaffirms the quantitative metrics, illustrating that Random Forest provides a more accurate model for predicting SO2 levels based on 'TEMP', 'PRES', and 'DEWP'.</span>
+<span id="cb17-445"><a href="#cb17-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-446"><a href="#cb17-446" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
+<span id="cb17-447"><a href="#cb17-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-448"><a href="#cb17-448" aria-hidden="true" tabindex="-1"></a>As depicted in the visualizations, there appear to be a few outliers in the graph. Conducting an outlier analysis before proceeding with modeling could potentially enhance the accuracy of our predictions.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

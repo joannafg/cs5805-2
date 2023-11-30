@@ -1,0 +1,59 @@
+---
+title: "Classification"
+author: "Joanna Fang"
+date: "2023-11-30"
+categories: [ml, code, classification, driving, kaggle]
+jupyter: python3
+format:
+  html: 
+    toc: true
+    code-block-bg: "#FFFFFF"
+    code-block-border-left: "#E83283"
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+
+---
+
+# Clustering: Optimizing Driver Behavior Analysis with Machine Learning Clustering 
+
+![](thumbnail.jpg){width="50%" fig-align="center"}
+
+## Project Introduction
+
+Welcome to our exploration into the world of machine learning and its application in predicting driving behaviors. In this project, we dive into the realm of vehicular safety, aiming to leverage sensor data to classify driving patterns into three categories: SLOW, NORMAL, and AGGRESSIVE. This endeavor is not just a technical challenge but a crucial step towards enhancing road safety and reducing traffic accidents.
+
+### Objective
+The primary goal of this project is to accurately predict driving behaviors using data from commonly available sensors in smartphones. By analyzing accelerometer and gyroscope data, we aim to classify driving styles into SLOW, NORMAL, or AGGRESSIVE, contributing significantly to the prevention of road mishaps.
+
+### Importance and Applications
+The importance of this project is underscored by the alarming statistics from the AAA Foundation for Traffic Safety, highlighting that over half of fatal crashes involve aggressive driving actions. Through this project, we offer a scalable and readily deployable solution to monitor and predict dangerous driving behaviors, potentially saving lives and making our roads safer. Applications of this model extend to insurance companies for risk assessment, ride-sharing services for driver monitoring, and personal safety apps to alert drivers of their driving patterns.
+
+## Data Collection and Description
+
+### Source of the Data
+The dataset for this project is derived from a real-world scenario, specifically designed to capture driving behaviors. Utilizing a data collector application on Android devices, we have gathered sensor readings directly relevant to driving dynamics.
+
+### Dataset Description
+The dataset is a rich collection of sensor data recorded from a Samsung Galaxy S21, chosen for its advanced sensor capabilities. Here's a breakdown of the dataset features:
+
+#### Acceleration Data
+- Axes: X, Y, Z
+- Unit: Meters per second squared (m/s²)
+- Note: Gravitational acceleration has been filtered out to focus on the acceleration caused by driving actions.
+
+#### Rotation Data
+- Axes: X, Y, Z
+- Unit: Degrees per second (°/s)
+- Purpose: Captures the angular changes during driving, indicative of turns and maneuvers.
+
+#### Classification Label
+- Categories: SLOW, NORMAL, AGGRESSIVE
+- Basis: The driving behavior classification based on the sensor data patterns.
+
+#### Additional Information
+- Sampling Rate: 2 samples per second, ensuring a fine-grained capture of driving dynamics.
+- Timestamp: Included for each sample, allowing for temporal analysis of driving patterns.
+
+In the following sections, we will delve into the preprocessing, exploratory analysis, and modeling of this dataset to build a robust classifier for driving behaviors. Stay tuned as we unravel the insights hidden within this data and develop a machine learning model with the potential to make a real-world impact.
