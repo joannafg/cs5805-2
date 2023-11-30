@@ -404,7 +404,7 @@ This plot will compare the predictions of both models against the actual SO2 lev
 
 ```{python}
 plt.scatter(y_test, lr_y_pred, label='Linear Regression', alpha=0.5, color='b', marker='o')
-plt.scatter(y_test, rf_y_pred, label='Random Forest', alpha=0.5, color='r', marker='-')
+plt.scatter(y_test, rf_y_pred, label='Random Forest', alpha=0.5, color='r', marker='+')
 plt.xlabel('Actual SO2 Levels')
 plt.ylabel('Predicted SO2 Levels')
 plt.title('Comparison of Predictions: Linear Regression vs Random Forest')

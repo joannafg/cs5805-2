@@ -22,5 +22,8 @@
   },
   "posts/linear/index.qmd": {
     "index.html": "302d2f35"
+  },
+  "posts/classification/index.qmd": {
+    "index.html": "eecf069f"
   }
 }
