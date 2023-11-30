@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div><h1 class="title">Linear and Nonlinear Regression</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+      <h1 class="title">Linear and Nonlinear Regression</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">ml</div>
                 <div class="quarto-category">code</div>
@@ -183,54 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#predicting-air-pollutant-concentrations-using-linear-and-random-forest-regression-a-jupyter-notebook-guide" id="toc-predicting-air-pollutant-concentrations-using-linear-and-random-forest-regression-a-jupyter-notebook-guide" class="nav-link active" data-scroll-target="#predicting-air-pollutant-concentrations-using-linear-and-random-forest-regression-a-jupyter-notebook-guide">Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide</a>
-  <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
-  <li><a href="#random-forest-regression" id="toc-random-forest-regression" class="nav-link" data-scroll-target="#random-forest-regression">Random Forest Regression</a></li>
-  </ul></li>
-  <li><a href="#examining-the-dataset" id="toc-examining-the-dataset" class="nav-link" data-scroll-target="#examining-the-dataset">1. Examining the Dataset</a>
-  <ul class="collapse">
-  <li><a href="#dataset-description-and-relevance" id="toc-dataset-description-and-relevance" class="nav-link" data-scroll-target="#dataset-description-and-relevance">Dataset Description and Relevance</a></li>
-  <li><a href="#introduction-to-database-columns" id="toc-introduction-to-database-columns" class="nav-link" data-scroll-target="#introduction-to-database-columns">Introduction to Database Columns</a></li>
-  <li><a href="#initial-observations-and-potential-challenges" id="toc-initial-observations-and-potential-challenges" class="nav-link" data-scroll-target="#initial-observations-and-potential-challenges">Initial Observations and Potential Challenges</a></li>
-  </ul></li>
-  <li><a href="#selecting-target-pollutants" id="toc-selecting-target-pollutants" class="nav-link" data-scroll-target="#selecting-target-pollutants">2. Selecting Target Pollutants</a>
-  <ul class="collapse">
-  <li><a href="#criteria-for-selecting-target-pollutants" id="toc-criteria-for-selecting-target-pollutants" class="nav-link" data-scroll-target="#criteria-for-selecting-target-pollutants">Criteria for Selecting Target Pollutants</a></li>
-  <li><a href="#rationale-behind-the-selection" id="toc-rationale-behind-the-selection" class="nav-link" data-scroll-target="#rationale-behind-the-selection">Rationale Behind the Selection</a></li>
-  </ul></li>
-  <li><a href="#data-cleaning-and-transformation" id="toc-data-cleaning-and-transformation" class="nav-link" data-scroll-target="#data-cleaning-and-transformation">3. Data Cleaning and Transformation</a>
-  <ul class="collapse">
-  <li><a href="#identifying-and-handling-missing-or-inconsistent-data" id="toc-identifying-and-handling-missing-or-inconsistent-data" class="nav-link" data-scroll-target="#identifying-and-handling-missing-or-inconsistent-data">Identifying and Handling Missing or Inconsistent Data</a></li>
-  <li><a href="#normalization-or-standardization-of-data" id="toc-normalization-or-standardization-of-data" class="nav-link" data-scroll-target="#normalization-or-standardization-of-data">Normalization or Standardization of Data</a></li>
-  <li><a href="#transforming-categorical-data-into-a-usable-format" id="toc-transforming-categorical-data-into-a-usable-format" class="nav-link" data-scroll-target="#transforming-categorical-data-into-a-usable-format">Transforming Categorical Data into a Usable Format</a></li>
-  <li><a href="#visuals-showing-before-and-after-data-transformation" id="toc-visuals-showing-before-and-after-data-transformation" class="nav-link" data-scroll-target="#visuals-showing-before-and-after-data-transformation">Visuals Showing Before and After Data Transformation</a></li>
-  </ul></li>
-  <li><a href="#correlation-analysis-and-multicollinearity-check" id="toc-correlation-analysis-and-multicollinearity-check" class="nav-link" data-scroll-target="#correlation-analysis-and-multicollinearity-check">4. Correlation Analysis and Multicollinearity Check</a>
-  <ul class="collapse">
-  <li><a href="#correlation-analysis-and-its-importance" id="toc-correlation-analysis-and-its-importance" class="nav-link" data-scroll-target="#correlation-analysis-and-its-importance">Correlation Analysis and Its Importance</a></li>
-  <li><a href="#multicollinearity-check-and-its-implications" id="toc-multicollinearity-check-and-its-implications" class="nav-link" data-scroll-target="#multicollinearity-check-and-its-implications">Multicollinearity Check and Its Implications</a></li>
-  <li><a href="#visual-representation-of-correlation-and-multicollinearity-findings" id="toc-visual-representation-of-correlation-and-multicollinearity-findings" class="nav-link" data-scroll-target="#visual-representation-of-correlation-and-multicollinearity-findings">Visual Representation of Correlation and Multicollinearity Findings</a></li>
-  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a></li>
-  </ul></li>
-  <li><a href="#linear-regression-analysis" id="toc-linear-regression-analysis" class="nav-link" data-scroll-target="#linear-regression-analysis">5. Linear Regression Analysis</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-linear-regression-and-its-applicability" id="toc-introduction-to-linear-regression-and-its-applicability" class="nav-link" data-scroll-target="#introduction-to-linear-regression-and-its-applicability">Introduction to Linear Regression and Its Applicability</a></li>
-  <li><a href="#step-by-step-linear-regression-analysis-using-jupyter-notebook" id="toc-step-by-step-linear-regression-analysis-using-jupyter-notebook" class="nav-link" data-scroll-target="#step-by-step-linear-regression-analysis-using-jupyter-notebook">Step-by-Step Linear Regression Analysis Using Jupyter Notebook</a></li>
-  <li><a href="#visual-representation-of-linear-regression-results-and-plotting-the-best-fit-line" id="toc-visual-representation-of-linear-regression-results-and-plotting-the-best-fit-line" class="nav-link" data-scroll-target="#visual-representation-of-linear-regression-results-and-plotting-the-best-fit-line">Visual Representation of Linear Regression Results and Plotting the Best Fit Line</a></li>
-  <li><a href="#evaluating-the-performance-of-the-linear-regression-model" id="toc-evaluating-the-performance-of-the-linear-regression-model" class="nav-link" data-scroll-target="#evaluating-the-performance-of-the-linear-regression-model">Evaluating the Performance of the Linear Regression Model</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/joannafg/cs5805/edit/main/posts/linear/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/joannafg/cs5805/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
-    </div>
+    
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -345,47 +298,47 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \epsilon
 <div class="cell-output cell-output-stdout">
 <pre><code>Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: seaborn in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (0.13.0)
-Requirement already satisfied: numpy!=1.24.0,&gt;=1.20 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (1.26.2)
 Requirement already satisfied: pandas&gt;=1.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (2.1.3)
+Requirement already satisfied: numpy!=1.24.0,&gt;=1.20 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (1.26.2)
 Requirement already satisfied: matplotlib!=3.6.1,&gt;=3.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (3.8.2)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.1.1)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.2.0)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (4.45.1)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (2.8.2)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.4.5)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (0.12.1)
 Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (23.2)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.1.1)
 Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (6.1.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (4.45.1)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.4.5)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (2.8.2)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.2.0)
 Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (10.1.0)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (0.12.1)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.17.0)
-Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3)
 Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: matplotlib in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (3.8.2)
-Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
-Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
 Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
 Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
 Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
+Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
+Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.17.0)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: statsmodels in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (0.14.0)
-Requirement already satisfied: patsy&gt;=0.5.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (0.5.3)
-Requirement already satisfied: pandas&gt;=1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (2.1.3)
-Requirement already satisfied: numpy&gt;=1.18 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.26.2)
-Requirement already satisfied: packaging&gt;=21.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (23.2)
 Requirement already satisfied: scipy!=1.9.2,&gt;=1.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.11.4)
+Requirement already satisfied: packaging&gt;=21.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (23.2)
+Requirement already satisfied: numpy&gt;=1.18 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.26.2)
+Requirement already satisfied: pandas&gt;=1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (2.1.3)
+Requirement already satisfied: patsy&gt;=0.5.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (0.5.3)
 Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2023.3)
 Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2023.3.post1)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2.8.2)
@@ -394,18 +347,18 @@ WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: scikit-learn in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (1.3.2)
-Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (3.2.0)
 Requirement already satisfied: scipy&gt;=1.5.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.11.4)
-Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (3.2.0)
 Requirement already satisfied: joblib&gt;=1.1.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.3.2)
+Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: pandas in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (2.1.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2.8.2)
-Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
-Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3)
 Requirement already satisfied: numpy&lt;2,&gt;=1.22.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (1.26.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.</code></pre>
@@ -660,8 +613,6 @@ R² Score: 0.10938551133078755</code></pre>
 <p>By following these steps, we can use linear regression to effectively predict environmental factors’ impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 </section>
@@ -746,57 +697,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -950,329 +850,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Linear and Nonlinear Regression"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Joanna Fang"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2023-11-29"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [ml, code, linear regression, nonlinear regression, driving, kaggle]</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">  html: </span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: "#FFFFFF"</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">    # code-block-border-left: "#E83283"</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">      toggle: false</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">      caption: none</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="al">![](thumbnail.jpg)</span>{width="50%" fig-align="center"}</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>Air quality is a critical environmental factor impacting public health, ecosystem sustainability, and the global climate. Pollutants such as particulate matter (PM2.5 and PM10), sulfur dioxide (SO2), nitrogen dioxide (NO2), carbon monoxide (CO), and ozone (O3) can have severe health impacts, including respiratory and cardiovascular diseases. Understanding and predicting the concentrations of these pollutants is essential for creating effective environmental policies and public health interventions.</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>In this blog, we'll delve into two powerful statistical methods used in predicting air pollutant concentrations: linear regression and Random Forest regression.</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### Linear Regression</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>Linear regression is a fundamental statistical approach used to model the relationship between a dependent variable and one or more independent variables. In the context of air quality, it helps us understand how various environmental factors like temperature, humidity, and wind speed influence pollutant levels. The model assumes a linear relationship between the variables, which can be represented as:</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \epsilon</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>Here, <span class="sc">\(</span> Y <span class="sc">\)</span> is the pollutant concentration we want to predict, <span class="sc">\(</span> X_1, X_2, ..., X_n <span class="sc">\)</span> are the environmental factors, <span class="sc">\(</span> \beta_0, \beta_1, ..., \beta_n <span class="sc">\)</span> are the coefficients to be estimated, and <span class="sc">\(</span> \epsilon <span class="sc">\)</span> is the error term.</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random Forest Regression</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>Random Forest, on the other hand, is a type of ensemble learning method, particularly useful for non-linear relationships. It operates by constructing multiple decision trees during training and outputting the mean prediction of the individual trees. This method is beneficial for handling complex interactions between variables and can provide more accurate predictions for complex datasets like those in air quality studies.</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>The purpose of this blog is to provide a step-by-step guide on how to use these methods, utilizing a Jupyter Notebook, to predict pollutant concentrations. We'll start by exploring our dataset, <span class="in">`air_data_all.csv`</span>, which includes a variety of environmental conditions and temporal factors, and then apply these regression techniques to gain insights into the factors affecting air quality.</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>By the end of this blog, you'll have a clearer understanding of how to implement these techniques in Python and interpret their results, equipping you with the tools needed for insightful environmental data analysis.</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Examining the Dataset</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>Before diving into the regression models, it's crucial to understand the dataset we'll be working with. The dataset, named <span class="in">`air_data_all.csv`</span>, is a comprehensive collection of air quality measurements.</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dataset Description and Relevance</span></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>This dataset is a rich source of information, capturing various environmental conditions and pollutant concentrations. It includes temporal data (year, month, day, hour) and readings of several key air pollutants (PM2.5, PM10, SO2, NO2, CO, O3). Additionally, it records several meteorological factors like temperature (TEMP), pressure (PRES), dew point temperature (DEWP), precipitation (RAIN), wind direction (wd), and wind speed (WSPM). Such datasets are crucial for studying the dynamics of air pollution and its dependency on different environmental and temporal factors.</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Database Columns</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>Each column in this dataset plays a specific role:</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Temporal Data (year, month, day, hour)**: Helps in understanding the variation in pollutant levels over different times of the day, months, or years.</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Pollutant Concentrations (PM2.5, PM10, SO2, NO2, CO, O3)**: These are the primary pollutants, usually monitored in urban air quality studies.</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Meteorological Data (TEMP, PRES, DEWP, RAIN, wd, WSPM)**: Weather conditions can significantly influence pollutant dispersion and concentration.</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Station**: Identifies the monitoring site, which can be key in studying geographical variations in air quality.</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Initial Observations and Potential Challenges</span></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>Upon initial examination of the dataset, we observe the comprehensive nature of the data, which is excellent for a detailed analysis. However, we might face certain challenges:</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Missing Data**: Air quality datasets often have missing values, which need careful handling to avoid bias in the models.</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**High Dimensionality**: With many variables, the risk of multicollinearity increases, where two or more variables are highly correlated.</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Non-linear Relationships**: Not all relationships between the pollutants and environmental factors might be linear, necessitating the use of more complex models like Random Forest.</span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>In the following sections, we'll address these challenges as we prepare the data for regression analysis. By the end of this process, we'll be ready to apply linear and Random Forest regression to predict pollutant concentrations effectively.</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Selecting Target Pollutants</span></span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>In our journey to understand and predict air quality, selecting the right target pollutants is crucial. For this analysis, we will focus on the following pollutants: PM2.5, PM10, SO2, NO2, CO, and O3. Let's delve into the criteria and rationale behind choosing these specific pollutants.</span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criteria for Selecting Target Pollutants</span></span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>The selection of target pollutants is based on the following criteria:</span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Health Impact**: Pollutants known to have significant health effects are prioritized.</span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Prevalence and Relevance**: Common pollutants in urban and industrial areas are selected due to their higher relevance.</span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Data Availability**: Pollutants with consistent and reliable data within the dataset are chosen to ensure the accuracy of the analysis.</span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rationale Behind the Selection</span></span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>Each selected pollutant has its unique importance in air quality analysis:</span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PM2.5 and PM10 (Particulate Matter)**: These are tiny particles in the air that reduce visibility and cause the air to appear hazy when levels are elevated. PM2.5 and PM10 are known for their ability to penetrate deep into the lungs and even into the bloodstream, causing respiratory and cardiovascular issues.</span>
-<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SO2 (Sulfur Dioxide)**: A gas typically produced by burning fossil fuels containing sulfur. It's associated with acid rain and has health implications, especially for individuals with asthma.</span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**NO2 (Nitrogen Dioxide)**: Primarily gets into the air from the burning of fuel. NO2 forms from emissions from cars, trucks and buses, power plants, and off-road equipment. It's linked to various respiratory problems.</span>
-<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CO (Carbon Monoxide)**: A colorless, odorless gas that is harmful when inhaled in large amounts. It's released from vehicles and other combustion sources and can cause harmful health effects by reducing the amount of oxygen that can be transported in the bloodstream.</span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**O3 (Ozone)**: At ground level, ozone is a harmful air pollutant and a significant component of smog. It's not emitted directly into the air but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC) in the presence of sunlight.</span>
-<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>By focusing on these pollutants, we can provide a comprehensive analysis of air quality and its health implications. Next, we will perform correlation analysis and multicollinearity checks to understand how these pollutants interact with each other and with different environmental factors.</span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Data Cleaning and Transformation</span></span>
-<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>Before delving into sophisticated regression models, it's imperative to prepare our dataset, "air_data_all.csv," for analysis. This stage, known as data cleaning and transformation, involves several key steps to ensure the data's integrity and usability.</span>
-<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Identifying and Handling Missing or Inconsistent Data</span></span>
-<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>The initial step in data preprocessing is to identify and address any missing (NaN) or inconsistent data. This is crucial as such data can significantly skew our analysis.</span>
-<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>{sys.executable} <span class="op">-</span>m pip install seaborn</span>
-<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>{sys.executable} <span class="op">-</span>m pip install matplotlib</span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>{sys.executable} <span class="op">-</span>m pip install statsmodels</span>
-<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>{sys.executable} <span class="op">-</span>m pip install scikit<span class="op">-</span>learn</span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>{sys.executable} <span class="op">-</span>m pip install pandas</span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
-<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.read_csv(<span class="st">'air_data_all.csv'</span>)</span>
-<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifying missing or infinite values</span></span>
-<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a>sample_data.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values</span></span>
-<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> sample_data.isnull().<span class="bu">sum</span>()</span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a>In this code block, we first replace any infinite values with NaNs. Then, we calculate the number of missing values in each column. Depending on the nature and volume of missing data, we can either fill these gaps using statistical methods (like mean, median) or consider removing the rows/columns entirely.</span>
-<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization or Standardization of Data</span></span>
-<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>Normalization (rescaling data to a range, like 0–1) and standardization (shifting the distribution to have a mean of zero and a standard deviation of one) are crucial for models sensitive to the scale of data, such as linear regression.</span>
-<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the dataset</span></span>
-<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(sample_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]])</span>
-<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame for further use</span></span>
-<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_data, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>])</span>
-<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a>Here, we use <span class="in">`StandardScaler`</span> from Scikit-learn to standardize the continuous variables such as temperature and pressure. This process aligns the data onto one scale, removing bias due to different units or scales.</span>
-<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transforming Categorical Data into a Usable Format</span></span>
-<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>Many regression models require numerical input, so transforming categorical data into a numerical format is essential.</span>
-<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables for categorical data</span></span>
-<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a>wd_dummies <span class="op">=</span> pd.get_dummies(sample_data[<span class="st">'wd'</span>])</span>
-<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.concat([sample_data, wd_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a>In the above snippet, we create dummy variables for the <span class="in">`wd`</span> column (wind direction), converting it into a format that can be efficiently processed by regression algorithms.</span>
-<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visuals Showing Before and After Data Transformation</span></span>
-<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>Visualizations are effective for demonstrating the impact of data transformation. For instance, before and after standardization, we can plot histograms of a variable to observe changes in its distribution.</span>
-<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting before and after standardization</span></span>
-<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_data[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Original TEMP'</span>)</span>
-<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a>plt.hist(scaled_df[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Standardized TEMP'</span>)</span>
-<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>This histogram allows us to compare the distribution of the temperature data before and after standardization, showcasing the effects of our data transformation steps.</span>
-<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>By completing these data cleaning and transformation processes, we ensure that our dataset is primed for accurate and effective regression analysis, laying a solid foundation for our subsequent modeling steps.</span>
-<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Correlation Analysis and Multicollinearity Check</span></span>
-<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a>After preparing our dataset, the next step in our analysis involves understanding the relationships between variables using correlation analysis and checking for multicollinearity. These steps are critical for ensuring the reliability and interpretability of our regression models.</span>
-<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation Analysis and Its Importance</span></span>
-<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a>Correlation analysis helps us understand the strength and direction of the relationship between two variables. In regression analysis, it's important to identify how independent variables are related to the dependent variable and to each other.</span>
-<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing missing or infinite values from the scaled dataset</span></span>
-<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a>scaled_df.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>scaled_df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the correlation matrix for key variables</span></span>
-<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> sample_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'SO2'</span>, <span class="st">'NO2'</span>, <span class="st">'CO'</span>, <span class="st">'O3'</span>, <span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]].corr()</span>
-<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the correlation matrix using a heatmap</span></span>
-<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
-<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
-<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix of Environmental Factors and Pollutants"</span>)</span>
-<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>In this code, we calculate and visualize the correlation matrix of key pollutants and environmental factors. This heatmap provides a clear visual representation of the relationships, where the color intensity and the value in each cell indicate the strength and direction of the correlation.</span>
-<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multicollinearity Check and Its Implications</span></span>
-<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a>Multicollinearity occurs when two or more independent variables in a regression model are highly correlated. This can lead to unreliable coefficient estimates, making it difficult to determine the effect of each independent variable.</span>
-<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
-<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a><span class="co"># Preparing data for multicollinearity check</span></span>
-<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> scaled_df[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]]</span>
-<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating VIF for each feature</span></span>
-<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'Feature'</span>] <span class="op">=</span> features.columns</span>
-<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'VIF'</span>] <span class="op">=</span> [variance_inflation_factor(features.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(features.shape[<span class="dv">1</span>])]</span>
-<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a>vif_data</span>
-<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>Here, we calculate the Variance Inflation Factor (VIF) for each feature. A VIF value greater than 5 or 10 indicates high multicollinearity, suggesting that the variable could be linearly predicted from the others with a substantial degree of accuracy.</span>
-<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Correlation and Multicollinearity Findings</span></span>
-<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>Visualizing these statistics can help in better understanding and communicating the findings.</span>
-<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing VIF values</span></span>
-<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>plt.bar(vif_data[<span class="st">'Feature'</span>], vif_data[<span class="st">'VIF'</span>])</span>
-<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Features'</span>)</span>
-<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Variance Inflation Factor (VIF)'</span>)</span>
-<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Multicollinearity Check - VIF Values'</span>)</span>
-<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>This bar chart provides a clear representation of the VIF values for each feature, helping us identify which variables might be contributing to multicollinearity in the model.</span>
-<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a>By conducting both correlation analysis and a multicollinearity check, we ensure the integrity and effectiveness of our regression models, setting a strong foundation for accurate and insightful analysis of the factors influencing air quality.</span>
-<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Selection</span></span>
-<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>Based on the results of Correlation Analysis and Multicollinearity Check. I decided to predict SO2 with 'TEMP', 'PRES', 'DEWP'. </span>
-<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Linear Regression Analysis</span></span>
-<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a>In this section, we will apply linear regression analysis to predict the concentration of sulfur dioxide (SO2) based on three key environmental factors: 'TEMP', 'PRES', and 'DEWP'. Linear regression is a fundamental statistical method used to understand the relationship between a dependent variable and one or more independent variables.</span>
-<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Linear Regression and Its Applicability</span></span>
-<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a>Linear regression is a widely used statistical technique for modeling and analyzing the relationship between a scalar response (dependent variable) and one or more explanatory variables (independent variables). The method assumes a linear relationship between the variables. In our context, we will use linear regression to understand how temperature ('TEMP'), pressure ('PRES'), and dew point ('DEWP') affect the concentration of SO2 in the air.</span>
-<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step-by-Step Linear Regression Analysis Using Jupyter Notebook</span></span>
-<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a>Now, let's conduct a linear regression analysis using Python in a Jupyter Notebook environment.</span>
-<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where any of the feature columns or 'SO2' is NaN</span></span>
-<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> sample_data.dropna(subset<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'SO2'</span>])</span>
-<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the relevant columns of the filtered data</span></span>
-<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a>scaled_columns <span class="op">=</span> scaler.fit_transform(filtered_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>]])</span>
-<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame</span></span>
-<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_columns, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>])</span>
-<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining features (X) and target variable (y)</span></span>
-<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaled_df</span>
-<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> filtered_data[<span class="st">'SO2'</span>]</span>
-<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into training and testing sets</span></span>
-<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating and fitting the linear regression model</span></span>
-<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
-<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the linear regression model</span></span>
-<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
-<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model to the training data</span></span>
-<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a>In this code, we first select our features and target variable, split the data into training and test sets, create a Linear Regression model, and then fit it to our training data.</span>
-<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Linear Regression Results and Plotting the Best Fit Line</span></span>
-<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a>Visualizing the model's predictions in comparison with the actual values is crucial for assessing its performance. We'll also plot the best-fit line to better understand the linear relationship.</span>
-<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting SO2 values for the test set</span></span>
-<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
-<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
-<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
-<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
-<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
-<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
-<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
-<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a>The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.</span>
-<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating the Performance of the Linear Regression Model</span></span>
-<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a>Finally, we evaluate the performance of our model using common statistical metrics.</span>
-<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing performance metrics</span></span>
-<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred)</span>
-<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_test, y_pred)</span>
-<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>mse<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>r2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a>The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.</span>
-<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a>By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/joannafg/cs5805/edit/main/posts/linear/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/joannafg/cs5805/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
