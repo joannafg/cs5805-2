@@ -239,11 +239,11 @@ When selecting the model, we consider several criteria:
 
 ## Model Training
 
-Training the model involves feeding it the prepared data and allowing it to learn from it.
+Training our models is like teaching them to understand patterns within the data that distinguish between SLOW, NORMAL, and AGGRESSIVE driving behaviors. We will employ four different machine learning models to find the best predictor.
 
 ### Training Different Models
 
-We will experiment with different machine learning algorithms to find the best performer for our specific task.
+We start by training different types of models. Each has its own strengths and might capture different aspects of the driving behavior.
 
 ```{python}
 from sklearn.tree import DecisionTreeClassifier
@@ -251,116 +251,121 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 
-# Example of training a Decision Tree classifier
-decision_tree_model = DecisionTreeClassifier()
-decision_tree_model.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+# Initializing models with default parameters
+decision_tree = DecisionTreeClassifier()
+random_forest = RandomForestClassifier()
+svm = SVC()
+neural_network = MLPClassifier()
 
-# We would repeat the fitting process for each of the classifiers we wish to evaluate.
+decision_tree.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+random_forest.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+svm.fit(train_data.drop(['Class'], axis=1), train_data['Class']) 
+neural_network.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
 ```
 
-### Hyperparameter Tuning Using Techniques Like GridSearchCV or RandomSearchCV
+The `fit` method allows the models to learn from the training data. It's during this process that they identify which features are most important for predicting driving behavior.
 
-Hyperparameter tuning is essential to optimize the model performance.
+### Hyperparameter Tuning
+
+To optimize our models, we tweak their settings, known as hyperparameters. This process is akin to fine-tuning an instrument to ensure it plays the perfect note.
 
 ```{python}
 from sklearn.model_selection import GridSearchCV
 
-# Example of using GridSearchCV with a Decision Tree classifier
-parameters = {'max_depth': [10, 20, 30], 'min_samples_leaf': [1, 2, 4]}
-clf = GridSearchCV(decision_tree_model, parameters)
-clf.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+# Setting up the parameter grid for a Decision Tree
+param_grid = {
+    'decision_tree': {
+        'max_depth': [10, 20, 30],
+        'min_samples_leaf': [1, 2, 4]
+    }
+}
 
-# The best parameters from GridSearchCV can then be used to train the final model.
+# Hyperparameter tuning for the Decision Tree using GridSearchCV
+grid_search_dt = GridSearchCV(decision_tree, param_grid['decision_tree'], cv=5)
+grid_search_dt.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+best_params_dt = grid_search_dt.best_params_
+
+# Define the parameter grid for Random Forest
+rf_param_grid = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [10, 20, None],
+    'min_samples_split': [2, 5, 10]
+}
+
+# Initialize the GridSearchCV object for Random Forest
+grid_search_rf = GridSearchCV(RandomForestClassifier(), rf_param_grid, cv=5, n_jobs=-1)
+grid_search_rf.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+
+# Get the best parameters for Random Forest
+best_params_rf = grid_search_rf.best_params_
+
+# Define the parameter grid for SVM
+svm_param_grid = {
+    'C': [0.1, 1, 10],
+    'gamma': ['scale', 'auto'],
+    'kernel': ['rbf', 'linear']
+}
+
+# Initialize the GridSearchCV object for SVM
+grid_search_svm = GridSearchCV(SVC(), svm_param_grid, cv=5, n_jobs=-1)
+grid_search_svm.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+
+# Get the best parameters for SVM
+best_params_svm = grid_search_svm.best_params_
+
+# Define the parameter grid for Neural Network
+nn_param_grid = {
+    'hidden_layer_sizes': [(50,), (100,), (50, 50)],
+    'activation': ['tanh', 'relu'],
+    'solver': ['sgd', 'adam'],
+    'max_iter': [200, 400]
+}
+
+# Initialize the GridSearchCV object for Neural Network
+grid_search_nn = GridSearchCV(MLPClassifier(), nn_param_grid, cv=5, n_jobs=-1)
+grid_search_nn.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+
+# Get the best parameters for Neural Network
+best_params_nn = grid_search_nn.best_params_
+
+# Now we can print or use the best_params_rf, best_params_svm, and best_params_nn for the best-found parameters
 ```
 
-In the next sections, we will evaluate our trained models, compare their performances, and finally, select the best model for our driving behavior classification task. Stay tuned for the results!
+Using `GridSearchCV`, we systematically work through multiple combinations of parameter tunes, cross-validating as we go to determine which tune gives the best performance.
 
-## Model Evaluation
-
-Once models are trained, the next step is to evaluate their performance. This is crucial to understand how well our models are likely to perform when making predictions on new, unseen data.
-
-### Evaluating Model Performance
-
-We use a variety of metrics to get a holistic view of our model's performance:
-
-- **Accuracy**: This is the proportion of true results among the total number of cases examined.
-- **Precision**: Precision is the ratio of true positive predictions to the total positive predictions (including false positives).
-- **Recall**: This is the ratio of true positive predictions to the total actual positives.
-- **F1-Score**: The F1-score is the harmonic mean of precision and recall, providing a balance between them.
-
-Each metric provides different insights into the strengths and weaknesses of our models.
+By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.
 
 ```{python}
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+# After the GridSearchCV process is complete, we can print out the best parameters for each model
 
-# Predictions using one of the trained models, for example, the Decision Tree
-predictions = decision_tree_model.predict(test_data.drop(['Class'], axis=1))
+# Best parameters for Decision Tree
+print("Best parameters for Decision Tree:")
+print(best_params_dt)
 
-# Calculation of performance metrics
-accuracy = accuracy_score(test_data['Class'], predictions)
-precision = precision_score(test_data['Class'], predictions, average='weighted')
-recall = recall_score(test_data['Class'], predictions, average='weighted')
-f1 = f1_score(test_data['Class'], predictions, average='weighted')
+# Best parameters for Random Forest
+print("Best parameters for Random Forest:")
+print(best_params_rf)
 
-# Display the calculated metrics
-print(f"Accuracy: {accuracy}")
-print(f"Precision: {precision}")
-print(f"Recall: {recall}")
-print(f"F1-Score: {f1}")
+# Best parameters for SVM
+print("Best parameters for SVM:")
+print(best_params_svm)
+
+# Best parameters for Neural Network
+print("Best parameters for Neural Network:")
+print(best_params_nn)
+
+# These parameters can then be used to initialize the respective models with the optimal settings
+decision_tree_optimized = DecisionTreeClassifier(**best_params_dt)
+random_forest_optimized = RandomForestClassifier(**best_params_rf)
+svm_optimized = SVC(**best_params_svm)
+neural_network_optimized = MLPClassifier(**best_params_nn)
+
+# If you wish to proceed with fitting the optimized models, you would then do:
+decision_tree_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+random_forest_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+svm_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+neural_network_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+
+# Remember to replace train_data.drop(['Class'], axis=1) and train_data['Class']
+# with your features and target variable if they are named differently.
 ```
-
-### Confusion Matrix
-
-A confusion matrix is a table that is often used to describe the performance of a classification model on a set of test data for which the true values are known.
-
-```{python}
-from sklearn.metrics import confusion_matrix
-import seaborn as sns
-
-# Generating the confusion matrix for the Decision Tree model
-conf_mat = confusion_matrix(test_data['Class'], predictions)
-
-# Visualizing the confusion matrix
-sns.heatmap(conf_mat, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix')
-plt.show()
-```
-
-### ROC Curve and AUC
-
-For binary classification problems, the ROC (Receiver Operating Characteristic) curve and AUC (Area Under the Curve) are used. However, they can be extended to multi-class classification.
-
-```{python}
-from sklearn.metrics import roc_auc_score
-
-# Assuming a binary classification for simplicity. In multi-class cases, we would need to adjust the approach.
-# auc = roc_auc_score(test_data['Class'], predictions, multi_class='ovr')
-```
-
-## Model Comparison and Selection
-
-After evaluating all models, we compare their performance to select the best one.
-
-### Comparing the Performance of Different Models
-
-We compare the models based on the evaluation metrics we computed. This comparison is typically visualized using bar charts or tables summarizing the performance of each model.
-
-### Selecting the Best Model
-
-The best model is chosen based on the evaluation metrics. The selection also considers the specific use case requirements like interpretability, computational efficiency, and ease of deployment.
-
-```{python}
-# Assuming we have stored all our performance metrics in a DataFrame
-models_performance = pd.DataFrame({
-    'Model': ['Decision Tree', 'Random Forest', 'SVM', 'Neural Network'],
-    'Accuracy': [dt_accuracy, rf_accuracy, svm_accuracy, nn_accuracy],
-    # Other metrics can be added similarly
-})
-
-# Visualizing model performance for comparison
-sns.barplot(x='Accuracy', y='Model', data=models_performance)
-plt.title('Model Comparison based on Accuracy')
-plt.show()
-```
-
-The selected model will then be the one we use for making predictions on new data, with the confidence that it has performed well across our evaluation metrics during the testing phase.
