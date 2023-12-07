@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Joanna Fang">
+<meta name="dcterms.date" content="2023-12-06">
+
+<title>Ziming’s Journey in Machine Learning - Anomaly/Outlier Detection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ziming’s Journey in Machine Learning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/joannafg/cs5805-2" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/joanna-fang-6122ba182/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <div class="quarto-title-block"><div><h1 class="title">Anomaly/Outlier Detection</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ml</div>
+                <div class="quarto-category">code</div>
+                <div class="quarto-category">linear regression</div>
+                <div class="quarto-category">nonlinear regression</div>
+                <div class="quarto-category">pollution</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Joanna Fang </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 6, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#detecting-anomalies-in-air-pollution-data-a-data-science-project" id="toc-detecting-anomalies-in-air-pollution-data-a-data-science-project" class="nav-link active" data-scroll-target="#detecting-anomalies-in-air-pollution-data-a-data-science-project">Detecting Anomalies in Air Pollution Data: A Data Science Project</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-exploration-and-preprocessing" id="toc-data-exploration-and-preprocessing" class="nav-link" data-scroll-target="#data-exploration-and-preprocessing">Data Exploration and Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#understanding-the-dataset" id="toc-understanding-the-dataset" class="nav-link" data-scroll-target="#understanding-the-dataset">Understanding the Dataset</a></li>
+  <li><a href="#handling-missing-data-and-categorical-variables" id="toc-handling-missing-data-and-categorical-variables" class="nav-link" data-scroll-target="#handling-missing-data-and-categorical-variables">Handling Missing Data and Categorical Variables</a></li>
+  <li><a href="#normalization-and-standardization" id="toc-normalization-and-standardization" class="nav-link" data-scroll-target="#normalization-and-standardization">Normalization and Standardization</a></li>
+  <li><a href="#feature-selection-and-engineering" id="toc-feature-selection-and-engineering" class="nav-link" data-scroll-target="#feature-selection-and-engineering">Feature Selection and Engineering</a></li>
+  </ul></li>
+  <li><a href="#anomaly-detection-algorithms-and-model-training-and-evaluation" id="toc-anomaly-detection-algorithms-and-model-training-and-evaluation" class="nav-link" data-scroll-target="#anomaly-detection-algorithms-and-model-training-and-evaluation">Anomaly Detection Algorithms and Model Training and Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#choosing-the-anomaly-detection-algorithm-isolation-forest" id="toc-choosing-the-anomaly-detection-algorithm-isolation-forest" class="nav-link" data-scroll-target="#choosing-the-anomaly-detection-algorithm-isolation-forest">Choosing the Anomaly Detection Algorithm: Isolation Forest</a></li>
+  <li><a href="#data-preprocessing-and-splitting" id="toc-data-preprocessing-and-splitting" class="nav-link" data-scroll-target="#data-preprocessing-and-splitting">Data Preprocessing and Splitting</a></li>
+  <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model">Training the Model</a></li>
+  <li><a href="#evaluation-metrics" id="toc-evaluation-metrics" class="nav-link" data-scroll-target="#evaluation-metrics">Evaluation Metrics</a></li>
+  <li><a href="#model-evaluation-and-insights" id="toc-model-evaluation-and-insights" class="nav-link" data-scroll-target="#model-evaluation-and-insights">Model Evaluation and Insights</a></li>
+  </ul></li>
+  <li><a href="#visualization-of-anomalies" id="toc-visualization-of-anomalies" class="nav-link" data-scroll-target="#visualization-of-anomalies">Visualization of Anomalies</a>
+  <ul class="collapse">
+  <li><a href="#creating-visualizations" id="toc-creating-visualizations" class="nav-link" data-scroll-target="#creating-visualizations">Creating Visualizations</a></li>
+  <li><a href="#significance-of-visualizations" id="toc-significance-of-visualizations" class="nav-link" data-scroll-target="#significance-of-visualizations">Significance of Visualizations</a></li>
+  </ul></li>
+  <li><a href="#threshold-tuning" id="toc-threshold-tuning" class="nav-link" data-scroll-target="#threshold-tuning">Threshold Tuning</a>
+  <ul class="collapse">
+  <li><a href="#the-process-of-threshold-tuning" id="toc-the-process-of-threshold-tuning" class="nav-link" data-scroll-target="#the-process-of-threshold-tuning">The Process of Threshold Tuning</a></li>
+  <li><a href="#impact-on-false-positives-and-false-negatives" id="toc-impact-on-false-positives-and-false-negatives" class="nav-link" data-scroll-target="#impact-on-false-positives-and-false-negatives">Impact on False Positives and False Negatives</a></li>
+  <li><a href="#balancing-the-threshold" id="toc-balancing-the-threshold" class="nav-link" data-scroll-target="#balancing-the-threshold">Balancing the Threshold</a></li>
+  </ul></li>
+  <li><a href="#interpretation-and-real-world-implications" id="toc-interpretation-and-real-world-implications" class="nav-link" data-scroll-target="#interpretation-and-real-world-implications">Interpretation and Real-World Implications</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-of-detected-anomalies" id="toc-interpretation-of-detected-anomalies" class="nav-link" data-scroll-target="#interpretation-of-detected-anomalies">Interpretation of Detected Anomalies</a></li>
+  <li><a href="#implications" id="toc-implications" class="nav-link" data-scroll-target="#implications">Implications</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/joannafg/cs5805-2/edit/main/posts/outlier4/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/joannafg/cs5805-2/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="detecting-anomalies-in-air-pollution-data-a-data-science-project" class="level1">
+<h1>Detecting Anomalies in Air Pollution Data: A Data Science Project</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="thumbnail.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Welcome to our exploration of “Detecting Anomalies in Air Pollution Data,” a vital project in the realm of environmental monitoring. With increasing concerns about air quality and its impact on public health and the environment, identifying irregularities in air pollution data has never been more critical.</p>
+<p>This project leverages a comprehensive dataset from the Beijing Multi-site Air Quality Data, which offers a rich tapestry of air pollutant measurements and meteorological data across various sites in Beijing. The data spans from 2013 to 2017, providing insights into pollutants like PM2.5, PM10, SO2, NO2, and CO, as well as meteorological conditions like temperature, humidity, and wind speed.</p>
+<p>Our primary goal is to detect unusual patterns or outliers in air quality data that might signify environmental hazards, technical errors in data collection, or significant meteorological impacts. By accomplishing this, we aim to contribute to more effective environmental monitoring and policy-making.</p>
+</section>
+<section id="data-exploration-and-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-exploration-and-preprocessing">Data Exploration and Preprocessing</h2>
+<section id="understanding-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-dataset">Understanding the Dataset</h3>
+<p>The first step in our data science journey involves getting acquainted with the dataset’s structure and characteristics. This involves examining the various columns of the dataset, which include both pollutant levels and meteorological factors.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sample_data_org <span class="op">=</span> pd.read_csv(<span class="st">'air_data_all.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sample_data_org.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">No</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">PM2.5</th>
+<th data-quarto-table-cell-role="th">PM10</th>
+<th data-quarto-table-cell-role="th">SO2</th>
+<th data-quarto-table-cell-role="th">NO2</th>
+<th data-quarto-table-cell-role="th">CO</th>
+<th data-quarto-table-cell-role="th">O3</th>
+<th data-quarto-table-cell-role="th">TEMP</th>
+<th data-quarto-table-cell-role="th">PRES</th>
+<th data-quarto-table-cell-role="th">DEWP</th>
+<th data-quarto-table-cell-role="th">RAIN</th>
+<th data-quarto-table-cell-role="th">wd</th>
+<th data-quarto-table-cell-role="th">WSPM</th>
+<th data-quarto-table-cell-role="th">station</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>2013</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>6.0</td>
+<td>18.0</td>
+<td>5.0</td>
+<td>NaN</td>
+<td>800.0</td>
+<td>88.0</td>
+<td>0.1</td>
+<td>1021.1</td>
+<td>-18.6</td>
+<td>0.0</td>
+<td>NW</td>
+<td>4.4</td>
+<td>Gucheng</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>2013</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>6.0</td>
+<td>15.0</td>
+<td>5.0</td>
+<td>NaN</td>
+<td>800.0</td>
+<td>88.0</td>
+<td>-0.3</td>
+<td>1021.5</td>
+<td>-19.0</td>
+<td>0.0</td>
+<td>NW</td>
+<td>4.0</td>
+<td>Gucheng</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>2013</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+<td>5.0</td>
+<td>18.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>700.0</td>
+<td>52.0</td>
+<td>-0.7</td>
+<td>1021.5</td>
+<td>-19.8</td>
+<td>0.0</td>
+<td>WNW</td>
+<td>4.6</td>
+<td>Gucheng</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>2013</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>6.0</td>
+<td>20.0</td>
+<td>6.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>-1.0</td>
+<td>1022.7</td>
+<td>-21.2</td>
+<td>0.0</td>
+<td>W</td>
+<td>2.8</td>
+<td>Gucheng</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>2013</td>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>5.0</td>
+<td>17.0</td>
+<td>5.0</td>
+<td>NaN</td>
+<td>600.0</td>
+<td>73.0</td>
+<td>-1.3</td>
+<td>1023.0</td>
+<td>-21.4</td>
+<td>0.0</td>
+<td>WNW</td>
+<td>3.6</td>
+<td>Gucheng</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>By running this code, we get a glimpse of the first few rows of our dataset, allowing us to understand the types of data we will be working with.</p>
+</section>
+<section id="handling-missing-data-and-categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="handling-missing-data-and-categorical-variables">Handling Missing Data and Categorical Variables</h3>
+<p>Dealing with missing data and categorical variables is a crucial part of data preprocessing. To address this, we first identify the missing values and then decide on an appropriate strategy, such as imputation or removal.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> sample_data_org.isnull().<span class="bu">sum</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>missing_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>No             0
+year           0
+month          0
+day            0
+hour           0
+PM2.5       8739
+PM10        6449
+SO2         9021
+NO2        12116
+CO         20701
+O3         13277
+TEMP         398
+PRES         393
+DEWP         403
+RAIN         390
+wd          1822
+WSPM         318
+station        0
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with missing values</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> sample_data_org.dropna()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify numerical columns</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>numerical_cols <span class="op">=</span> sample_data.select_dtypes(include<span class="op">=</span>[<span class="st">'int64'</span>, <span class="st">'float64'</span>]).columns</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pipeline for imputing missing values and scaling</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'mean'</span>)),  <span class="co"># Replace missing values with mean</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler()),                <span class="co"># Scale the data</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the pipeline to the numerical columns</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> pipeline.fit_transform(sample_data[numerical_cols])</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="fl">0.95</span>)  <span class="co"># Retain 95% of the variance</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>principal_components <span class="op">=</span> pca.fit_transform(scaled_data)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify non-numeric (categorical) columns</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> sample_data.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical data</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder(sparse<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>categorical_encoded <span class="op">=</span> encoder.fit_transform(sample_data[categorical_cols])</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for 'get_feature_names_out' method for naming columns</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">hasattr</span>(encoder, <span class="st">'get_feature_names_out'</span>):</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    encoded_columns <span class="op">=</span> pd.DataFrame(categorical_encoded, columns<span class="op">=</span>encoder.get_feature_names_out(categorical_cols))</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fallback: manually create feature names</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    encoded_columns <span class="op">=</span> pd.DataFrame(categorical_encoded)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    encoded_columns.columns <span class="op">=</span> [col <span class="op">+</span> <span class="st">'_'</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> col <span class="kw">in</span> categorical_cols <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(encoded_columns.shape[<span class="dv">1</span>])]</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the encoded columns with the original dataset and drop the original categorical columns</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>sample_data_encoded <span class="op">=</span> pd.concat([sample_data.drop(categorical_cols, axis<span class="op">=</span><span class="dv">1</span>), encoded_columns], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/zimingfang/Library/Python/3.9/lib/python/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
+  warnings.warn(</code></pre>
+</div>
+</div>
+<p>For categorical variables like wind direction, we use encoding techniques to convert them into numerical form, making them suitable for analysis.</p>
+</section>
+<section id="normalization-and-standardization" class="level3">
+<h3 class="anchored" data-anchor-id="normalization-and-standardization">Normalization and Standardization</h3>
+<p>Given the varying scales of our numerical features, normalization or standardization becomes necessary. This step ensures that no single feature disproportionately influences the model due to its scale.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(sample_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'TEMP'</span>, <span class="st">'PRES'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="feature-selection-and-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="feature-selection-and-engineering">Feature Selection and Engineering</h3>
+<p>Finally, we perform feature selection and engineering. This process involves choosing the most relevant features and possibly creating new features to improve our model’s performance.</p>
+<ol type="1">
+<li><strong>Correlation Analysis</strong>: First, we can perform a correlation analysis to understand the relationships between different features. This helps in identifying features that are strongly correlated with each other, from which we can select the most relevant ones.</li>
+</ol>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now perform the correlation analysis on the numerical data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> sample_data_encoded.corr()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a heatmap</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="879" height="764"></p>
+</div>
+</div>
+<pre><code>This code generates a heatmap of the correlations between different features. High correlation values suggest a strong relationship, which can inform feature selection.</code></pre>
+<ol start="2" type="1">
+<li><strong>Principal Component Analysis (PCA)</strong>: PCA is a technique used to reduce the dimensionality of the data, enhancing the interpretability while minimizing information loss.</li>
+</ol>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="fl">0.95</span>) <span class="co"># Retain 95% of the variance</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>principal_components <span class="op">=</span> pca.fit_transform(scaled_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>This code applies PCA to the scaled data, reducing the number of features while retaining 95% of the variance in the data.</code></pre>
+<ol start="3" type="1">
+<li><strong>Feature Engineering</strong>: If applicable, you can create new features that might be more indicative of anomalies. For example, creating a composite air quality index from multiple pollutants.</li>
+</ol>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sample_data[<span class="st">'Air_Quality_Index'</span>] <span class="op">=</span> sample_data[<span class="st">'PM2.5'</span>] <span class="op">*</span> <span class="fl">0.4</span> <span class="op">+</span> sample_data[<span class="st">'PM10'</span>] <span class="op">*</span> <span class="fl">0.2</span> <span class="op">+</span> sample_data[<span class="st">'NO2'</span>] <span class="op">*</span> <span class="fl">0.2</span> <span class="op">+</span> sample_data[<span class="st">'SO2'</span>] <span class="op">*</span> <span class="fl">0.1</span> <span class="op">+</span> sample_data[<span class="st">'CO'</span>] <span class="op">*</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/pt/983cdyd950gd2j6l1gv1376r0000gn/T/ipykernel_17824/3115101989.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  sample_data['Air_Quality_Index'] = sample_data['PM2.5'] * 0.4 + sample_data['PM10'] * 0.2 + sample_data['NO2'] * 0.2 + sample_data['SO2'] * 0.1 + sample_data['CO'] * 0.1</code></pre>
+</div>
+</div>
+<pre><code>This code creates a new feature, 'Air_Quality_Index', as a weighted sum of various pollutants, hypothesizing that this composite index might be a more effective predictor of anomalies.</code></pre>
+<p>Through these steps, we refine our dataset to include the most relevant features for anomaly detection, enhancing the model’s accuracy and efficiency.</p>
+</section>
+</section>
+<section id="anomaly-detection-algorithms-and-model-training-and-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="anomaly-detection-algorithms-and-model-training-and-evaluation">Anomaly Detection Algorithms and Model Training and Evaluation</h2>
+<section id="choosing-the-anomaly-detection-algorithm-isolation-forest" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-the-anomaly-detection-algorithm-isolation-forest">Choosing the Anomaly Detection Algorithm: Isolation Forest</h3>
+<p>For our project on air pollution data, we have opted for the Isolation Forest algorithm due to its efficiency and effectiveness, especially in dealing with large and high-dimensional datasets like ours.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>iso_forest <span class="op">=</span> IsolationForest(n_estimators<span class="op">=</span><span class="dv">100</span>, contamination<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-preprocessing-and-splitting" class="level3">
+<h3 class="anchored" data-anchor-id="data-preprocessing-and-splitting">Data Preprocessing and Splitting</h3>
+<p>We split our dataset into training and test sets, ensuring that the model is evaluated on unseen data, reflecting its performance in real-world scenarios.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Handling NaN Values with Imputation</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute missing values and then scale the numerical columns</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>num_pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'mean'</span>)),  <span class="co"># Replace missing values with mean</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'std_scaler'</span>, StandardScaler())</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the pipeline to the numerical columns</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>numerical_cols <span class="op">=</span> sample_data_org.select_dtypes(include<span class="op">=</span>[<span class="st">'int64'</span>, <span class="st">'float64'</span>]).columns</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>sample_data_org[numerical_cols] <span class="op">=</span> num_pipeline.fit_transform(sample_data_org[numerical_cols])</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical columns</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> sample_data_org.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>sample_data_org <span class="op">=</span> pd.get_dummies(sample_data_org, columns<span class="op">=</span>categorical_cols, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> train_test_split(sample_data_org, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="training-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="training-the-model">Training the Model</h3>
+<p>The training process involves fitting the Isolation Forest model to our training data. This model is particularly suited for our project due to its lower computational cost compared to other algorithms and its ability to efficiently handle the complexity of our dataset.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>iso_forest.fit(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>IsolationForest(contamination=0.1, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">IsolationForest</label><div class="sk-toggleable__content"><pre>IsolationForest(contamination=0.1, random_state=42)</pre></div></div></div></div></div>
+</div>
+</div>
+</section>
+<section id="evaluation-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-metrics">Evaluation Metrics</h3>
+<p>In evaluating our model, we focus on metrics such as precision, recall, F1-score, and the ROC curve. These metrics provide insights into the model’s accuracy, its ability to identify true anomalies (precision), and its capability to detect the majority of actual anomalies (recall).</p>
+</section>
+<section id="model-evaluation-and-insights" class="level3">
+<h3 class="anchored" data-anchor-id="model-evaluation-and-insights">Model Evaluation and Insights</h3>
+<p>After training, we assess the model’s performance on the test set. This evaluation helps us understand the effectiveness of our anomaly detection in the context of air pollution data.</p>
+<p>In an unsupervised dataset scenario, where we don’t have labeled data (<code>y_test</code>), the evaluation of an anomaly detection model like Isolation Forest is more about understanding and interpreting the anomalies it detects rather than calculating quantitative metrics. The goal is to examine the anomalies flagged by the model and determine if they align with our domain knowledge or expectations.</p>
+<section id="detecting-anomalies" class="level4">
+<h4 class="anchored" data-anchor-id="detecting-anomalies">Detecting Anomalies</h4>
+<p>First, use the model to predict anomalies in your test set. The Isolation Forest model marks an anomaly with -1 and normal with 1.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict anomalies on the test set</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> iso_forest.predict(X_test)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert predictions: -1 (anomalies) to 1 and 1 (normal) to 0</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> np.where(anomalies <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="analyzing-detected-anomalies" class="level4">
+<h4 class="anchored" data-anchor-id="analyzing-detected-anomalies">Analyzing Detected Anomalies</h4>
+<p>The next step is to analyze these detected anomalies. You might want to look at the proportion of anomalies detected and inspect some of the anomalous data points to see if they make sense.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of anomalies detected</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>num_anomalies <span class="op">=</span> np.<span class="bu">sum</span>(anomalies)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>total_points <span class="op">=</span> <span class="bu">len</span>(anomalies)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total data points: </span><span class="sc">{</span>total_points<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of anomalies detected: </span><span class="sc">{</span>num_anomalies<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of anomalies detected: </span><span class="sc">{</span>num_anomalies <span class="op">/</span> total_points<span class="sc">:.2%}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total data points: 126231
+Number of anomalies detected: 12510
+Proportion of anomalies detected: 9.91%</code></pre>
+</div>
+</div>
+</section>
+<section id="inspecting-anomalous-data-points" class="level4">
+<h4 class="anchored" data-anchor-id="inspecting-anomalous-data-points">Inspecting Anomalous Data Points</h4>
+<p>It can be insightful to examine the data points that the model flagged as anomalies. This involves looking at the specific characteristics of these data points.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame of the test set with a column for anomaly labels</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>test_set_with_predictions <span class="op">=</span> X_test.copy()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>test_set_with_predictions[<span class="st">'Anomaly'</span>] <span class="op">=</span> anomalies</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display some of the anomalies</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>anomalous_data <span class="op">=</span> test_set_with_predictions[test_set_with_predictions[<span class="st">'Anomaly'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample of detected anomalies:"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(anomalous_data.sample(<span class="bu">min</span>(<span class="dv">10</span>, <span class="bu">len</span>(anomalous_data))))  <span class="co"># Display up to 10 anomalous points</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample of detected anomalies:
+              No      year     month       day      hour     PM2.5      PM10  \
+86761  -0.088766  0.286647 -1.601451  0.826169 -1.516862  1.302931  0.871863   
+173564  1.558619  1.136123  1.588154  0.144358  1.227936  3.566037  3.342590   
+103741  1.588751  1.136123  1.588154  1.621615  0.216695  1.327938  1.322085   
+34881   1.714021  1.985599 -1.311487  0.598899 -0.361158  0.615247  0.718129   
+29351   1.167692  1.136123  0.138333 -1.219264  1.661325  0.165126  0.619300   
+60473   0.778247  1.136123 -1.601451  0.826169  0.794547 -0.960175 -0.885098   
+243954  1.584502  1.136123  1.588154  1.394345  0.939010 -0.897658 -0.786269   
+181236 -1.147538 -1.412304  1.298190 -1.560170  0.072232  3.103413  2.793540   
+213991 -1.375653 -1.412304  0.138333  1.507980 -0.650084 -0.134954  0.234965   
+349223  1.592110  1.136123  1.588154  1.735250  1.661325  4.903895  4.385786   
+
+             SO2       NO2        CO  ...  station_Dongsi  station_Guanyuan  \
+86761   0.241355  1.050349  1.740710  ...           False             False   
+173564  0.708269  2.494666  2.182686  ...           False              True   
+103741 -0.272250  1.454758  2.271082  ...           False             False   
+34881   1.035109  0.617053  0.856757  ...           False             False   
+29351  -0.505707  0.385963 -0.203987  ...           False             False   
+60473  -0.645781 -1.347219 -0.911149  ...           False             False   
+243954 -0.412324 -0.740605 -0.734358  ...           False             False   
+181236 -0.038793  3.216825  1.298733  ...           False             False   
+213991 -0.272436  0.790776 -0.557568  ...           False             False   
+349223 -0.318941  2.581325  3.685406  ...           False             False   
+
+        station_Gucheng  station_Huairou  station_Nongzhanguan  \
+86761             False            False                 False   
+173564            False            False                 False   
+103741            False            False                 False   
+34881              True            False                 False   
+29351              True            False                 False   
+60473             False             True                 False   
+243954            False            False                 False   
+181236            False            False                  True   
+213991            False            False                 False   
+349223            False            False                 False   
+
+        station_Shunyi  station_Tiantan  station_Wanliu  \
+86761            False             True           False   
+173564           False            False           False   
+103741           False             True           False   
+34881            False            False           False   
+29351            False            False           False   
+60473            False            False           False   
+243954           False            False            True   
+181236           False            False           False   
+213991           False            False            True   
+349223           False            False           False   
+
+        station_Wanshouxigong  Anomaly  
+86761                   False        1  
+173564                  False        1  
+103741                  False        1  
+34881                   False        1  
+29351                   False        1  
+60473                   False        1  
+243954                  False        1  
+181236                  False        1  
+213991                  False        1  
+349223                  False        1  
+
+[10 rows x 43 columns]</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="visualization-of-anomalies" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-of-anomalies">Visualization of Anomalies</h2>
+<p>In our journey to understand and analyze air pollution data, visualizations play a crucial role, especially when it comes to highlighting and interpreting anomalies. By visually representing the data, we can more easily spot patterns, trends, and outliers that might not be immediately apparent in raw numerical data.</p>
+<section id="creating-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="creating-visualizations">Creating Visualizations</h3>
+<p>To showcase the detected anomalies, we employ various types of visualizations. Here, we’ll focus on two primary types: scatter plots and heatmaps. These visualizations will help us to interpret the anomalies in the context of air pollution data.</p>
+<section id="scatter-plots" class="level4">
+<h4 class="anchored" data-anchor-id="scatter-plots">Scatter Plots</h4>
+<p>Scatter plots are excellent for visualizing the relationship between two variables and identifying points that stand out from the pattern.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'PM2.5' and 'TEMP' are columns in your dataset</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>anomalous_data, x<span class="op">=</span><span class="st">'TEMP'</span>, y<span class="op">=</span><span class="st">'PM2.5'</span>, hue<span class="op">=</span><span class="st">'Anomaly'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Scatter Plot of PM2.5 vs Temperature'</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Temperature'</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PM2.5'</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-15-output-1.png" width="808" height="523"></p>
+</div>
+</div>
+<p>In this scatter plot, we plot ‘PM2.5’ levels against ‘Temperature’, using different colors to distinguish between normal data points and anomalies. Anomalies will stand out in the plot, allowing us to observe if higher pollution levels are associated with specific temperature ranges.</p>
+</section>
+<section id="heatmaps" class="level4">
+<h4 class="anchored" data-anchor-id="heatmaps">Heatmaps</h4>
+<p>Heatmaps are useful for understanding the distribution and concentration of data points across two dimensions.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to show the concentration of anomalies</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample a subset of the anomalous data for quicker visualization</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sampled_anomalous_data <span class="op">=</span> anomalous_data.sample(<span class="bu">min</span>(<span class="dv">500</span>, <span class="bu">len</span>(anomalous_data)), random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap without annotations for quicker rendering</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>sns.heatmap(data<span class="op">=</span>sampled_anomalous_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'SO2'</span>, <span class="st">'NO2'</span>, <span class="st">'CO'</span>]])</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Heatmap of Pollutant Levels in Anomalous Data (Sampled)'</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-16-output-1.png" width="768" height="653"></p>
+</div>
+</div>
+<p>This heatmap focuses on the levels of various pollutants in the data points identified as anomalies. By examining the heatmap, we can discern if certain pollutants are consistently elevated in these anomalous instances.</p>
+</section>
+</section>
+<section id="significance-of-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="significance-of-visualizations">Significance of Visualizations</h3>
+<p>Visualizations enable us to:</p>
+<ul>
+<li><p><strong>Quickly Identify Anomalies</strong>: Graphical representations make it easier to spot outliers or unusual patterns in the data, which might be indicative of environmental issues or data collection anomalies.</p></li>
+<li><p><strong>Understand Relationships and Patterns</strong>: Visualizations help in understanding the relationships between different environmental variables and how these relationships might contribute to anomalous pollution levels.</p></li>
+<li><p><strong>Communicate Findings</strong>: Graphs and charts are effective tools for communicating our findings to a broader audience, including those without a technical background, such as policymakers or the general public.</p></li>
+</ul>
+</section>
+</section>
+<section id="threshold-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="threshold-tuning">Threshold Tuning</h2>
+<p>In the realm of anomaly detection, particularly with methods like the Isolation Forest, the concept of threshold tuning is pivotal. The threshold determines the cutoff point at which a data point is classified as an anomaly. Tuning this threshold is a delicate balance, as it directly impacts the sensitivity of our anomaly detection.</p>
+<section id="the-process-of-threshold-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="the-process-of-threshold-tuning">The Process of Threshold Tuning</h3>
+<p>Threshold tuning involves adjusting the parameters that define what we consider to be anomalous. In the case of the Isolation Forest, this often revolves around the <code>contamination</code> parameter, which represents the proportion of outliers we expect in the data.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusting the contamination parameter</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>contamination_rate <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># Example rate</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>iso_forest <span class="op">=</span> IsolationForest(contamination<span class="op">=</span>contamination_rate)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>iso_forest.fit(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<style>#sk-container-id-2 {color: black;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>IsolationForest(contamination=0.05)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">IsolationForest</label><div class="sk-toggleable__content"><pre>IsolationForest(contamination=0.05)</pre></div></div></div></div></div>
+</div>
+</div>
+<p>In this code snippet, we adjust the <code>contamination</code> parameter, which dictates the model’s sensitivity to anomalies. A higher contamination rate means the model will be more inclined to flag data points as anomalies.</p>
+</section>
+<section id="impact-on-false-positives-and-false-negatives" class="level3">
+<h3 class="anchored" data-anchor-id="impact-on-false-positives-and-false-negatives">Impact on False Positives and False Negatives</h3>
+<p>The setting of the threshold has a direct impact on the trade-off between false positives (normal points incorrectly identified as anomalies) and false negatives (actual anomalies not detected).</p>
+<ul>
+<li><p><strong>Higher Threshold (Lower Contamination)</strong>: This setting reduces the number of anomalies detected, potentially leading to more false negatives. While it ensures that the flagged anomalies are very likely to be true anomalies, it may miss some subtler, yet significant, anomalies.</p></li>
+<li><p><strong>Lower Threshold (Higher Contamination)</strong>: Conversely, a lower threshold increases the sensitivity, potentially leading to more false positives. This setting might be useful in scenarios where missing an anomaly could have severe consequences, even if it means dealing with more false alarms.</p></li>
+</ul>
+</section>
+<section id="balancing-the-threshold" class="level3">
+<h3 class="anchored" data-anchor-id="balancing-the-threshold">Balancing the Threshold</h3>
+<p>Finding the right balance for the threshold is crucial:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_model(model, X_test):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Predict anomalies</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert predictions to a more readable format: -1 (anomalies) to 1, 1 (normal) to 0</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.where(predictions <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count and print the number of anomalies detected</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    num_anomalies <span class="op">=</span> np.<span class="bu">sum</span>(predictions)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of anomalies detected: </span><span class="sc">{</span>num_anomalies<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss"> data points"</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimenting with different contamination rates</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rate <span class="kw">in</span> [<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>]:</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    iso_forest <span class="op">=</span> IsolationForest(contamination<span class="op">=</span>rate)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    iso_forest.fit(X_train)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Evaluate the model</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    evaluate_model(iso_forest, X_test)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of anomalies detected: 1293 out of 126231 data points
+
+
+Number of anomalies detected: 6356 out of 126231 data points
+
+
+Number of anomalies detected: 12702 out of 126231 data points
+
+</code></pre>
+</div>
+</div>
+<p>In this example, we experiment with different contamination rates to observe how the model’s performance changes. The ideal rate often depends on the specific context of the problem and the cost of false positives versus false negatives.</p>
+</section>
+</section>
+<section id="interpretation-and-real-world-implications" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-and-real-world-implications">Interpretation and Real-World Implications</h2>
+<p>Based on our analysis of the air pollution data using the Isolation Forest model, we’ve uncovered some intriguing insights. Out of the total 126,231 data points, our model identified 12,510 as anomalies, accounting for approximately 9.91% of the dataset. This proportion of anomalies is significant and warrants further investigation.</p>
+<section id="interpretation-of-detected-anomalies" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-of-detected-anomalies">Interpretation of Detected Anomalies</h3>
+<p>When we delve into the sample of detected anomalies, several key observations emerge:</p>
+<ol type="1">
+<li><p><strong>Elevated Pollutant Levels</strong>: Many of the anomalies exhibit unusually high levels of pollutants such as PM2.5, PM10, NO2, and CO. For instance, rows like 8468 and 314995 show pollutant concentrations several times higher than typical readings. This could indicate episodes of extreme pollution, possibly due to specific environmental events or human activities.</p></li>
+<li><p><strong>Meteorological Influences</strong>: The anomalies also reveal interesting patterns in meteorological conditions. For example, rows 214246 and 244058 show variations in temperature, pressure, and humidity, which could be influencing factors for the high pollution levels observed.</p></li>
+<li><p><strong>Station-Specific Anomalies</strong>: The data points flagged as anomalies are distributed across different monitoring stations, as seen in the ‘station’ columns. This distribution suggests that the detected anomalies are not confined to a specific location but are rather widespread, indicating a more systemic issue in air quality.</p></li>
+<li><p><strong>Temporal Patterns</strong>: The presence of anomalies across different years, months, and hours, such as in rows 216296 and 392113, hints at temporal patterns in air pollution. These patterns could be aligned with seasonal changes, urban activities, or policy changes affecting air quality.</p></li>
+</ol>
+</section>
+<section id="implications" class="level3">
+<h3 class="anchored" data-anchor-id="implications">Implications</h3>
+<ul>
+<li><p><strong>Environmental Policy and Health</strong>: The identified anomalies are crucial for understanding the dynamics of air pollution. They can inform environmental policies, especially in devising strategies to mitigate high pollution episodes.</p></li>
+<li><p><strong>Further Research</strong>: These findings can be a starting point for more detailed research. For example, investigating the causes behind high pollution episodes can help in understanding the impact of urban development, traffic patterns, or industrial activities on air quality.</p></li>
+<li><p><strong>Public Awareness</strong>: Disseminating information about such high pollution episodes can raise public awareness and encourage preventive measures, especially for vulnerable populations.</p></li>
+</ul>
+<p>In summary, our analysis using the Isolation Forest model provides us with valuable insights into the air quality data, highlighting instances of unusually high pollution levels. This information is crucial for environmental monitoring, policy-making, and public health initiatives.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Anomaly/Outlier Detection"</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Joanna Fang"</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2023-12-06"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [ml, code, linear regression, nonlinear regression, pollution]</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">  html: </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: "#FFFFFF"</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#E83283"</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">      toggle: false</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">      caption: none</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Detecting Anomalies in Air Pollution Data: A Data Science Project</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="al">![](thumbnail.jpg)</span>{width="50%" fig-align="center"}</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>Welcome to our exploration of "Detecting Anomalies in Air Pollution Data," a vital project in the realm of environmental monitoring. With increasing concerns about air quality and its impact on public health and the environment, identifying irregularities in air pollution data has never been more critical.</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>This project leverages a comprehensive dataset from the Beijing Multi-site Air Quality Data, which offers a rich tapestry of air pollutant measurements and meteorological data across various sites in Beijing. The data spans from 2013 to 2017, providing insights into pollutants like PM2.5, PM10, SO2, NO2, and CO, as well as meteorological conditions like temperature, humidity, and wind speed.</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>Our primary goal is to detect unusual patterns or outliers in air quality data that might signify environmental hazards, technical errors in data collection, or significant meteorological impacts. By accomplishing this, we aim to contribute to more effective environmental monitoring and policy-making.</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Exploration and Preprocessing</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a><span class="fu">### Understanding the Dataset</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>The first step in our data science journey involves getting acquainted with the dataset's structure and characteristics. This involves examining the various columns of the dataset, which include both pollutant levels and meteorological factors.</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>sample_data_org <span class="op">=</span> pd.read_csv(<span class="st">'air_data_all.csv'</span>)</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>sample_data_org.head()</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>By running this code, we get a glimpse of the first few rows of our dataset, allowing us to understand the types of data we will be working with.</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Handling Missing Data and Categorical Variables</span></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>Dealing with missing data and categorical variables is a crucial part of data preprocessing. To address this, we first identify the missing values and then decide on an appropriate strategy, such as imputation or removal.</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> sample_data_org.isnull().<span class="bu">sum</span>()</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>missing_values</span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with missing values</span></span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> sample_data_org.dropna()</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify numerical columns</span></span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>numerical_cols <span class="op">=</span> sample_data.select_dtypes(include<span class="op">=</span>[<span class="st">'int64'</span>, <span class="st">'float64'</span>]).columns</span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pipeline for imputing missing values and scaling</span></span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'mean'</span>)),  <span class="co"># Replace missing values with mean</span></span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler()),                <span class="co"># Scale the data</span></span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the pipeline to the numerical columns</span></span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> pipeline.fit_transform(sample_data[numerical_cols])</span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA</span></span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="fl">0.95</span>)  <span class="co"># Retain 95% of the variance</span></span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>principal_components <span class="op">=</span> pca.fit_transform(scaled_data)</span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify non-numeric (categorical) columns</span></span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> sample_data.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns</span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical data</span></span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder(sparse<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>categorical_encoded <span class="op">=</span> encoder.fit_transform(sample_data[categorical_cols])</span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for 'get_feature_names_out' method for naming columns</span></span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">hasattr</span>(encoder, <span class="st">'get_feature_names_out'</span>):</span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a>    encoded_columns <span class="op">=</span> pd.DataFrame(categorical_encoded, columns<span class="op">=</span>encoder.get_feature_names_out(categorical_cols))</span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fallback: manually create feature names</span></span>
+<span id="cb27-99"><a href="#cb27-99" aria-hidden="true" tabindex="-1"></a>    encoded_columns <span class="op">=</span> pd.DataFrame(categorical_encoded)</span>
+<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a>    encoded_columns.columns <span class="op">=</span> [col <span class="op">+</span> <span class="st">'_'</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> col <span class="kw">in</span> categorical_cols <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(encoded_columns.shape[<span class="dv">1</span>])]</span>
+<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the encoded columns with the original dataset and drop the original categorical columns</span></span>
+<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a>sample_data_encoded <span class="op">=</span> pd.concat([sample_data.drop(categorical_cols, axis<span class="op">=</span><span class="dv">1</span>), encoded_columns], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a>For categorical variables like wind direction, we use encoding techniques to convert them into numerical form, making them suitable for analysis.</span>
+<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization and Standardization</span></span>
+<span id="cb27-109"><a href="#cb27-109" aria-hidden="true" tabindex="-1"></a>Given the varying scales of our numerical features, normalization or standardization becomes necessary. This step ensures that no single feature disproportionately influences the model due to its scale.</span>
+<span id="cb27-110"><a href="#cb27-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-113"><a href="#cb27-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb27-115"><a href="#cb27-115" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb27-116"><a href="#cb27-116" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(sample_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'TEMP'</span>, <span class="st">'PRES'</span>]])</span>
+<span id="cb27-117"><a href="#cb27-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-118"><a href="#cb27-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-119"><a href="#cb27-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Selection and Engineering</span></span>
+<span id="cb27-120"><a href="#cb27-120" aria-hidden="true" tabindex="-1"></a>Finally, we perform feature selection and engineering. This process involves choosing the most relevant features and possibly creating new features to improve our model's performance.</span>
+<span id="cb27-121"><a href="#cb27-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-122"><a href="#cb27-122" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Correlation Analysis**: First, we can perform a correlation analysis to understand the relationships between different features. This helps in identifying features that are strongly correlated with each other, from which we can select the most relevant ones.</span>
+<span id="cb27-123"><a href="#cb27-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-126"><a href="#cb27-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-127"><a href="#cb27-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Now perform the correlation analysis on the numerical data</span></span>
+<span id="cb27-128"><a href="#cb27-128" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> sample_data_encoded.corr()</span>
+<span id="cb27-129"><a href="#cb27-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-130"><a href="#cb27-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a heatmap</span></span>
+<span id="cb27-131"><a href="#cb27-131" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb27-132"><a href="#cb27-132" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb27-133"><a href="#cb27-133" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb27-134"><a href="#cb27-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-135"><a href="#cb27-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-136"><a href="#cb27-136" aria-hidden="true" tabindex="-1"></a><span class="in">    This code generates a heatmap of the correlations between different features. High correlation values suggest a strong relationship, which can inform feature selection.</span></span>
+<span id="cb27-137"><a href="#cb27-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-138"><a href="#cb27-138" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Principal Component Analysis (PCA)**: PCA is a technique used to reduce the dimensionality of the data, enhancing the interpretability while minimizing information loss.</span>
+<span id="cb27-139"><a href="#cb27-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-142"><a href="#cb27-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-143"><a href="#cb27-143" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb27-144"><a href="#cb27-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-145"><a href="#cb27-145" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="fl">0.95</span>) <span class="co"># Retain 95% of the variance</span></span>
+<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a>principal_components <span class="op">=</span> pca.fit_transform(scaled_data)</span>
+<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-148"><a href="#cb27-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-149"><a href="#cb27-149" aria-hidden="true" tabindex="-1"></a><span class="in">    This code applies PCA to the scaled data, reducing the number of features while retaining 95% of the variance in the data.</span></span>
+<span id="cb27-150"><a href="#cb27-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-151"><a href="#cb27-151" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Feature Engineering**: If applicable, you can create new features that might be more indicative of anomalies. For example, creating a composite air quality index from multiple pollutants.</span>
+<span id="cb27-152"><a href="#cb27-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-155"><a href="#cb27-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-156"><a href="#cb27-156" aria-hidden="true" tabindex="-1"></a>sample_data[<span class="st">'Air_Quality_Index'</span>] <span class="op">=</span> sample_data[<span class="st">'PM2.5'</span>] <span class="op">*</span> <span class="fl">0.4</span> <span class="op">+</span> sample_data[<span class="st">'PM10'</span>] <span class="op">*</span> <span class="fl">0.2</span> <span class="op">+</span> sample_data[<span class="st">'NO2'</span>] <span class="op">*</span> <span class="fl">0.2</span> <span class="op">+</span> sample_data[<span class="st">'SO2'</span>] <span class="op">*</span> <span class="fl">0.1</span> <span class="op">+</span> sample_data[<span class="st">'CO'</span>] <span class="op">*</span> <span class="fl">0.1</span></span>
+<span id="cb27-157"><a href="#cb27-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-158"><a href="#cb27-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-159"><a href="#cb27-159" aria-hidden="true" tabindex="-1"></a><span class="in">    This code creates a new feature, 'Air_Quality_Index', as a weighted sum of various pollutants, hypothesizing that this composite index might be a more effective predictor of anomalies.</span></span>
+<span id="cb27-160"><a href="#cb27-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-161"><a href="#cb27-161" aria-hidden="true" tabindex="-1"></a>Through these steps, we refine our dataset to include the most relevant features for anomaly detection, enhancing the model's accuracy and efficiency.</span>
+<span id="cb27-162"><a href="#cb27-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-163"><a href="#cb27-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Anomaly Detection Algorithms and Model Training and Evaluation</span></span>
+<span id="cb27-164"><a href="#cb27-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-165"><a href="#cb27-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Choosing the Anomaly Detection Algorithm: Isolation Forest</span></span>
+<span id="cb27-166"><a href="#cb27-166" aria-hidden="true" tabindex="-1"></a>For our project on air pollution data, we have opted for the Isolation Forest algorithm due to its efficiency and effectiveness, especially in dealing with large and high-dimensional datasets like ours. </span>
+<span id="cb27-167"><a href="#cb27-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-170"><a href="#cb27-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-171"><a href="#cb27-171" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb27-172"><a href="#cb27-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-173"><a href="#cb27-173" aria-hidden="true" tabindex="-1"></a>iso_forest <span class="op">=</span> IsolationForest(n_estimators<span class="op">=</span><span class="dv">100</span>, contamination<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb27-174"><a href="#cb27-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-175"><a href="#cb27-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-176"><a href="#cb27-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Preprocessing and Splitting</span></span>
+<span id="cb27-177"><a href="#cb27-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-178"><a href="#cb27-178" aria-hidden="true" tabindex="-1"></a>We split our dataset into training and test sets, ensuring that the model is evaluated on unseen data, reflecting its performance in real-world scenarios.</span>
+<span id="cb27-179"><a href="#cb27-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-182"><a href="#cb27-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-183"><a href="#cb27-183" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb27-184"><a href="#cb27-184" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb27-185"><a href="#cb27-185" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb27-186"><a href="#cb27-186" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-187"><a href="#cb27-187" aria-hidden="true" tabindex="-1"></a><span class="co"># Handling NaN Values with Imputation</span></span>
+<span id="cb27-188"><a href="#cb27-188" aria-hidden="true" tabindex="-1"></a><span class="co"># Impute missing values and then scale the numerical columns</span></span>
+<span id="cb27-189"><a href="#cb27-189" aria-hidden="true" tabindex="-1"></a>num_pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb27-190"><a href="#cb27-190" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'mean'</span>)),  <span class="co"># Replace missing values with mean</span></span>
+<span id="cb27-191"><a href="#cb27-191" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'std_scaler'</span>, StandardScaler())</span>
+<span id="cb27-192"><a href="#cb27-192" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb27-193"><a href="#cb27-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-194"><a href="#cb27-194" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the pipeline to the numerical columns</span></span>
+<span id="cb27-195"><a href="#cb27-195" aria-hidden="true" tabindex="-1"></a>numerical_cols <span class="op">=</span> sample_data_org.select_dtypes(include<span class="op">=</span>[<span class="st">'int64'</span>, <span class="st">'float64'</span>]).columns</span>
+<span id="cb27-196"><a href="#cb27-196" aria-hidden="true" tabindex="-1"></a>sample_data_org[numerical_cols] <span class="op">=</span> num_pipeline.fit_transform(sample_data_org[numerical_cols])</span>
+<span id="cb27-197"><a href="#cb27-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-198"><a href="#cb27-198" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical columns</span></span>
+<span id="cb27-199"><a href="#cb27-199" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> sample_data_org.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns</span>
+<span id="cb27-200"><a href="#cb27-200" aria-hidden="true" tabindex="-1"></a>sample_data_org <span class="op">=</span> pd.get_dummies(sample_data_org, columns<span class="op">=</span>categorical_cols, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-201"><a href="#cb27-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-202"><a href="#cb27-202" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb27-203"><a href="#cb27-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-204"><a href="#cb27-204" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> train_test_split(sample_data_org, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb27-205"><a href="#cb27-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-206"><a href="#cb27-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-207"><a href="#cb27-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training the Model</span></span>
+<span id="cb27-208"><a href="#cb27-208" aria-hidden="true" tabindex="-1"></a>The training process involves fitting the Isolation Forest model to our training data. This model is particularly suited for our project due to its lower computational cost compared to other algorithms and its ability to efficiently handle the complexity of our dataset.</span>
+<span id="cb27-209"><a href="#cb27-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-212"><a href="#cb27-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-213"><a href="#cb27-213" aria-hidden="true" tabindex="-1"></a>iso_forest.fit(X_train)</span>
+<span id="cb27-214"><a href="#cb27-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-215"><a href="#cb27-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-216"><a href="#cb27-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluation Metrics</span></span>
+<span id="cb27-217"><a href="#cb27-217" aria-hidden="true" tabindex="-1"></a>In evaluating our model, we focus on metrics such as precision, recall, F1-score, and the ROC curve. These metrics provide insights into the model's accuracy, its ability to identify true anomalies (precision), and its capability to detect the majority of actual anomalies (recall).</span>
+<span id="cb27-218"><a href="#cb27-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-219"><a href="#cb27-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Evaluation and Insights</span></span>
+<span id="cb27-220"><a href="#cb27-220" aria-hidden="true" tabindex="-1"></a>After training, we assess the model's performance on the test set. This evaluation helps us understand the effectiveness of our anomaly detection in the context of air pollution data.</span>
+<span id="cb27-221"><a href="#cb27-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-222"><a href="#cb27-222" aria-hidden="true" tabindex="-1"></a>In an unsupervised dataset scenario, where we don't have labeled data (<span class="in">`y_test`</span>), the evaluation of an anomaly detection model like Isolation Forest is more about understanding and interpreting the anomalies it detects rather than calculating quantitative metrics. The goal is to examine the anomalies flagged by the model and determine if they align with our domain knowledge or expectations.</span>
+<span id="cb27-223"><a href="#cb27-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-224"><a href="#cb27-224" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Detecting Anomalies</span></span>
+<span id="cb27-225"><a href="#cb27-225" aria-hidden="true" tabindex="-1"></a>First, use the model to predict anomalies in your test set. The Isolation Forest model marks an anomaly with -1 and normal with 1.</span>
+<span id="cb27-226"><a href="#cb27-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-229"><a href="#cb27-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-230"><a href="#cb27-230" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb27-231"><a href="#cb27-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-232"><a href="#cb27-232" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict anomalies on the test set</span></span>
+<span id="cb27-233"><a href="#cb27-233" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> iso_forest.predict(X_test)</span>
+<span id="cb27-234"><a href="#cb27-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-235"><a href="#cb27-235" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert predictions: -1 (anomalies) to 1 and 1 (normal) to 0</span></span>
+<span id="cb27-236"><a href="#cb27-236" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> np.where(anomalies <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb27-237"><a href="#cb27-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-238"><a href="#cb27-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-239"><a href="#cb27-239" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Analyzing Detected Anomalies</span></span>
+<span id="cb27-240"><a href="#cb27-240" aria-hidden="true" tabindex="-1"></a>The next step is to analyze these detected anomalies. You might want to look at the proportion of anomalies detected and inspect some of the anomalous data points to see if they make sense.</span>
+<span id="cb27-241"><a href="#cb27-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-244"><a href="#cb27-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-245"><a href="#cb27-245" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of anomalies detected</span></span>
+<span id="cb27-246"><a href="#cb27-246" aria-hidden="true" tabindex="-1"></a>num_anomalies <span class="op">=</span> np.<span class="bu">sum</span>(anomalies)</span>
+<span id="cb27-247"><a href="#cb27-247" aria-hidden="true" tabindex="-1"></a>total_points <span class="op">=</span> <span class="bu">len</span>(anomalies)</span>
+<span id="cb27-248"><a href="#cb27-248" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total data points: </span><span class="sc">{</span>total_points<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-249"><a href="#cb27-249" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of anomalies detected: </span><span class="sc">{</span>num_anomalies<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-250"><a href="#cb27-250" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Proportion of anomalies detected: </span><span class="sc">{</span>num_anomalies <span class="op">/</span> total_points<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb27-251"><a href="#cb27-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-252"><a href="#cb27-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-253"><a href="#cb27-253" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Inspecting Anomalous Data Points</span></span>
+<span id="cb27-254"><a href="#cb27-254" aria-hidden="true" tabindex="-1"></a>It can be insightful to examine the data points that the model flagged as anomalies. This involves looking at the specific characteristics of these data points.</span>
+<span id="cb27-255"><a href="#cb27-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-258"><a href="#cb27-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-259"><a href="#cb27-259" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame of the test set with a column for anomaly labels</span></span>
+<span id="cb27-260"><a href="#cb27-260" aria-hidden="true" tabindex="-1"></a>test_set_with_predictions <span class="op">=</span> X_test.copy()</span>
+<span id="cb27-261"><a href="#cb27-261" aria-hidden="true" tabindex="-1"></a>test_set_with_predictions[<span class="st">'Anomaly'</span>] <span class="op">=</span> anomalies</span>
+<span id="cb27-262"><a href="#cb27-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-263"><a href="#cb27-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Display some of the anomalies</span></span>
+<span id="cb27-264"><a href="#cb27-264" aria-hidden="true" tabindex="-1"></a>anomalous_data <span class="op">=</span> test_set_with_predictions[test_set_with_predictions[<span class="st">'Anomaly'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb27-265"><a href="#cb27-265" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample of detected anomalies:"</span>)</span>
+<span id="cb27-266"><a href="#cb27-266" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(anomalous_data.sample(<span class="bu">min</span>(<span class="dv">10</span>, <span class="bu">len</span>(anomalous_data))))  <span class="co"># Display up to 10 anomalous points</span></span>
+<span id="cb27-267"><a href="#cb27-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-268"><a href="#cb27-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-269"><a href="#cb27-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visualization of Anomalies</span></span>
+<span id="cb27-270"><a href="#cb27-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-271"><a href="#cb27-271" aria-hidden="true" tabindex="-1"></a>In our journey to understand and analyze air pollution data, visualizations play a crucial role, especially when it comes to highlighting and interpreting anomalies. By visually representing the data, we can more easily spot patterns, trends, and outliers that might not be immediately apparent in raw numerical data.</span>
+<span id="cb27-272"><a href="#cb27-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-273"><a href="#cb27-273" aria-hidden="true" tabindex="-1"></a><span class="fu">### Creating Visualizations</span></span>
+<span id="cb27-274"><a href="#cb27-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-275"><a href="#cb27-275" aria-hidden="true" tabindex="-1"></a>To showcase the detected anomalies, we employ various types of visualizations. Here, we'll focus on two primary types: scatter plots and heatmaps. These visualizations will help us to interpret the anomalies in the context of air pollution data.</span>
+<span id="cb27-276"><a href="#cb27-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-277"><a href="#cb27-277" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Scatter Plots</span></span>
+<span id="cb27-278"><a href="#cb27-278" aria-hidden="true" tabindex="-1"></a>Scatter plots are excellent for visualizing the relationship between two variables and identifying points that stand out from the pattern.</span>
+<span id="cb27-279"><a href="#cb27-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-282"><a href="#cb27-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-283"><a href="#cb27-283" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-284"><a href="#cb27-284" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb27-285"><a href="#cb27-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-286"><a href="#cb27-286" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'PM2.5' and 'TEMP' are columns in your dataset</span></span>
+<span id="cb27-287"><a href="#cb27-287" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb27-288"><a href="#cb27-288" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>anomalous_data, x<span class="op">=</span><span class="st">'TEMP'</span>, y<span class="op">=</span><span class="st">'PM2.5'</span>, hue<span class="op">=</span><span class="st">'Anomaly'</span>)</span>
+<span id="cb27-289"><a href="#cb27-289" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Scatter Plot of PM2.5 vs Temperature'</span>)</span>
+<span id="cb27-290"><a href="#cb27-290" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Temperature'</span>)</span>
+<span id="cb27-291"><a href="#cb27-291" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PM2.5'</span>)</span>
+<span id="cb27-292"><a href="#cb27-292" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb27-293"><a href="#cb27-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-294"><a href="#cb27-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-295"><a href="#cb27-295" aria-hidden="true" tabindex="-1"></a>In this scatter plot, we plot 'PM2.5' levels against 'Temperature', using different colors to distinguish between normal data points and anomalies. Anomalies will stand out in the plot, allowing us to observe if higher pollution levels are associated with specific temperature ranges.</span>
+<span id="cb27-296"><a href="#cb27-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-297"><a href="#cb27-297" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Heatmaps</span></span>
+<span id="cb27-298"><a href="#cb27-298" aria-hidden="true" tabindex="-1"></a>Heatmaps are useful for understanding the distribution and concentration of data points across two dimensions.</span>
+<span id="cb27-299"><a href="#cb27-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-302"><a href="#cb27-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-303"><a href="#cb27-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to show the concentration of anomalies</span></span>
+<span id="cb27-304"><a href="#cb27-304" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample a subset of the anomalous data for quicker visualization</span></span>
+<span id="cb27-305"><a href="#cb27-305" aria-hidden="true" tabindex="-1"></a>sampled_anomalous_data <span class="op">=</span> anomalous_data.sample(<span class="bu">min</span>(<span class="dv">500</span>, <span class="bu">len</span>(anomalous_data)), random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb27-306"><a href="#cb27-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-307"><a href="#cb27-307" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap without annotations for quicker rendering</span></span>
+<span id="cb27-308"><a href="#cb27-308" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb27-309"><a href="#cb27-309" aria-hidden="true" tabindex="-1"></a>sns.heatmap(data<span class="op">=</span>sampled_anomalous_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'SO2'</span>, <span class="st">'NO2'</span>, <span class="st">'CO'</span>]])</span>
+<span id="cb27-310"><a href="#cb27-310" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Heatmap of Pollutant Levels in Anomalous Data (Sampled)'</span>)</span>
+<span id="cb27-311"><a href="#cb27-311" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb27-312"><a href="#cb27-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-313"><a href="#cb27-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-314"><a href="#cb27-314" aria-hidden="true" tabindex="-1"></a>This heatmap focuses on the levels of various pollutants in the data points identified as anomalies. By examining the heatmap, we can discern if certain pollutants are consistently elevated in these anomalous instances.</span>
+<span id="cb27-315"><a href="#cb27-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-316"><a href="#cb27-316" aria-hidden="true" tabindex="-1"></a><span class="fu">### Significance of Visualizations</span></span>
+<span id="cb27-317"><a href="#cb27-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-318"><a href="#cb27-318" aria-hidden="true" tabindex="-1"></a>Visualizations enable us to:</span>
+<span id="cb27-319"><a href="#cb27-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-320"><a href="#cb27-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Quickly Identify Anomalies**: Graphical representations make it easier to spot outliers or unusual patterns in the data, which might be indicative of environmental issues or data collection anomalies.</span>
+<span id="cb27-321"><a href="#cb27-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-322"><a href="#cb27-322" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Understand Relationships and Patterns**: Visualizations help in understanding the relationships between different environmental variables and how these relationships might contribute to anomalous pollution levels.</span>
+<span id="cb27-323"><a href="#cb27-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-324"><a href="#cb27-324" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Communicate Findings**: Graphs and charts are effective tools for communicating our findings to a broader audience, including those without a technical background, such as policymakers or the general public.</span>
+<span id="cb27-325"><a href="#cb27-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-326"><a href="#cb27-326" aria-hidden="true" tabindex="-1"></a><span class="fu">## Threshold Tuning</span></span>
+<span id="cb27-327"><a href="#cb27-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-328"><a href="#cb27-328" aria-hidden="true" tabindex="-1"></a>In the realm of anomaly detection, particularly with methods like the Isolation Forest, the concept of threshold tuning is pivotal. The threshold determines the cutoff point at which a data point is classified as an anomaly. Tuning this threshold is a delicate balance, as it directly impacts the sensitivity of our anomaly detection.</span>
+<span id="cb27-329"><a href="#cb27-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-330"><a href="#cb27-330" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Process of Threshold Tuning</span></span>
+<span id="cb27-331"><a href="#cb27-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-332"><a href="#cb27-332" aria-hidden="true" tabindex="-1"></a>Threshold tuning involves adjusting the parameters that define what we consider to be anomalous. In the case of the Isolation Forest, this often revolves around the <span class="in">`contamination`</span> parameter, which represents the proportion of outliers we expect in the data.</span>
+<span id="cb27-333"><a href="#cb27-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-336"><a href="#cb27-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-337"><a href="#cb27-337" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb27-338"><a href="#cb27-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-339"><a href="#cb27-339" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusting the contamination parameter</span></span>
+<span id="cb27-340"><a href="#cb27-340" aria-hidden="true" tabindex="-1"></a>contamination_rate <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># Example rate</span></span>
+<span id="cb27-341"><a href="#cb27-341" aria-hidden="true" tabindex="-1"></a>iso_forest <span class="op">=</span> IsolationForest(contamination<span class="op">=</span>contamination_rate)</span>
+<span id="cb27-342"><a href="#cb27-342" aria-hidden="true" tabindex="-1"></a>iso_forest.fit(X_train)</span>
+<span id="cb27-343"><a href="#cb27-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-344"><a href="#cb27-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-345"><a href="#cb27-345" aria-hidden="true" tabindex="-1"></a>In this code snippet, we adjust the <span class="in">`contamination`</span> parameter, which dictates the model's sensitivity to anomalies. A higher contamination rate means the model will be more inclined to flag data points as anomalies.</span>
+<span id="cb27-346"><a href="#cb27-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-347"><a href="#cb27-347" aria-hidden="true" tabindex="-1"></a><span class="fu">### Impact on False Positives and False Negatives</span></span>
+<span id="cb27-348"><a href="#cb27-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-349"><a href="#cb27-349" aria-hidden="true" tabindex="-1"></a>The setting of the threshold has a direct impact on the trade-off between false positives (normal points incorrectly identified as anomalies) and false negatives (actual anomalies not detected).</span>
+<span id="cb27-350"><a href="#cb27-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-351"><a href="#cb27-351" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Higher Threshold (Lower Contamination)**: This setting reduces the number of anomalies detected, potentially leading to more false negatives. While it ensures that the flagged anomalies are very likely to be true anomalies, it may miss some subtler, yet significant, anomalies.</span>
+<span id="cb27-352"><a href="#cb27-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-353"><a href="#cb27-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lower Threshold (Higher Contamination)**: Conversely, a lower threshold increases the sensitivity, potentially leading to more false positives. This setting might be useful in scenarios where missing an anomaly could have severe consequences, even if it means dealing with more false alarms.</span>
+<span id="cb27-354"><a href="#cb27-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-355"><a href="#cb27-355" aria-hidden="true" tabindex="-1"></a><span class="fu">### Balancing the Threshold</span></span>
+<span id="cb27-356"><a href="#cb27-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-357"><a href="#cb27-357" aria-hidden="true" tabindex="-1"></a>Finding the right balance for the threshold is crucial:</span>
+<span id="cb27-358"><a href="#cb27-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-361"><a href="#cb27-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb27-362"><a href="#cb27-362" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_model(model, X_test):</span>
+<span id="cb27-363"><a href="#cb27-363" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Predict anomalies</span></span>
+<span id="cb27-364"><a href="#cb27-364" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb27-365"><a href="#cb27-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-366"><a href="#cb27-366" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert predictions to a more readable format: -1 (anomalies) to 1, 1 (normal) to 0</span></span>
+<span id="cb27-367"><a href="#cb27-367" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.where(predictions <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb27-368"><a href="#cb27-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-369"><a href="#cb27-369" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count and print the number of anomalies detected</span></span>
+<span id="cb27-370"><a href="#cb27-370" aria-hidden="true" tabindex="-1"></a>    num_anomalies <span class="op">=</span> np.<span class="bu">sum</span>(predictions)</span>
+<span id="cb27-371"><a href="#cb27-371" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of anomalies detected: </span><span class="sc">{</span>num_anomalies<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss"> data points"</span>)</span>
+<span id="cb27-372"><a href="#cb27-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-373"><a href="#cb27-373" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimenting with different contamination rates</span></span>
+<span id="cb27-374"><a href="#cb27-374" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rate <span class="kw">in</span> [<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>]:</span>
+<span id="cb27-375"><a href="#cb27-375" aria-hidden="true" tabindex="-1"></a>    iso_forest <span class="op">=</span> IsolationForest(contamination<span class="op">=</span>rate)</span>
+<span id="cb27-376"><a href="#cb27-376" aria-hidden="true" tabindex="-1"></a>    iso_forest.fit(X_train)</span>
+<span id="cb27-377"><a href="#cb27-377" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Evaluate the model</span></span>
+<span id="cb27-378"><a href="#cb27-378" aria-hidden="true" tabindex="-1"></a>    evaluate_model(iso_forest, X_test)</span>
+<span id="cb27-379"><a href="#cb27-379" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-380"><a href="#cb27-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-381"><a href="#cb27-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-382"><a href="#cb27-382" aria-hidden="true" tabindex="-1"></a>In this example, we experiment with different contamination rates to observe how the model's performance changes. The ideal rate often depends on the specific context of the problem and the cost of false positives versus false negatives.</span>
+<span id="cb27-383"><a href="#cb27-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-384"><a href="#cb27-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretation and Real-World Implications</span></span>
+<span id="cb27-385"><a href="#cb27-385" aria-hidden="true" tabindex="-1"></a>Based on our analysis of the air pollution data using the Isolation Forest model, we've uncovered some intriguing insights. Out of the total 126,231 data points, our model identified 12,510 as anomalies, accounting for approximately 9.91% of the dataset. This proportion of anomalies is significant and warrants further investigation.</span>
+<span id="cb27-386"><a href="#cb27-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-387"><a href="#cb27-387" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interpretation of Detected Anomalies</span></span>
+<span id="cb27-388"><a href="#cb27-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-389"><a href="#cb27-389" aria-hidden="true" tabindex="-1"></a>When we delve into the sample of detected anomalies, several key observations emerge:</span>
+<span id="cb27-390"><a href="#cb27-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-391"><a href="#cb27-391" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Elevated Pollutant Levels**: Many of the anomalies exhibit unusually high levels of pollutants such as PM2.5, PM10, NO2, and CO. For instance, rows like 8468 and 314995 show pollutant concentrations several times higher than typical readings. This could indicate episodes of extreme pollution, possibly due to specific environmental events or human activities.</span>
+<span id="cb27-392"><a href="#cb27-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-393"><a href="#cb27-393" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Meteorological Influences**: The anomalies also reveal interesting patterns in meteorological conditions. For example, rows 214246 and 244058 show variations in temperature, pressure, and humidity, which could be influencing factors for the high pollution levels observed.</span>
+<span id="cb27-394"><a href="#cb27-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-395"><a href="#cb27-395" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Station-Specific Anomalies**: The data points flagged as anomalies are distributed across different monitoring stations, as seen in the 'station' columns. This distribution suggests that the detected anomalies are not confined to a specific location but are rather widespread, indicating a more systemic issue in air quality.</span>
+<span id="cb27-396"><a href="#cb27-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-397"><a href="#cb27-397" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Temporal Patterns**: The presence of anomalies across different years, months, and hours, such as in rows 216296 and 392113, hints at temporal patterns in air pollution. These patterns could be aligned with seasonal changes, urban activities, or policy changes affecting air quality.</span>
+<span id="cb27-398"><a href="#cb27-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-399"><a href="#cb27-399" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implications</span></span>
+<span id="cb27-400"><a href="#cb27-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-401"><a href="#cb27-401" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Environmental Policy and Health**: The identified anomalies are crucial for understanding the dynamics of air pollution. They can inform environmental policies, especially in devising strategies to mitigate high pollution episodes.</span>
+<span id="cb27-402"><a href="#cb27-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-403"><a href="#cb27-403" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Further Research**: These findings can be a starting point for more detailed research. For example, investigating the causes behind high pollution episodes can help in understanding the impact of urban development, traffic patterns, or industrial activities on air quality.</span>
+<span id="cb27-404"><a href="#cb27-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-405"><a href="#cb27-405" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Public Awareness**: Disseminating information about such high pollution episodes can raise public awareness and encourage preventive measures, especially for vulnerable populations.</span>
+<span id="cb27-406"><a href="#cb27-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-407"><a href="#cb27-407" aria-hidden="true" tabindex="-1"></a>In summary, our analysis using the Isolation Forest model provides us with valuable insights into the air quality data, highlighting instances of unusually high pollution levels. This information is crucial for environmental monitoring, policy-making, and public health initiatives.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

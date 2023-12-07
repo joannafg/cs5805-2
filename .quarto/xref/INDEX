@@ -28,5 +28,14 @@
   },
   "posts/classification2/index.qmd": {
     "index.html": "54b6bc83"
+  },
+  "posts/outlier/index.qmd": {
+    "index.html": "bfd9afc6"
+  },
+  "posts/outlier2/index.qmd": {
+    "index.html": "68ec6f3a"
+  },
+  "posts/outlier4/index.qmd": {
+    "index.html": "03488cd2"
   }
 }

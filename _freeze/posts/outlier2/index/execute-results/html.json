@@ -1,0 +1,11 @@
+{
+  "hash": "d60ad778eb77ad1e3ac4229dbf2f68cc",
+  "result": {
+    "markdown": "---\ntitle: Anomaly/Outlier Detection\nauthor: Joanna Fang\ndate: '2023-12-06'\ncategories:\n  - ml\n  - code\n  - linear regression\n  - nonlinear regression\n  - pollution\nformat:\n  html:\n    code-block-bg: '#FFFFFF'\n    code-block-border-left: '#E83283'\n    toc: true\n    code-tools:\n      source: true\n      toggle: false\n      caption: none\n---\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
