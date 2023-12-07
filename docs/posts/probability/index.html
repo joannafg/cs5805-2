@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joanna Fang">
-<meta name="dcterms.date" content="2023-11-28">
+<meta name="dcterms.date" content="2023-11-20">
 
 <title>Ziming’s Journey in Machine Learning - 1. Probability Theory and Random Variables</title>
 <style>
@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div><h1 class="title">Probability Theory and Random Variables</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+      <div class="quarto-title-block"><div><h1 class="title">1. Probability Theory and Random Variables</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
                                 <div class="quarto-categories">
                 <div class="quarto-category">code</div>
                 <div class="quarto-category">probability</div>
@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 28, 2023</p>
+        <p class="date">November 20, 2023</p>
       </div>
     </div>
     
@@ -189,6 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#real-world-application---emails-per-hour" id="toc-real-world-application---emails-per-hour" class="nav-link" data-scroll-target="#real-world-application---emails-per-hour">Real-World Application - Emails Per Hour</a></li>
   <li><a href="#deep-dive-into-the-email-example" id="toc-deep-dive-into-the-email-example" class="nav-link" data-scroll-target="#deep-dive-into-the-email-example">Deep Dive into the Email Example</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/joannafg/cs5805-2/edit/main/posts/probability/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/joannafg/cs5805-2/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -268,16 +269,16 @@ WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: matplotlib in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (3.8.2)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
-Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
-Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
 Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
+Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
+Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.17.0)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
@@ -515,6 +516,18 @@ Probability of receiving less than 10 emails in an hour: 0.9863</code></pre>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Throughout this exploration, we’ve uncovered the Poisson distribution’s powerful utility in analyzing and forecasting infrequent but regular events, exemplified by email reception rates. This transition from the Binomial distribution, as visually depicted, underscores the Poisson distribution’s efficiency in scenarios with numerous trials and low success probabilities. In professional domains such as customer service, IT, and communications, it aids in workload management and resource allocation, ensuring adaptability. Likewise, in personal life, it assists in time and expectation management. This journey through probability and statistics highlights the Poisson distribution’s practical significance as a tool for deciphering our world, revealing hidden patterns in daily events like email flows. Ultimately, it’s not just a formula but a perspective enriching our personal and professional toolkits.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>https://annisap.medium.com/probability-theory-in-machine-learning-an-example-with-exponential-distributions-585eed56d48c</li>
+<li>https://towardsdatascience.com/understanding-random-variables-and-probability-distributions-1ed1daf2e66</li>
+<li>https://jonathan-hui.medium.com/probability-in-machine-learning-deep-learning-a2acdd793f18</li>
+<li>https://www.analyticsvidhya.com/blog/2021/04/probability-theory-basics-in-machine-learning/</li>
+<li>https://machinelearningmastery.com/discrete-probability-distributions-for-machine-learning/</li>
+<li>https://github.com/jonkrohn/ML-foundations/blob/master/notebooks/5-probability.ipynb</li>
+<li>OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com</li>
+</ul>
 
 
 <!-- -->
