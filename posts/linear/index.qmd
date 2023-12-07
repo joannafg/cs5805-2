@@ -1,5 +1,5 @@
 ---
-title: "Linear and Nonlinear Regression"
+title: "3\\. Linear and Nonlinear Regression"
 author: "Joanna Fang"
 date: "2023-11-29"
 categories: [ml, code, linear regression, nonlinear regression, pollution]
@@ -18,7 +18,7 @@ format:
 
 # Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide
 
-![](thumbnail.jpg){width="50%" fig-align="center"}
+![](thumbnail.jpg){height="50%" fig-align="center"}
 
 ## Introduction
 
