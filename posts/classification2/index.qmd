@@ -1,5 +1,5 @@
 ---
-title: "Classification"
+title: "4. Classification"
 author: "Joanna Fang"
 date: "2023-11-30"
 categories: [ml, code, classification, driving, kaggle]
@@ -17,7 +17,7 @@ format:
 ---
 
 
-# Classification: Predictive Analytics for Driving Behavior Classification
+# Predictive Analytics for Driving Behavior Classification
 
 ![](thumbnail.jpg){width="50%" fig-align="center"}
 
@@ -34,7 +34,7 @@ The importance of this project is underscored by the alarming statistics from th
 ## Data Collection and Description
 
 ### Source of the Data
-The dataset for this project is derived from a real-world scenario, specifically designed to capture driving behaviors. Utilizing a data collector application on Android devices, we have gathered sensor readings directly relevant to driving dynamics.
+The dataset for this project is derived from a real-world scenario, specifically designed to capture driving behaviors. Utilizing a data collector application on Android devices, Ion  Cojocaru and 2 Collaborators from Kaggle.com have gathered sensor readings directly relevant to driving dynamics.
 
 ### Dataset Description
 The dataset is a rich collection of sensor data recorded from a Samsung Galaxy S21, chosen for its advanced sensor capabilities. Here's a breakdown of the dataset features:
@@ -57,7 +57,7 @@ The dataset is a rich collection of sensor data recorded from a Samsung Galaxy S
 - Sampling Rate: 2 samples per second, ensuring a fine-grained capture of driving dynamics.
 - Timestamp: Included for each sample, allowing for temporal analysis of driving patterns.
 
-In the following sections, we will delve into the preprocessing, exploratory analysis, and modeling of this dataset to build a robust classifier for driving behaviors. Stay tuned as we unravel the insights hidden within this data and develop a machine learning model with the potential to make a real-world impact.
+In the following sections, we will delve into the preprocessing, exploratory analysis, and modeling of this dataset to build a robust classifier for driving behaviors. 
 
 ## Data Preprocessing
 
@@ -68,8 +68,28 @@ In the realm of machine learning, data preprocessing is a critical step in prepa
 First, we'll check for missing values in both datasets. Missing data can significantly impact the performance of a machine learning model. If missing values are found, strategies such as imputation or removal of the affected rows can be considered.
 
 ```{python}
-import pandas as pd
+# Install and import all libraries
+import sys
+!{sys.executable} -m pip install seaborn
+!{sys.executable} -m pip install matplotlib
+!{sys.executable} -m pip install scikit-learn
+!{sys.executable} -m pip install pandas
+!{sys.executable} -m pip install numpy
 
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+```{python}
 # Load the datasets
 test_data = pd.read_csv('motion_data_1.csv')
 train_data = pd.read_csv('motion_data_2.csv')
@@ -84,8 +104,6 @@ missing_values_train = train_data.isnull().sum()
 Normalization or scaling is crucial when dealing with sensor data. It ensures that each feature contributes proportionately to the final prediction. Given the different scales of acceleration (in m/s²) and rotation (in °/s), applying a scaling method like Min-Max scaling or Standardization is important.
 
 ```{python}
-from sklearn.preprocessing import StandardScaler
-
 # Standardizing the data
 scaler = StandardScaler()
 train_data_scaled = scaler.fit_transform(train_data.iloc[:, :-2]) # Excluding 'Class' and 'Timestamp' columns
@@ -94,11 +112,9 @@ test_data_scaled = scaler.transform(test_data.iloc[:, :-2])
 
 ### Feature Engineering 
 
-Feature engineering might involve creating new features or modifying existing ones to improve model performance. In our case, we might consider deriving features like the total magnitude of acceleration or rotation.
+In our case, we attempted to engineer a new deriving features: the total magnitude of acceleration.
 
 ```{python}
-import numpy as np
-
 # Adding a feature: Total magnitude of acceleration
 train_data['TotalAcc'] = np.sqrt(train_data['AccX']**2 + train_data['AccY']**2 + train_data['AccZ']**2)
 test_data['TotalAcc'] = np.sqrt(test_data['AccX']**2 + test_data['AccY']**2 + test_data['AccZ']**2)
@@ -122,9 +138,6 @@ train_data_description = train_data.describe()
 Histograms and box plots are effective for visualizing the distribution of sensor data and identifying outliers or skewness in the data.
 
 ```{python}
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # Setting up the figure for multiple subplots
 fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(15, 15))
 fig.suptitle('Histograms of Acceleration and Rotation Data', fontsize=16)
@@ -161,7 +174,7 @@ plt.show()
 A correlation heatmap helps in understanding the relationships between different sensor readings. It's crucial for identifying features that are highly correlated and might need to be addressed during feature selection.
 
 ```{python}
-# For the correlation heatmap, we need to exclude non-numeric columns (Class and Timestamp)
+# For the correlation heatmap, we exclude non-numeric columns (Class and Timestamp)
 train_data_numeric = train_data.select_dtypes(include=['float64', 'int64'])
 
 # Generating the correlation heatmap
@@ -184,8 +197,6 @@ It appears that:
 
 The absence of very high correlations means that there may not be redundant features in the dataset, which is good for a machine learning model that relies on diverse data points to make predictions. However, the subtle correlations that do exist can still provide valuable insights when developing features and training models.
 
-These visualizations and their interpretations are key in understanding the underlying patterns in the driving behavior dataset, which will inform the feature selection and modeling phases of the machine learning project.
-
 In the next sections, we will delve into model selection, training, and evaluation, using the insights and data preparations we've just discussed. Stay tuned!
 
 ## Data Preparation for Modeling
@@ -195,27 +206,6 @@ Preparing the data for modeling is a crucial step in the machine learning pipeli
 ### Splitting Data into Training and Testing Sets
 
 We have two datasets: `train_data` and `test_data`, pre-split for our convenience. Typically, we would use a function like `train_test_split` from `scikit-learn` to divide our dataset into a training set and a test set, ensuring that both sets are representative of the overall distribution. However, in this scenario, that step is already accounted for.
-
-```{python}
-# Since the data is pre-split, this step is not required for our current workflow.
-# Normally, we would do something like this:
-# from sklearn.model_selection import train_test_split
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-```
-
-### Handling Class Imbalance
-
-Class imbalance can significantly skew the performance of a classifier towards the majority class. It's important to check the balance of classes and apply techniques such as resampling if necessary.
-
-```{python}
-# Checking the balance of the classes
-class_counts = train_data['Class'].value_counts()
-
-# If imbalance is found, we might consider resampling strategies like:
-# - Upsampling minority classes
-# - Downsampling majority classes
-# - Using SMOTE (Synthetic Minority Over-sampling Technique)
-```
 
 ## Model Selection
 
@@ -247,11 +237,6 @@ Training our models is like teaching them to understand patterns within the data
 We start by training different types of models. Each has its own strengths and might capture different aspects of the driving behavior.
 
 ```{python}
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.neural_network import MLPClassifier
-
 # Initializing models with default parameters
 decision_tree = DecisionTreeClassifier()
 random_forest = RandomForestClassifier()
@@ -271,9 +256,6 @@ The `fit` method allows the models to learn from the training data. It's during 
 To optimize our models, we tweak their settings, known as hyperparameters. This process is akin to fine-tuning an instrument to ensure it plays the perfect note.
 
 ```{python}
-from sklearn.model_selection import RandomizedSearchCV
-import numpy as np
-
 # Reduce the number of iterations and cross-validation folds
 n_iter_search = 5
 cv_folds = 3
@@ -360,13 +342,9 @@ print("Best parameters for Random Forest:", best_params_rf)
 print("Best parameters for Decision Tree:", best_params_dt)
 print("Best parameters for SVM:", best_params_svm)
 print("Best parameters for Neural Network:", best_params_nn)
-
-# Now we can print or use the best_params_rf, best_params_svm, and best_params_nn for the best-found parameters
 ```
 
-Using `GridSearchCV`, we systematically work through multiple combinations of parameter tunes, cross-validating as we go to determine which tune gives the best performance.
-
-By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.
+Using `GridSearchCV`, we systematically work through multiple combinations of parameter tunes, cross-validating. The summary of the best parameters for various machine learning models from a tuning process are as follows: For the Random Forest, the optimal settings are 50 trees (`n_estimators`), a minimum of 2 samples required to split a node (`min_samples_split`), and a maximum tree depth of 10 (`max_depth`). The Decision Tree's best parameters include a maximum depth of 30 (`max_depth`) and a minimum of 2 samples required at a leaf node (`min_samples_leaf`). For the SVM, a linear kernel with a penalty parameter `C` of 1 yields the best results. Lastly, the optimal configuration for the Neural Network involves the 'adam' solver, a maximum of 100 iterations (`max_iter`), 50 neurons in the hidden layer (`hidden_layer_sizes`), and 'relu' activation function. These parameters are likely the result of a grid search optimization process aiming to enhance model performance. 
 
 ## Model Evaluation
 
@@ -384,10 +362,6 @@ We'll evaluate each model using several key metrics: accuracy, precision, recall
 Let's calculate and print these metrics for each model:
 
 ```{python}
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # Models we've trained
 models = {
     "Decision Tree": decision_tree,
@@ -430,14 +404,12 @@ for name, model in models.items():
     plt.show()
 ```
 
-#### Interpretation of Confusion Matrix:
-
 - **True Positives (TP)**: Correctly predicted positive observations.
 - **True Negatives (TN)**: Correctly predicted negative observations.
 - **False Positives (FP)**: Incorrectly predicted positive observations (Type I error).
 - **False Negatives (FN)**: Incorrectly predicted negative observations (Type II error).
 
-A model with high TP and TN values and low FP and FN values is generally considered good. However, the importance of each type of error can vary based on the application. For instance, in medical diagnosis, reducing FN (missed diagnoses) may be more critical than reducing FP.
+(A model with high TP and TN values and low FP and FN values is generally considered good. However, the importance of each type of error can vary based on the application. For instance, in medical diagnosis, reducing FN (missed diagnoses) may be more critical than reducing FP.)
 
 ## Model Interpretation
 
@@ -497,3 +469,9 @@ Several improvements can be proposed:
 - **Extended Hyperparameter Tuning**: Conducting a more thorough hyperparameter optimization, given more computational time and resources.
 
 In conclusion, while the current models have provided a foundation, further work is needed to develop a robust classifier that can accurately identify various driving behaviors, which is crucial for enhancing road safety and reducing accidents.
+
+## References 
+- https://builtin.com/data-science/supervised-machine-learning-classification
+- https://www.analyticsvidhya.com/blog/2021/09/a-complete-guide-to-understand-classification-in-machine-learning/
+- OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
+- https://www.kaggle.com/datasets/outofskills/driving-behavior

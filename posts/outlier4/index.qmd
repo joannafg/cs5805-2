@@ -352,8 +352,9 @@ When we delve into the sample of detected anomalies, several key observations em
 
 In summary, our analysis using the Isolation Forest model provides us with valuable insights into the air quality data, highlighting instances of unusually high pollution levels. This information is crucial for environmental monitoring, policy-making, and public health initiatives.
 
-## Reference 
+## References 
 - https://www.knowledgehut.com/blog/data-science/machine-learning-for-anomaly-detection 
 - https://www.techtarget.com/searchenterpriseai/definition/anomaly-detection
 - https://medium.com/@corymaklin/isolation-forest-799fceacdda4
 - OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
+- https://archive.ics.uci.edu/dataset/501/beijing+multi+site+air+quality+data
