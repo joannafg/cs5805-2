@@ -273,59 +273,92 @@ To optimize our models, we tweak their settings, known as hyperparameters. This 
 from sklearn.model_selection import RandomizedSearchCV
 import numpy as np
 
-# Setting up the parameter grid for a Decision Tree
+# Reduce the number of iterations and cross-validation folds
+n_iter_search = 5
+cv_folds = 3
+
+# Simplify the models - example for Random Forest
+rf_param_grid = {
+    'n_estimators': [50, 100],  # reduced number of trees
+    'max_depth': [10, None],  # fewer options
+    'min_samples_split': [2, 5]
+}
+
+# Initialize the RandomizedSearchCV object for Random Forest with fewer iterations and folds
+random_search_rf = RandomizedSearchCV(
+    RandomForestClassifier(), 
+    param_distributions=rf_param_grid, 
+    n_iter=n_iter_search, 
+    cv=cv_folds, 
+    n_jobs=-1, 
+    random_state=42
+)
+random_search_rf.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
+best_params_rf = random_search_rf.best_params_
+
+# RandomizedSearchCV for Decision Tree
 dt_param_grid = {
     'max_depth': [10, 20, 30],
     'min_samples_leaf': [1, 2, 4]
 }
-
-# Hyperparameter tuning for the Decision Tree using RandomizedSearchCV
-random_search_dt = RandomizedSearchCV(DecisionTreeClassifier(), dt_param_grid, n_iter=10, cv=5, random_state=42)
+random_search_dt = RandomizedSearchCV(
+    DecisionTreeClassifier(), 
+    param_distributions=dt_param_grid, 
+    n_iter=n_iter_search, 
+    cv=cv_folds, 
+    random_state=42
+)
 random_search_dt.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
 best_params_dt = random_search_dt.best_params_
 
-# Define the parameter grid for Random Forest
-rf_param_grid = {
-    'n_estimators': [50, 100, 200],
-    'max_depth': [10, 20, None],
-    'min_samples_split': [2, 5, 10]
-}
-
-# Initialize the RandomizedSearchCV object for Random Forest
-random_search_rf = RandomizedSearchCV(RandomForestClassifier(), rf_param_grid, n_iter=10, cv=5, n_jobs=-1, random_state=42)
-random_search_rf.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-
-# Get the best parameters for Random Forest
-best_params_rf = random_search_rf.best_params_
-
-# Define the parameter grid for SVM
-svm_param_grid = {
-    'C': [0.1, 1, 10],
-    'gamma': ['scale', 'auto'],
-    'kernel': ['rbf', 'linear']
-}
-
-# Initialize the RandomizedSearchCV object for SVM
-random_search_svm = RandomizedSearchCV(SVC(), svm_param_grid, n_iter=10, cv=5, n_jobs=-1, random_state=42)
-random_search_svm.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-
-# Get the best parameters for SVM
+# RandomizedSearchCV for SVM
+# Using an extremely small subset of the data
+subset_size = 50  # Very small subset for extremely quick execution
+train_subset = train_data.sample(n=subset_size, random_state=42)
+# Simplified RandomizedSearchCV for SVM
+random_search_svm = RandomizedSearchCV(
+    SVC(), 
+    param_distributions={'C': [1], 'kernel': ['linear']},  # Minimal hyperparameter space
+    n_iter=1,  # Only one iteration
+    cv=2,  # Reduced to 2-fold cross-validation
+    n_jobs=1,  # Limit the number of jobs to 1 for a quick run
+    random_state=42,
+    verbose=0  # No verbosity
+)
+random_search_svm.fit(train_subset.drop(['Class'], axis=1), train_subset['Class'])
 best_params_svm = random_search_svm.best_params_
 
-# Define the parameter grid for Neural Network
+# RandomizedSearchCV for Neural Network
+# Using a very small subset of the data
+subset_size = 50  # Extremely small subset for quick execution
+train_subset = train_data.sample(n=subset_size, random_state=42)
+
+# Simplified parameter grid for Neural Network
 nn_param_grid = {
-    'hidden_layer_sizes': [(50,), (100,), (50, 50)],
-    'activation': ['tanh', 'relu'],
-    'solver': ['sgd', 'adam'],
-    'max_iter': [200, 400]
+    'hidden_layer_sizes': [(50,)],  # Smaller network
+    'activation': ['relu'],  # One activation function
+    'solver': ['adam'],  # One solver
+    'max_iter': [100]  # Fewer iterations
 }
 
-# Initialize the RandomizedSearchCV object for Neural Network
-random_search_nn = RandomizedSearchCV(MLPClassifier(), nn_param_grid, n_iter=10, cv=5, n_jobs=-1, random_state=42)
-random_search_nn.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-
-# Get the best parameters for Neural Network
+# RandomizedSearchCV for Neural Network with simplified settings
+random_search_nn = RandomizedSearchCV(
+    MLPClassifier(), 
+    nn_param_grid, 
+    n_iter=2,  # Fewer iterations
+    cv=2,  # Reduced cross-validation
+    n_jobs=1,  # Using single job for faster execution in limited environments
+    random_state=42,
+    verbose=0
+)
+random_search_nn.fit(train_subset.drop(['Class'], axis=1), train_subset['Class'])
 best_params_nn = random_search_nn.best_params_
+
+# Print the best parameters for all models
+print("Best parameters for Random Forest:", best_params_rf)
+print("Best parameters for Decision Tree:", best_params_dt)
+print("Best parameters for SVM:", best_params_svm)
+print("Best parameters for Neural Network:", best_params_nn)
 
 # Now we can print or use the best_params_rf, best_params_svm, and best_params_nn for the best-found parameters
 ```
@@ -334,37 +367,3 @@ Using `GridSearchCV`, we systematically work through multiple combinations of pa
 
 By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.
 
-```{python}
-# After the GridSearchCV process is complete, we can print out the best parameters for each model
-
-# Best parameters for Decision Tree
-print("Best parameters for Decision Tree:")
-print(best_params_dt)
-
-# Best parameters for Random Forest
-print("Best parameters for Random Forest:")
-print(best_params_rf)
-
-# Best parameters for SVM
-print("Best parameters for SVM:")
-print(best_params_svm)
-
-# Best parameters for Neural Network
-print("Best parameters for Neural Network:")
-print(best_params_nn)
-
-# These parameters can then be used to initialize the respective models with the optimal settings
-decision_tree_optimized = DecisionTreeClassifier(**best_params_dt)
-random_forest_optimized = RandomForestClassifier(**best_params_rf)
-svm_optimized = SVC(**best_params_svm)
-neural_network_optimized = MLPClassifier(**best_params_nn)
-
-# If you wish to proceed with fitting the optimized models, you would then do:
-decision_tree_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-random_forest_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-svm_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-neural_network_optimized.fit(train_data.drop(['Class'], axis=1), train_data['Class'])
-
-# Remember to replace train_data.drop(['Class'], axis=1) and train_data['Class']
-# with your features and target variable if they are named differently.
-```
