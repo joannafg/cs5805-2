@@ -15,7 +15,8 @@ format:
       caption: none
 
 ---
-<!-- 
+
+
 # Classification: Predictive Analytics for Driving Behavior Classification
 
 ![](thumbnail.jpg){width="50%" fig-align="center"}
@@ -366,4 +367,133 @@ print("Best parameters for Neural Network:", best_params_nn)
 Using `GridSearchCV`, we systematically work through multiple combinations of parameter tunes, cross-validating as we go to determine which tune gives the best performance.
 
 By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.
- -->
+
+## Model Evaluation
+
+After training our models and tuning their hyperparameters, the next critical step is model evaluation. This step helps us understand how well our models perform and guides us in selecting the best one for our application.
+
+### Evaluating Model Performance
+
+We'll evaluate each model using several key metrics: accuracy, precision, recall, and the F1-score. These metrics give us a well-rounded view of our models' performance.
+
+- **Accuracy**: The proportion of true results (both true positives and true negatives) among the total number of cases examined.
+- **Precision**: The ratio of correctly predicted positive observations to the total predicted positives.
+- **Recall (Sensitivity)**: The ratio of correctly predicted positive observations to all observations in the actual class.
+- **F1-Score**: The weighted average of Precision and Recall, best if there's an uneven class distribution.
+
+Let's calculate and print these metrics for each model:
+
+```{python}
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Models we've trained
+models = {
+    "Decision Tree": decision_tree,
+    "Random Forest": random_forest,
+    "SVM": svm,
+    "Neural Network": neural_network
+}
+
+# Evaluate each model
+for name, model in models.items():
+    predictions = model.predict(test_data.drop(['Class'], axis=1))
+    accuracy = accuracy_score(test_data['Class'], predictions)
+    precision = precision_score(test_data['Class'], predictions, average='weighted')
+    recall = recall_score(test_data['Class'], predictions, average='weighted')
+    f1 = f1_score(test_data['Class'], predictions, average='weighted')
+
+    print(f"{name}:")
+    print(f"  Accuracy: {accuracy:.4f}")
+    print(f"  Precision: {precision:.4f}")
+    print(f"  Recall: {recall:.4f}")
+    print(f"  F1-Score: {f1:.4f}\n")
+```
+
+### Confusion Matrix for Each Model
+
+The confusion matrix is a useful tool for understanding the performance of a classification model. It shows the actual vs. predicted classifications.
+
+Let's plot the confusion matrix for each model and discuss what the scores mean:
+
+```{python}
+for name, model in models.items():
+    predictions = model.predict(test_data.drop(['Class'], axis=1))
+    conf_mat = confusion_matrix(test_data['Class'], predictions)
+
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_mat, annot=True, fmt='g')
+    plt.title(f'Confusion Matrix for {name}')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
+```
+
+#### Interpretation of Confusion Matrix:
+
+- **True Positives (TP)**: Correctly predicted positive observations.
+- **True Negatives (TN)**: Correctly predicted negative observations.
+- **False Positives (FP)**: Incorrectly predicted positive observations (Type I error).
+- **False Negatives (FN)**: Incorrectly predicted negative observations (Type II error).
+
+A model with high TP and TN values and low FP and FN values is generally considered good. However, the importance of each type of error can vary based on the application. For instance, in medical diagnosis, reducing FN (missed diagnoses) may be more critical than reducing FP.
+
+## Model Interpretation
+
+Interpreting machine learning models involves understanding the decisions made by the model and assessing their importance in the context of the task. For our driving behavior classification project, the model interpretation will shed light on how well the models are distinguishing between SLOW, NORMAL, and AGGRESSIVE driving behaviors.
+
+### Interpretation of Model Results
+
+The confusion matrices provide a visual and quantitative way to measure the performance of the models. Ideally, a well-performing model would have high numbers along the diagonal, indicating correct predictions, and low numbers off the diagonal.
+
+In all four confusion matrices, we observe that the models predict only one class, which indicates a severe imbalance in their learning, potentially caused by class imbalance or other data issues. They fail to predict any instances of the 'SLOW' and 'AGGRESSIVE' classes, classifying everything as 'NORMAL'. This is also reflected in the low precision and F1-scores for all models, as these metrics account for both false positives and false negatives.
+
+### Feature Importance Analysis
+
+Understanding which features are most important for making predictions can provide insights into the dataset and the model's decision-making process. For tree-based models, we can directly retrieve feature importance. For other models, such as SVM and Neural Networks, the interpretation can be more complex and may require additional techniques like permutation importance.
+
+For Decision Trees and Random Forests, feature importance is calculated based on how well they split the data and reduce impurity. Here's how you might compute and plot the feature importances for the Random Forest model:
+
+```{python}
+importances = random_forest.feature_importances_
+indices = np.argsort(importances)[::-1]
+features = train_data.drop(['Class'], axis=1).columns
+
+# Plot the feature importances of the forest
+plt.figure(figsize=(12, 6))
+plt.title("Feature importances")
+plt.bar(range(train_data.shape[1] - 1), importances[indices], align="center")
+plt.xticks(range(train_data.shape[1] - 1), features[indices], rotation=90)
+plt.xlim([-1, train_data.shape[1] - 1])
+plt.show()
+```
+
+For the SVM and Neural Network models, feature importance is not as straightforward because these models do not inherently provide a method for evaluating the importance of features. However, for the SVM model with a linear kernel, we can look at the weights assigned to each feature to determine their importance. For neural networks, especially deep ones, feature importance is a more complex area of research and often involves using additional tools or methods.
+
+#### Results
+
+The models' inability to correctly classify all three driving behaviors indicates that further investigation into the data distribution, preprocessing, and model training is necessary. This could include resampling techniques to address class imbalance, feature engineering to better capture the characteristics of aggressive driving, or exploring more complex models and tuning strategies. It's also important to consider the real-world applicability of these models — in a safety-critical domain such as driving behavior classification, we must strive for high precision and recall to ensure all aggressive behaviors are accurately detected.
+
+## Conclusion
+
+In summarizing our findings, the machine learning models developed to classify driving behavior as SLOW, NORMAL, or AGGRESSIVE revealed critical insights. The evaluation metrics and confusion matrices indicated that our models predominantly predicted the NORMAL class while failing to recognize SLOW and AGGRESSIVE behaviors. The accuracy across the models ranged from approximately 26% to 41%, with the SVM model achieving the highest accuracy. However, the precision and recall scores were low for all models, indicating a significant area for improvement.
+
+### Limitations
+
+The limitations of our current approach are evident:
+
+- **Class Imbalance**: The models' tendency to predict mostly the NORMAL class suggests a possible class imbalance.
+- **Model Overfitting**: The poor generalization to other classes may also indicate overfitting to the majority class.
+- **Feature Representation**: The current features may not sufficiently represent the characteristics unique to each class.
+
+### Potential Improvements
+
+Several improvements can be proposed:
+
+- **Data Resampling**: Implementing techniques like SMOTE or random oversampling to balance the class distribution could be beneficial.
+- **Feature Engineering**: Developing more sophisticated features or utilizing feature selection methods to capture more nuanced patterns of aggressive driving.
+- **Model Complexity**: Exploring more complex models or deep learning approaches that might capture the intricacies in the data better.
+- **Extended Hyperparameter Tuning**: Conducting a more thorough hyperparameter optimization, given more computational time and resources.
+
+In conclusion, while the current models have provided a foundation, further work is needed to develop a robust classifier that can accurately identify various driving behaviors, which is crucial for enhancing road safety and reducing accidents.

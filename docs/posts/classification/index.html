@@ -833,359 +833,358 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">      caption: none</span></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Classification: Predictive Analytics for Driving Behavior Classification</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Classification: Predictive Analytics for Driving Behavior Classification</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="al">![](thumbnail.jpg)</span>{width="50%" fig-align="center"}</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">![](thumbnail.jpg){width="50%" fig-align="center"}</span></span>
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project Introduction</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Project Introduction</span></span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>Welcome to our exploration into the world of machine learning and its application in predicting driving behaviors. In this project, we dive into the realm of vehicular safety, aiming to leverage sensor data to classify driving patterns into three categories: SLOW, NORMAL, and AGGRESSIVE. This endeavor is not just a technical challenge but a crucial step towards enhancing road safety and reducing traffic accidents.</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">Welcome to our exploration into the world of machine learning and its application in predicting driving behaviors. In this project, we dive into the realm of vehicular safety, aiming to leverage sensor data to classify driving patterns into three categories: SLOW, NORMAL, and AGGRESSIVE. This endeavor is not just a technical challenge but a crucial step towards enhancing road safety and reducing traffic accidents.</span></span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### Objective</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>The primary goal of this project is to accurately predict driving behaviors using data from commonly available sensors in smartphones. By analyzing accelerometer and gyroscope data, we aim to classify driving styles into SLOW, NORMAL, or AGGRESSIVE, contributing significantly to the prevention of road mishaps.</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Objective</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">The primary goal of this project is to accurately predict driving behaviors using data from commonly available sensors in smartphones. By analyzing accelerometer and gyroscope data, we aim to classify driving styles into SLOW, NORMAL, or AGGRESSIVE, contributing significantly to the prevention of road mishaps.</span></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Importance and Applications</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>The importance of this project is underscored by the alarming statistics from the AAA Foundation for Traffic Safety, highlighting that over half of fatal crashes involve aggressive driving actions. Through this project, we offer a scalable and readily deployable solution to monitor and predict dangerous driving behaviors, potentially saving lives and making our roads safer. Applications of this model extend to insurance companies for risk assessment, ride-sharing services for driver monitoring, and personal safety apps to alert drivers of their driving patterns.</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Importance and Applications</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">The importance of this project is underscored by the alarming statistics from the AAA Foundation for Traffic Safety, highlighting that over half of fatal crashes involve aggressive driving actions. Through this project, we offer a scalable and readily deployable solution to monitor and predict dangerous driving behaviors, potentially saving lives and making our roads safer. Applications of this model extend to insurance companies for risk assessment, ride-sharing services for driver monitoring, and personal safety apps to alert drivers of their driving patterns.</span></span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Collection and Description</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">## Data Collection and Description</span></span>
 <span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Source of the Data</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>The dataset for this project is derived from a real-world scenario, specifically designed to capture driving behaviors. Utilizing a data collector application on Android devices, we have gathered sensor readings directly relevant to driving dynamics.</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Source of the Data</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">The dataset for this project is derived from a real-world scenario, specifically designed to capture driving behaviors. Utilizing a data collector application on Android devices, we have gathered sensor readings directly relevant to driving dynamics.</span></span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dataset Description</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>The dataset is a rich collection of sensor data recorded from a Samsung Galaxy S21, chosen for its advanced sensor capabilities. Here's a breakdown of the dataset features:</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Dataset Description</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">The dataset is a rich collection of sensor data recorded from a Samsung Galaxy S21, chosen for its advanced sensor capabilities. Here's a breakdown of the dataset features:</span></span>
 <span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Acceleration Data</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Axes: X, Y, Z</span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unit: Meters per second squared (m/s²)</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Note: Gravitational acceleration has been filtered out to focus on the acceleration caused by driving actions.</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#### Acceleration Data</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">- Axes: X, Y, Z</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">- Unit: Meters per second squared (m/s²)</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">- Note: Gravitational acceleration has been filtered out to focus on the acceleration caused by driving actions.</span></span>
 <span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Rotation Data</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Axes: X, Y, Z</span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unit: Degrees per second (°/s)</span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Purpose: Captures the angular changes during driving, indicative of turns and maneuvers.</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co">#### Rotation Data</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="co">- Axes: X, Y, Z</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="co">- Unit: Degrees per second (°/s)</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co">- Purpose: Captures the angular changes during driving, indicative of turns and maneuvers.</span></span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Classification Label</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Categories: SLOW, NORMAL, AGGRESSIVE</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Basis: The driving behavior classification based on the sensor data patterns.</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co">#### Classification Label</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co">- Categories: SLOW, NORMAL, AGGRESSIVE</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="co">- Basis: The driving behavior classification based on the sensor data patterns.</span></span>
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Additional Information</span></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sampling Rate: 2 samples per second, ensuring a fine-grained capture of driving dynamics.</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Timestamp: Included for each sample, allowing for temporal analysis of driving patterns.</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="co">#### Additional Information</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="co">- Sampling Rate: 2 samples per second, ensuring a fine-grained capture of driving dynamics.</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="co">- Timestamp: Included for each sample, allowing for temporal analysis of driving patterns.</span></span>
 <span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>In the following sections, we will delve into the preprocessing, exploratory analysis, and modeling of this dataset to build a robust classifier for driving behaviors. Stay tuned as we unravel the insights hidden within this data and develop a machine learning model with the potential to make a real-world impact.</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="co">In the following sections, we will delve into the preprocessing, exploratory analysis, and modeling of this dataset to build a robust classifier for driving behaviors. Stay tuned as we unravel the insights hidden within this data and develop a machine learning model with the potential to make a real-world impact.</span></span>
 <span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Preprocessing</span></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="co">## Data Preprocessing</span></span>
 <span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>In the realm of machine learning, data preprocessing is a critical step in preparing raw data for modeling. Our datasets, <span class="in">`motion_data_1.csv`</span> (test data) and <span class="in">`motion_data_2.csv`</span> (train data), contain acceleration and rotation measurements alongside driving behavior classifications. Let's walk through the preprocessing steps:</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="co">In the realm of machine learning, data preprocessing is a critical step in preparing raw data for modeling. Our datasets, `motion_data_1.csv` (test data) and `motion_data_2.csv` (train data), contain acceleration and rotation measurements alongside driving behavior classifications. Let's walk through the preprocessing steps:</span></span>
 <span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### Handling Missing Values</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Handling Missing Values</span></span>
 <span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>First, we'll check for missing values in both datasets. Missing data can significantly impact the performance of a machine learning model. If missing values are found, strategies such as imputation or removal of the affected rows can be considered.</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="co">First, we'll check for missing values in both datasets. Missing data can significantly impact the performance of a machine learning model. If missing values are found, strategies such as imputation or removal of the affected rows can be considered.</span></span>
 <span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="co">import pandas as pd</span></span>
 <span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the datasets</span></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>test_data <span class="op">=</span> pd.read_csv(<span class="st">'motion_data_1.csv'</span>)</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>train_data <span class="op">=</span> pd.read_csv(<span class="st">'motion_data_2.csv'</span>)</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="co">test_data = pd.read_csv('motion_data_1.csv')</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="co">train_data = pd.read_csv('motion_data_2.csv')</span></span>
 <span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values in both datasets</span></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>missing_values_test <span class="op">=</span> test_data.isnull().<span class="bu">sum</span>()</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>missing_values_train <span class="op">=</span> train_data.isnull().<span class="bu">sum</span>()</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="co">missing_values_test = test_data.isnull().sum()</span></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="co">missing_values_train = train_data.isnull().sum()</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalizing or Scaling the Data</span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Normalizing or Scaling the Data</span></span>
 <span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>Normalization or scaling is crucial when dealing with sensor data. It ensures that each feature contributes proportionately to the final prediction. Given the different scales of acceleration (in m/s²) and rotation (in °/s), applying a scaling method like Min-Max scaling or Standardization is important.</span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="co">Normalization or scaling is crucial when dealing with sensor data. It ensures that each feature contributes proportionately to the final prediction. Given the different scales of acceleration (in m/s²) and rotation (in °/s), applying a scaling method like Min-Max scaling or Standardization is important.</span></span>
 <span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.preprocessing import StandardScaler</span></span>
 <span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the data</span></span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>train_data_scaled <span class="op">=</span> scaler.fit_transform(train_data.iloc[:, :<span class="op">-</span><span class="dv">2</span>]) <span class="co"># Excluding 'Class' and 'Timestamp' columns</span></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>test_data_scaled <span class="op">=</span> scaler.transform(test_data.iloc[:, :<span class="op">-</span><span class="dv">2</span>])</span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="co">scaler = StandardScaler()</span></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="co">train_data_scaled = scaler.fit_transform(train_data.iloc[:, :-2]) # Excluding 'Class' and 'Timestamp' columns</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="co">test_data_scaled = scaler.transform(test_data.iloc[:, :-2])</span></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Engineering </span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Feature Engineering </span></span>
 <span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>Feature engineering might involve creating new features or modifying existing ones to improve model performance. In our case, we might consider deriving features like the total magnitude of acceleration or rotation.</span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="co">Feature engineering might involve creating new features or modifying existing ones to improve model performance. In our case, we might consider deriving features like the total magnitude of acceleration or rotation.</span></span>
 <span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
 <span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding a feature: Total magnitude of acceleration</span></span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>train_data[<span class="st">'TotalAcc'</span>] <span class="op">=</span> np.sqrt(train_data[<span class="st">'AccX'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> train_data[<span class="st">'AccY'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> train_data[<span class="st">'AccZ'</span>]<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>test_data[<span class="st">'TotalAcc'</span>] <span class="op">=</span> np.sqrt(test_data[<span class="st">'AccX'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> test_data[<span class="st">'AccY'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> test_data[<span class="st">'AccZ'</span>]<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a><span class="co">train_data['TotalAcc'] = np.sqrt(train_data['AccX']**2 + train_data['AccY']**2 + train_data['AccZ']**2)</span></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="co">test_data['TotalAcc'] = np.sqrt(test_data['AccX']**2 + test_data['AccY']**2 + test_data['AccZ']**2)</span></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exploratory Data Analysis (EDA)</span></span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="co">## Exploratory Data Analysis (EDA)</span></span>
 <span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical Summary of the Dataset</span></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Statistical Summary of the Dataset</span></span>
 <span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>Understanding the basic statistics of the dataset is essential. This includes measures like mean, median, standard deviation, etc., providing insights into the data distribution.</span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="co">Understanding the basic statistics of the dataset is essential. This includes measures like mean, median, standard deviation, etc., providing insights into the data distribution.</span></span>
 <span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Descriptive statistics of the training data</span></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>train_data_description <span class="op">=</span> train_data.describe()</span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="co">train_data_description = train_data.describe()</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualization of Data Distribution</span></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Visualization of Data Distribution</span></span>
 <span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Histograms or Box Plots for Acceleration and Rotation Data</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="co">#### Histograms or Box Plots for Acceleration and Rotation Data</span></span>
 <span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>Histograms and box plots are effective for visualizing the distribution of sensor data and identifying outliers or skewness in the data.</span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="co">Histograms and box plots are effective for visualizing the distribution of sensor data and identifying outliers or skewness in the data.</span></span>
 <span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="co">import seaborn as sns</span></span>
 <span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the figure for multiple subplots</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">3</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Histograms of Acceleration and Rotation Data'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a><span class="co">fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(15, 15))</span></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="co">fig.suptitle('Histograms of Acceleration and Rotation Data', fontsize=16)</span></span>
 <span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting histograms for each sensor data column</span></span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'AccX'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>, <span class="dv">0</span>], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">'Acceleration in X-axis (AccX)'</span>)</span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['AccX'], kde=True, ax=axes[0, 0], color='skyblue')</span></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a><span class="co">axes[0, 0].set_title('Acceleration in X-axis (AccX)')</span></span>
 <span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'AccY'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'olive'</span>)</span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">'Acceleration in Y-axis (AccY)'</span>)</span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['AccY'], kde=True, ax=axes[0, 1], color='olive')</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a><span class="co">axes[0, 1].set_title('Acceleration in Y-axis (AccY)')</span></span>
 <span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'AccZ'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>, <span class="dv">0</span>], color<span class="op">=</span><span class="st">'gold'</span>)</span>
-<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">'Acceleration in Z-axis (AccZ)'</span>)</span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['AccZ'], kde=True, ax=axes[1, 0], color='gold')</span></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="co">axes[1, 0].set_title('Acceleration in Z-axis (AccZ)')</span></span>
 <span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'GyroX'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'teal'</span>)</span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>, <span class="dv">1</span>].set_title(<span class="st">'Rotation in X-axis (GyroX)'</span>)</span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['GyroX'], kde=True, ax=axes[1, 1], color='teal')</span></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a><span class="co">axes[1, 1].set_title('Rotation in X-axis (GyroX)')</span></span>
 <span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'GyroY'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">2</span>, <span class="dv">0</span>], color<span class="op">=</span><span class="st">'salmon'</span>)</span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>, <span class="dv">0</span>].set_title(<span class="st">'Rotation in Y-axis (GyroY)'</span>)</span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['GyroY'], kde=True, ax=axes[2, 0], color='salmon')</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a><span class="co">axes[2, 0].set_title('Rotation in Y-axis (GyroY)')</span></span>
 <span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>sns.histplot(train_data[<span class="st">'GyroZ'</span>], kde<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>axes[<span class="dv">2</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'violet'</span>)</span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>, <span class="dv">1</span>].set_title(<span class="st">'Rotation in Z-axis (GyroZ)'</span>)</span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="co">sns.histplot(train_data['GyroZ'], kde=True, ax=axes[2, 1], color='violet')</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a><span class="co">axes[2, 1].set_title('Rotation in Z-axis (GyroZ)')</span></span>
 <span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.03</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a><span class="co">plt.tight_layout(rect=[0, 0.03, 1, 0.95])</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="co">plt.show()</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Acceleration (AccX, AccY, AccZ)**: The distributions for acceleration on all three axes appear to be roughly bell-shaped, indicating that most of the readings are clustered around the mean, with fewer readings at the extreme ends. This suggests normal driving conditions with occasional variances that could indicate moments of acceleration or deceleration.</span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="co">1. **Acceleration (AccX, AccY, AccZ)**: The distributions for acceleration on all three axes appear to be roughly bell-shaped, indicating that most of the readings are clustered around the mean, with fewer readings at the extreme ends. This suggests normal driving conditions with occasional variances that could indicate moments of acceleration or deceleration.</span></span>
 <span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Rotation (GyroX, GyroY, GyroZ)**: The rotation data histograms show a similar bell-shaped distribution, especially for the X and Y axes, indicating consistent turning behavior with some outliers potentially representing more aggressive turns or corrections. The GyroZ histogram is notably narrower, which might suggest that rotation around the Z-axis (often corresponding to yaw movements) is less variable during normal driving conditions.</span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="co">2. **Rotation (GyroX, GyroY, GyroZ)**: The rotation data histograms show a similar bell-shaped distribution, especially for the X and Y axes, indicating consistent turning behavior with some outliers potentially representing more aggressive turns or corrections. The GyroZ histogram is notably narrower, which might suggest that rotation around the Z-axis (often corresponding to yaw movements) is less variable during normal driving conditions.</span></span>
 <span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Correlation Heatmaps</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="co">#### Correlation Heatmaps</span></span>
 <span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>A correlation heatmap helps in understanding the relationships between different sensor readings. It's crucial for identifying features that are highly correlated and might need to be addressed during feature selection.</span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="co">A correlation heatmap helps in understanding the relationships between different sensor readings. It's crucial for identifying features that are highly correlated and might need to be addressed during feature selection.</span></span>
 <span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a><span class="co"># For the correlation heatmap, we need to exclude non-numeric columns (Class and Timestamp)</span></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a>train_data_numeric <span class="op">=</span> train_data.select_dtypes(include<span class="op">=</span>[<span class="st">'float64'</span>, <span class="st">'int64'</span>])</span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="co">train_data_numeric = train_data.select_dtypes(include=['float64', 'int64'])</span></span>
 <span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating the correlation heatmap</span></span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>sns.heatmap(train_data_numeric.corr(), annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>)</span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Correlation Heatmap of Numeric Features'</span>)</span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="co">plt.figure(figsize=(10, 6))</span></span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="co">sns.heatmap(train_data_numeric.corr(), annot=True, cmap='coolwarm')</span></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co">plt.title('Correlation Heatmap of Numeric Features')</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="co">plt.show()</span></span>
 <span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a>In this heatmap:</span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="co">In this heatmap:</span></span>
 <span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Values close to 1 or -1 indicate a strong positive or negative correlation, respectively.</span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Values close to 0 suggest no linear correlation between the variables.</span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="co">- Values close to 1 or -1 indicate a strong positive or negative correlation, respectively.</span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="co">- Values close to 0 suggest no linear correlation between the variables.</span></span>
 <span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a>It appears that:</span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="co">It appears that:</span></span>
 <span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There are no exceptionally strong correlations between the different axes of acceleration and rotation, which is desirable in a dataset used for behavior prediction as it indicates that the sensor readings provide unique information.</span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The strongest negative correlation is observed between GyroZ and AccX, which might suggest that certain types of aggressive driving behaviors cause inverse changes in these two measurements.</span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="co">- There are no exceptionally strong correlations between the different axes of acceleration and rotation, which is desirable in a dataset used for behavior prediction as it indicates that the sensor readings provide unique information.</span></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="co">- The strongest negative correlation is observed between GyroZ and AccX, which might suggest that certain types of aggressive driving behaviors cause inverse changes in these two measurements.</span></span>
 <span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>The absence of very high correlations means that there may not be redundant features in the dataset, which is good for a machine learning model that relies on diverse data points to make predictions. However, the subtle correlations that do exist can still provide valuable insights when developing features and training models.</span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="co">The absence of very high correlations means that there may not be redundant features in the dataset, which is good for a machine learning model that relies on diverse data points to make predictions. However, the subtle correlations that do exist can still provide valuable insights when developing features and training models.</span></span>
 <span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>These visualizations and their interpretations are key in understanding the underlying patterns in the driving behavior dataset, which will inform the feature selection and modeling phases of the machine learning project.</span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="co">These visualizations and their interpretations are key in understanding the underlying patterns in the driving behavior dataset, which will inform the feature selection and modeling phases of the machine learning project.</span></span>
 <span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>In the next sections, we will delve into model selection, training, and evaluation, using the insights and data preparations we've just discussed. Stay tuned!</span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a><span class="co">In the next sections, we will delve into model selection, training, and evaluation, using the insights and data preparations we've just discussed. Stay tuned!</span></span>
 <span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Preparation for Modeling</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a><span class="co">## Data Preparation for Modeling</span></span>
 <span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>Preparing the data for modeling is a crucial step in the machine learning pipeline. It ensures that the data fed into the model is clean, representative, and well-formatted.</span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="co">Preparing the data for modeling is a crucial step in the machine learning pipeline. It ensures that the data fed into the model is clean, representative, and well-formatted.</span></span>
 <span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### Splitting Data into Training and Testing Sets</span></span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Splitting Data into Training and Testing Sets</span></span>
 <span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>We have two datasets: <span class="in">`train_data`</span> and <span class="in">`test_data`</span>, pre-split for our convenience. Typically, we would use a function like <span class="in">`train_test_split`</span> from <span class="in">`scikit-learn`</span> to divide our dataset into a training set and a test set, ensuring that both sets are representative of the overall distribution. However, in this scenario, that step is already accounted for.</span>
+<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a><span class="co">We have two datasets: `train_data` and `test_data`, pre-split for our convenience. Typically, we would use a function like `train_test_split` from `scikit-learn` to divide our dataset into a training set and a test set, ensuring that both sets are representative of the overall distribution. However, in this scenario, that step is already accounted for.</span></span>
 <span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Since the data is pre-split, this step is not required for our current workflow.</span></span>
 <span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a><span class="co"># Normally, we would do something like this:</span></span>
 <span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a><span class="co"># from sklearn.model_selection import train_test_split</span></span>
 <span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a><span class="co"># X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)</span></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Handling Class Imbalance</span></span>
+<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Handling Class Imbalance</span></span>
 <span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>Class imbalance can significantly skew the performance of a classifier towards the majority class. It's important to check the balance of classes and apply techniques such as resampling if necessary.</span>
+<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a><span class="co">Class imbalance can significantly skew the performance of a classifier towards the majority class. It's important to check the balance of classes and apply techniques such as resampling if necessary.</span></span>
 <span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking the balance of the classes</span></span>
-<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a>class_counts <span class="op">=</span> train_data[<span class="st">'Class'</span>].value_counts()</span>
+<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a><span class="co">class_counts = train_data['Class'].value_counts()</span></span>
 <span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a><span class="co"># If imbalance is found, we might consider resampling strategies like:</span></span>
 <span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a><span class="co"># - Upsampling minority classes</span></span>
 <span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a><span class="co"># - Downsampling majority classes</span></span>
 <span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a><span class="co"># - Using SMOTE (Synthetic Minority Over-sampling Technique)</span></span>
-<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Selection</span></span>
+<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a><span class="co">## Model Selection</span></span>
 <span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a>Selecting the right model is about finding the balance between prediction accuracy, computational efficiency, and the ease of interpretation.</span>
+<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a><span class="co">Selecting the right model is about finding the balance between prediction accuracy, computational efficiency, and the ease of interpretation.</span></span>
 <span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a><span class="fu">### Overview of Potential Machine Learning Models for Classification</span></span>
+<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Overview of Potential Machine Learning Models for Classification</span></span>
 <span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a>For our classification task, we have several models at our disposal:</span>
+<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a><span class="co">For our classification task, we have several models at our disposal:</span></span>
 <span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Decision Tree**: A good baseline that is easy to interpret.</span>
-<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random Forest**: An ensemble method that can improve on the performance of a single decision tree.</span>
-<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Support Vector Machine (SVM)**: Effective in high-dimensional spaces.</span>
-<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Neural Networks**: Potentially high performance but may require more data and compute resources.</span>
+<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a><span class="co">- **Decision Tree**: A good baseline that is easy to interpret.</span></span>
+<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a><span class="co">- **Random Forest**: An ensemble method that can improve on the performance of a single decision tree.</span></span>
+<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a><span class="co">- **Support Vector Machine (SVM)**: Effective in high-dimensional spaces.</span></span>
+<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a><span class="co">- **Neural Networks**: Potentially high performance but may require more data and compute resources.</span></span>
 <span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criteria for Model Selection</span></span>
+<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Criteria for Model Selection</span></span>
 <span id="cb11-249"><a href="#cb11-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a>When selecting the model, we consider several criteria:</span>
+<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a><span class="co">When selecting the model, we consider several criteria:</span></span>
 <span id="cb11-251"><a href="#cb11-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Accuracy**: How often the model makes the correct prediction.</span>
-<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Speed**: How quickly the model can be trained and used for prediction.</span>
-<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpretability**: The ease with which we can understand the model's predictions.</span>
+<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="co">- **Accuracy**: How often the model makes the correct prediction.</span></span>
+<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a><span class="co">- **Speed**: How quickly the model can be trained and used for prediction.</span></span>
+<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a><span class="co">- **Interpretability**: The ease with which we can understand the model's predictions.</span></span>
 <span id="cb11-255"><a href="#cb11-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-256"><a href="#cb11-256" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Training</span></span>
+<span id="cb11-256"><a href="#cb11-256" aria-hidden="true" tabindex="-1"></a><span class="co">## Model Training</span></span>
 <span id="cb11-257"><a href="#cb11-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-258"><a href="#cb11-258" aria-hidden="true" tabindex="-1"></a>Training our models is like teaching them to understand patterns within the data that distinguish between SLOW, NORMAL, and AGGRESSIVE driving behaviors. We will employ four different machine learning models to find the best predictor.</span>
+<span id="cb11-258"><a href="#cb11-258" aria-hidden="true" tabindex="-1"></a><span class="co">Training our models is like teaching them to understand patterns within the data that distinguish between SLOW, NORMAL, and AGGRESSIVE driving behaviors. We will employ four different machine learning models to find the best predictor.</span></span>
 <span id="cb11-259"><a href="#cb11-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-260"><a href="#cb11-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training Different Models</span></span>
+<span id="cb11-260"><a href="#cb11-260" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Training Different Models</span></span>
 <span id="cb11-261"><a href="#cb11-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-262"><a href="#cb11-262" aria-hidden="true" tabindex="-1"></a>We start by training different types of models. Each has its own strengths and might capture different aspects of the driving behavior.</span>
+<span id="cb11-262"><a href="#cb11-262" aria-hidden="true" tabindex="-1"></a><span class="co">We start by training different types of models. Each has its own strengths and might capture different aspects of the driving behavior.</span></span>
 <span id="cb11-263"><a href="#cb11-263" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-266"><a href="#cb11-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-267"><a href="#cb11-267" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
-<span id="cb11-268"><a href="#cb11-268" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb11-269"><a href="#cb11-269" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb11-270"><a href="#cb11-270" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span>
+<span id="cb11-267"><a href="#cb11-267" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.tree import DecisionTreeClassifier</span></span>
+<span id="cb11-268"><a href="#cb11-268" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.ensemble import RandomForestClassifier</span></span>
+<span id="cb11-269"><a href="#cb11-269" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.svm import SVC</span></span>
+<span id="cb11-270"><a href="#cb11-270" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.neural_network import MLPClassifier</span></span>
 <span id="cb11-271"><a href="#cb11-271" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-272"><a href="#cb11-272" aria-hidden="true" tabindex="-1"></a><span class="co"># Initializing models with default parameters</span></span>
-<span id="cb11-273"><a href="#cb11-273" aria-hidden="true" tabindex="-1"></a>decision_tree <span class="op">=</span> DecisionTreeClassifier()</span>
-<span id="cb11-274"><a href="#cb11-274" aria-hidden="true" tabindex="-1"></a>random_forest <span class="op">=</span> RandomForestClassifier()</span>
-<span id="cb11-275"><a href="#cb11-275" aria-hidden="true" tabindex="-1"></a>svm <span class="op">=</span> SVC()</span>
-<span id="cb11-276"><a href="#cb11-276" aria-hidden="true" tabindex="-1"></a>neural_network <span class="op">=</span> MLPClassifier()</span>
+<span id="cb11-273"><a href="#cb11-273" aria-hidden="true" tabindex="-1"></a><span class="co">decision_tree = DecisionTreeClassifier()</span></span>
+<span id="cb11-274"><a href="#cb11-274" aria-hidden="true" tabindex="-1"></a><span class="co">random_forest = RandomForestClassifier()</span></span>
+<span id="cb11-275"><a href="#cb11-275" aria-hidden="true" tabindex="-1"></a><span class="co">svm = SVC()</span></span>
+<span id="cb11-276"><a href="#cb11-276" aria-hidden="true" tabindex="-1"></a><span class="co">neural_network = MLPClassifier()</span></span>
 <span id="cb11-277"><a href="#cb11-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-278"><a href="#cb11-278" aria-hidden="true" tabindex="-1"></a>decision_tree.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-279"><a href="#cb11-279" aria-hidden="true" tabindex="-1"></a>random_forest.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-280"><a href="#cb11-280" aria-hidden="true" tabindex="-1"></a>svm.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>]) </span>
-<span id="cb11-281"><a href="#cb11-281" aria-hidden="true" tabindex="-1"></a>neural_network.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-282"><a href="#cb11-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-278"><a href="#cb11-278" aria-hidden="true" tabindex="-1"></a><span class="co">decision_tree.fit(train_data.drop(['Class'], axis=1), train_data['Class'])</span></span>
+<span id="cb11-279"><a href="#cb11-279" aria-hidden="true" tabindex="-1"></a><span class="co">random_forest.fit(train_data.drop(['Class'], axis=1), train_data['Class'])</span></span>
+<span id="cb11-280"><a href="#cb11-280" aria-hidden="true" tabindex="-1"></a><span class="co">svm.fit(train_data.drop(['Class'], axis=1), train_data['Class']) </span></span>
+<span id="cb11-281"><a href="#cb11-281" aria-hidden="true" tabindex="-1"></a><span class="co">neural_network.fit(train_data.drop(['Class'], axis=1), train_data['Class'])</span></span>
+<span id="cb11-282"><a href="#cb11-282" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
 <span id="cb11-283"><a href="#cb11-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-284"><a href="#cb11-284" aria-hidden="true" tabindex="-1"></a>The <span class="in">`fit`</span> method allows the models to learn from the training data. It's during this process that they identify which features are most important for predicting driving behavior.</span>
+<span id="cb11-284"><a href="#cb11-284" aria-hidden="true" tabindex="-1"></a><span class="co">The `fit` method allows the models to learn from the training data. It's during this process that they identify which features are most important for predicting driving behavior.</span></span>
 <span id="cb11-285"><a href="#cb11-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-286"><a href="#cb11-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hyperparameter Tuning</span></span>
+<span id="cb11-286"><a href="#cb11-286" aria-hidden="true" tabindex="-1"></a><span class="al">###</span><span class="co"> Hyperparameter Tuning</span></span>
 <span id="cb11-287"><a href="#cb11-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-288"><a href="#cb11-288" aria-hidden="true" tabindex="-1"></a>To optimize our models, we tweak their settings, known as hyperparameters. This process is akin to fine-tuning an instrument to ensure it plays the perfect note.</span>
+<span id="cb11-288"><a href="#cb11-288" aria-hidden="true" tabindex="-1"></a><span class="co">To optimize our models, we tweak their settings, known as hyperparameters. This process is akin to fine-tuning an instrument to ensure it plays the perfect note.</span></span>
 <span id="cb11-289"><a href="#cb11-289" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-292"><a href="#cb11-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-293"><a href="#cb11-293" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
-<span id="cb11-294"><a href="#cb11-294" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-293"><a href="#cb11-293" aria-hidden="true" tabindex="-1"></a><span class="co">from sklearn.model_selection import RandomizedSearchCV</span></span>
+<span id="cb11-294"><a href="#cb11-294" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
 <span id="cb11-295"><a href="#cb11-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-296"><a href="#cb11-296" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the parameter grid for a Decision Tree</span></span>
-<span id="cb11-297"><a href="#cb11-297" aria-hidden="true" tabindex="-1"></a>dt_param_grid <span class="op">=</span> {</span>
-<span id="cb11-298"><a href="#cb11-298" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
-<span id="cb11-299"><a href="#cb11-299" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min_samples_leaf'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]</span>
-<span id="cb11-300"><a href="#cb11-300" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-301"><a href="#cb11-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-302"><a href="#cb11-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Hyperparameter tuning for the Decision Tree using RandomizedSearchCV</span></span>
-<span id="cb11-303"><a href="#cb11-303" aria-hidden="true" tabindex="-1"></a>random_search_dt <span class="op">=</span> RandomizedSearchCV(DecisionTreeClassifier(), dt_param_grid, n_iter<span class="op">=</span><span class="dv">10</span>, cv<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb11-304"><a href="#cb11-304" aria-hidden="true" tabindex="-1"></a>random_search_dt.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-305"><a href="#cb11-305" aria-hidden="true" tabindex="-1"></a>best_params_dt <span class="op">=</span> random_search_dt.best_params_</span>
+<span id="cb11-296"><a href="#cb11-296" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduce the number of iterations and cross-validation folds</span></span>
+<span id="cb11-297"><a href="#cb11-297" aria-hidden="true" tabindex="-1"></a><span class="co">n_iter_search = 5</span></span>
+<span id="cb11-298"><a href="#cb11-298" aria-hidden="true" tabindex="-1"></a><span class="co">cv_folds = 3</span></span>
+<span id="cb11-299"><a href="#cb11-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-300"><a href="#cb11-300" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify the models - example for Random Forest</span></span>
+<span id="cb11-301"><a href="#cb11-301" aria-hidden="true" tabindex="-1"></a><span class="co">rf_param_grid = {</span></span>
+<span id="cb11-302"><a href="#cb11-302" aria-hidden="true" tabindex="-1"></a><span class="co">    'n_estimators': [50, 100],  # reduced number of trees</span></span>
+<span id="cb11-303"><a href="#cb11-303" aria-hidden="true" tabindex="-1"></a><span class="co">    'max_depth': [10, None],  # fewer options</span></span>
+<span id="cb11-304"><a href="#cb11-304" aria-hidden="true" tabindex="-1"></a><span class="co">    'min_samples_split': [2, 5]</span></span>
+<span id="cb11-305"><a href="#cb11-305" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span>
 <span id="cb11-306"><a href="#cb11-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-307"><a href="#cb11-307" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid for Random Forest</span></span>
-<span id="cb11-308"><a href="#cb11-308" aria-hidden="true" tabindex="-1"></a>rf_param_grid <span class="op">=</span> {</span>
-<span id="cb11-309"><a href="#cb11-309" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>],</span>
-<span id="cb11-310"><a href="#cb11-310" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="va">None</span>],</span>
-<span id="cb11-311"><a href="#cb11-311" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min_samples_split'</span>: [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>]</span>
-<span id="cb11-312"><a href="#cb11-312" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-313"><a href="#cb11-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-314"><a href="#cb11-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the RandomizedSearchCV object for Random Forest</span></span>
-<span id="cb11-315"><a href="#cb11-315" aria-hidden="true" tabindex="-1"></a>random_search_rf <span class="op">=</span> RandomizedSearchCV(RandomForestClassifier(), rf_param_grid, n_iter<span class="op">=</span><span class="dv">10</span>, cv<span class="op">=</span><span class="dv">5</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb11-316"><a href="#cb11-316" aria-hidden="true" tabindex="-1"></a>random_search_rf.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-317"><a href="#cb11-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-318"><a href="#cb11-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters for Random Forest</span></span>
-<span id="cb11-319"><a href="#cb11-319" aria-hidden="true" tabindex="-1"></a>best_params_rf <span class="op">=</span> random_search_rf.best_params_</span>
-<span id="cb11-320"><a href="#cb11-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-321"><a href="#cb11-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid for SVM</span></span>
-<span id="cb11-322"><a href="#cb11-322" aria-hidden="true" tabindex="-1"></a>svm_param_grid <span class="op">=</span> {</span>
-<span id="cb11-323"><a href="#cb11-323" aria-hidden="true" tabindex="-1"></a>    <span class="st">'C'</span>: [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
-<span id="cb11-324"><a href="#cb11-324" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gamma'</span>: [<span class="st">'scale'</span>, <span class="st">'auto'</span>],</span>
-<span id="cb11-325"><a href="#cb11-325" aria-hidden="true" tabindex="-1"></a>    <span class="st">'kernel'</span>: [<span class="st">'rbf'</span>, <span class="st">'linear'</span>]</span>
-<span id="cb11-326"><a href="#cb11-326" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-327"><a href="#cb11-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-328"><a href="#cb11-328" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the RandomizedSearchCV object for SVM</span></span>
-<span id="cb11-329"><a href="#cb11-329" aria-hidden="true" tabindex="-1"></a>random_search_svm <span class="op">=</span> RandomizedSearchCV(SVC(), svm_param_grid, n_iter<span class="op">=</span><span class="dv">10</span>, cv<span class="op">=</span><span class="dv">5</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb11-330"><a href="#cb11-330" aria-hidden="true" tabindex="-1"></a>random_search_svm.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-331"><a href="#cb11-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-332"><a href="#cb11-332" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters for SVM</span></span>
-<span id="cb11-333"><a href="#cb11-333" aria-hidden="true" tabindex="-1"></a>best_params_svm <span class="op">=</span> random_search_svm.best_params_</span>
-<span id="cb11-334"><a href="#cb11-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-335"><a href="#cb11-335" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid for Neural Network</span></span>
-<span id="cb11-336"><a href="#cb11-336" aria-hidden="true" tabindex="-1"></a>nn_param_grid <span class="op">=</span> {</span>
-<span id="cb11-337"><a href="#cb11-337" aria-hidden="true" tabindex="-1"></a>    <span class="st">'hidden_layer_sizes'</span>: [(<span class="dv">50</span>,), (<span class="dv">100</span>,), (<span class="dv">50</span>, <span class="dv">50</span>)],</span>
-<span id="cb11-338"><a href="#cb11-338" aria-hidden="true" tabindex="-1"></a>    <span class="st">'activation'</span>: [<span class="st">'tanh'</span>, <span class="st">'relu'</span>],</span>
-<span id="cb11-339"><a href="#cb11-339" aria-hidden="true" tabindex="-1"></a>    <span class="st">'solver'</span>: [<span class="st">'sgd'</span>, <span class="st">'adam'</span>],</span>
-<span id="cb11-340"><a href="#cb11-340" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_iter'</span>: [<span class="dv">200</span>, <span class="dv">400</span>]</span>
-<span id="cb11-341"><a href="#cb11-341" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-342"><a href="#cb11-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-343"><a href="#cb11-343" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the RandomizedSearchCV object for Neural Network</span></span>
-<span id="cb11-344"><a href="#cb11-344" aria-hidden="true" tabindex="-1"></a>random_search_nn <span class="op">=</span> RandomizedSearchCV(MLPClassifier(), nn_param_grid, n_iter<span class="op">=</span><span class="dv">10</span>, cv<span class="op">=</span><span class="dv">5</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb11-345"><a href="#cb11-345" aria-hidden="true" tabindex="-1"></a>random_search_nn.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-346"><a href="#cb11-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-347"><a href="#cb11-347" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters for Neural Network</span></span>
-<span id="cb11-348"><a href="#cb11-348" aria-hidden="true" tabindex="-1"></a>best_params_nn <span class="op">=</span> random_search_nn.best_params_</span>
-<span id="cb11-349"><a href="#cb11-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-350"><a href="#cb11-350" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can print or use the best_params_rf, best_params_svm, and best_params_nn for the best-found parameters</span></span>
-<span id="cb11-351"><a href="#cb11-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-352"><a href="#cb11-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-353"><a href="#cb11-353" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`GridSearchCV`</span>, we systematically work through multiple combinations of parameter tunes, cross-validating as we go to determine which tune gives the best performance.</span>
-<span id="cb11-354"><a href="#cb11-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-355"><a href="#cb11-355" aria-hidden="true" tabindex="-1"></a>By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.</span>
-<span id="cb11-356"><a href="#cb11-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-359"><a href="#cb11-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb11-360"><a href="#cb11-360" aria-hidden="true" tabindex="-1"></a><span class="co"># After the GridSearchCV process is complete, we can print out the best parameters for each model</span></span>
-<span id="cb11-361"><a href="#cb11-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-362"><a href="#cb11-362" aria-hidden="true" tabindex="-1"></a><span class="co"># Best parameters for Decision Tree</span></span>
-<span id="cb11-363"><a href="#cb11-363" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters for Decision Tree:"</span>)</span>
-<span id="cb11-364"><a href="#cb11-364" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_params_dt)</span>
-<span id="cb11-365"><a href="#cb11-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-366"><a href="#cb11-366" aria-hidden="true" tabindex="-1"></a><span class="co"># Best parameters for Random Forest</span></span>
-<span id="cb11-367"><a href="#cb11-367" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters for Random Forest:"</span>)</span>
-<span id="cb11-368"><a href="#cb11-368" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_params_rf)</span>
-<span id="cb11-369"><a href="#cb11-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-370"><a href="#cb11-370" aria-hidden="true" tabindex="-1"></a><span class="co"># Best parameters for SVM</span></span>
-<span id="cb11-371"><a href="#cb11-371" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters for SVM:"</span>)</span>
-<span id="cb11-372"><a href="#cb11-372" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_params_svm)</span>
-<span id="cb11-373"><a href="#cb11-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-374"><a href="#cb11-374" aria-hidden="true" tabindex="-1"></a><span class="co"># Best parameters for Neural Network</span></span>
-<span id="cb11-375"><a href="#cb11-375" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters for Neural Network:"</span>)</span>
-<span id="cb11-376"><a href="#cb11-376" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best_params_nn)</span>
-<span id="cb11-377"><a href="#cb11-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-378"><a href="#cb11-378" aria-hidden="true" tabindex="-1"></a><span class="co"># These parameters can then be used to initialize the respective models with the optimal settings</span></span>
-<span id="cb11-379"><a href="#cb11-379" aria-hidden="true" tabindex="-1"></a>decision_tree_optimized <span class="op">=</span> DecisionTreeClassifier(<span class="op">**</span>best_params_dt)</span>
-<span id="cb11-380"><a href="#cb11-380" aria-hidden="true" tabindex="-1"></a>random_forest_optimized <span class="op">=</span> RandomForestClassifier(<span class="op">**</span>best_params_rf)</span>
-<span id="cb11-381"><a href="#cb11-381" aria-hidden="true" tabindex="-1"></a>svm_optimized <span class="op">=</span> SVC(<span class="op">**</span>best_params_svm)</span>
-<span id="cb11-382"><a href="#cb11-382" aria-hidden="true" tabindex="-1"></a>neural_network_optimized <span class="op">=</span> MLPClassifier(<span class="op">**</span>best_params_nn)</span>
-<span id="cb11-383"><a href="#cb11-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-384"><a href="#cb11-384" aria-hidden="true" tabindex="-1"></a><span class="co"># If you wish to proceed with fitting the optimized models, you would then do:</span></span>
-<span id="cb11-385"><a href="#cb11-385" aria-hidden="true" tabindex="-1"></a>decision_tree_optimized.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-386"><a href="#cb11-386" aria-hidden="true" tabindex="-1"></a>random_forest_optimized.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-387"><a href="#cb11-387" aria-hidden="true" tabindex="-1"></a>svm_optimized.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-388"><a href="#cb11-388" aria-hidden="true" tabindex="-1"></a>neural_network_optimized.fit(train_data.drop([<span class="st">'Class'</span>], axis<span class="op">=</span><span class="dv">1</span>), train_data[<span class="st">'Class'</span>])</span>
-<span id="cb11-389"><a href="#cb11-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-390"><a href="#cb11-390" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to replace train_data.drop(['Class'], axis=1) and train_data['Class']</span></span>
-<span id="cb11-391"><a href="#cb11-391" aria-hidden="true" tabindex="-1"></a><span class="co"># with your features and target variable if they are named differently.</span></span>
-<span id="cb11-392"><a href="#cb11-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-307"><a href="#cb11-307" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the RandomizedSearchCV object for Random Forest with fewer iterations and folds</span></span>
+<span id="cb11-308"><a href="#cb11-308" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_rf = RandomizedSearchCV(</span></span>
+<span id="cb11-309"><a href="#cb11-309" aria-hidden="true" tabindex="-1"></a><span class="co">    RandomForestClassifier(), </span></span>
+<span id="cb11-310"><a href="#cb11-310" aria-hidden="true" tabindex="-1"></a><span class="co">    param_distributions=rf_param_grid, </span></span>
+<span id="cb11-311"><a href="#cb11-311" aria-hidden="true" tabindex="-1"></a><span class="co">    n_iter=n_iter_search, </span></span>
+<span id="cb11-312"><a href="#cb11-312" aria-hidden="true" tabindex="-1"></a><span class="co">    cv=cv_folds, </span></span>
+<span id="cb11-313"><a href="#cb11-313" aria-hidden="true" tabindex="-1"></a><span class="co">    n_jobs=-1, </span></span>
+<span id="cb11-314"><a href="#cb11-314" aria-hidden="true" tabindex="-1"></a><span class="co">    random_state=42</span></span>
+<span id="cb11-315"><a href="#cb11-315" aria-hidden="true" tabindex="-1"></a><span class="co">)</span></span>
+<span id="cb11-316"><a href="#cb11-316" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_rf.fit(train_data.drop(['Class'], axis=1), train_data['Class'])</span></span>
+<span id="cb11-317"><a href="#cb11-317" aria-hidden="true" tabindex="-1"></a><span class="co">best_params_rf = random_search_rf.best_params_</span></span>
+<span id="cb11-318"><a href="#cb11-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-319"><a href="#cb11-319" aria-hidden="true" tabindex="-1"></a><span class="co"># RandomizedSearchCV for Decision Tree</span></span>
+<span id="cb11-320"><a href="#cb11-320" aria-hidden="true" tabindex="-1"></a><span class="co">dt_param_grid = {</span></span>
+<span id="cb11-321"><a href="#cb11-321" aria-hidden="true" tabindex="-1"></a><span class="co">    'max_depth': [10, 20, 30],</span></span>
+<span id="cb11-322"><a href="#cb11-322" aria-hidden="true" tabindex="-1"></a><span class="co">    'min_samples_leaf': [1, 2, 4]</span></span>
+<span id="cb11-323"><a href="#cb11-323" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span>
+<span id="cb11-324"><a href="#cb11-324" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_dt = RandomizedSearchCV(</span></span>
+<span id="cb11-325"><a href="#cb11-325" aria-hidden="true" tabindex="-1"></a><span class="co">    DecisionTreeClassifier(), </span></span>
+<span id="cb11-326"><a href="#cb11-326" aria-hidden="true" tabindex="-1"></a><span class="co">    param_distributions=dt_param_grid, </span></span>
+<span id="cb11-327"><a href="#cb11-327" aria-hidden="true" tabindex="-1"></a><span class="co">    n_iter=n_iter_search, </span></span>
+<span id="cb11-328"><a href="#cb11-328" aria-hidden="true" tabindex="-1"></a><span class="co">    cv=cv_folds, </span></span>
+<span id="cb11-329"><a href="#cb11-329" aria-hidden="true" tabindex="-1"></a><span class="co">    random_state=42</span></span>
+<span id="cb11-330"><a href="#cb11-330" aria-hidden="true" tabindex="-1"></a><span class="co">)</span></span>
+<span id="cb11-331"><a href="#cb11-331" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_dt.fit(train_data.drop(['Class'], axis=1), train_data['Class'])</span></span>
+<span id="cb11-332"><a href="#cb11-332" aria-hidden="true" tabindex="-1"></a><span class="co">best_params_dt = random_search_dt.best_params_</span></span>
+<span id="cb11-333"><a href="#cb11-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-334"><a href="#cb11-334" aria-hidden="true" tabindex="-1"></a><span class="co"># RandomizedSearchCV for SVM</span></span>
+<span id="cb11-335"><a href="#cb11-335" aria-hidden="true" tabindex="-1"></a><span class="co"># Using an extremely small subset of the data</span></span>
+<span id="cb11-336"><a href="#cb11-336" aria-hidden="true" tabindex="-1"></a><span class="co">subset_size = 50  # Very small subset for extremely quick execution</span></span>
+<span id="cb11-337"><a href="#cb11-337" aria-hidden="true" tabindex="-1"></a><span class="co">train_subset = train_data.sample(n=subset_size, random_state=42)</span></span>
+<span id="cb11-338"><a href="#cb11-338" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplified RandomizedSearchCV for SVM</span></span>
+<span id="cb11-339"><a href="#cb11-339" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_svm = RandomizedSearchCV(</span></span>
+<span id="cb11-340"><a href="#cb11-340" aria-hidden="true" tabindex="-1"></a><span class="co">    SVC(), </span></span>
+<span id="cb11-341"><a href="#cb11-341" aria-hidden="true" tabindex="-1"></a><span class="co">    param_distributions={'C': [1], 'kernel': ['linear']},  # Minimal hyperparameter space</span></span>
+<span id="cb11-342"><a href="#cb11-342" aria-hidden="true" tabindex="-1"></a><span class="co">    n_iter=1,  # Only one iteration</span></span>
+<span id="cb11-343"><a href="#cb11-343" aria-hidden="true" tabindex="-1"></a><span class="co">    cv=2,  # Reduced to 2-fold cross-validation</span></span>
+<span id="cb11-344"><a href="#cb11-344" aria-hidden="true" tabindex="-1"></a><span class="co">    n_jobs=1,  # Limit the number of jobs to 1 for a quick run</span></span>
+<span id="cb11-345"><a href="#cb11-345" aria-hidden="true" tabindex="-1"></a><span class="co">    random_state=42,</span></span>
+<span id="cb11-346"><a href="#cb11-346" aria-hidden="true" tabindex="-1"></a><span class="co">    verbose=0  # No verbosity</span></span>
+<span id="cb11-347"><a href="#cb11-347" aria-hidden="true" tabindex="-1"></a><span class="co">)</span></span>
+<span id="cb11-348"><a href="#cb11-348" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_svm.fit(train_subset.drop(['Class'], axis=1), train_subset['Class'])</span></span>
+<span id="cb11-349"><a href="#cb11-349" aria-hidden="true" tabindex="-1"></a><span class="co">best_params_svm = random_search_svm.best_params_</span></span>
+<span id="cb11-350"><a href="#cb11-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-351"><a href="#cb11-351" aria-hidden="true" tabindex="-1"></a><span class="co"># RandomizedSearchCV for Neural Network</span></span>
+<span id="cb11-352"><a href="#cb11-352" aria-hidden="true" tabindex="-1"></a><span class="co"># Using a very small subset of the data</span></span>
+<span id="cb11-353"><a href="#cb11-353" aria-hidden="true" tabindex="-1"></a><span class="co">subset_size = 50  # Extremely small subset for quick execution</span></span>
+<span id="cb11-354"><a href="#cb11-354" aria-hidden="true" tabindex="-1"></a><span class="co">train_subset = train_data.sample(n=subset_size, random_state=42)</span></span>
+<span id="cb11-355"><a href="#cb11-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-356"><a href="#cb11-356" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplified parameter grid for Neural Network</span></span>
+<span id="cb11-357"><a href="#cb11-357" aria-hidden="true" tabindex="-1"></a><span class="co">nn_param_grid = {</span></span>
+<span id="cb11-358"><a href="#cb11-358" aria-hidden="true" tabindex="-1"></a><span class="co">    'hidden_layer_sizes': [(50,)],  # Smaller network</span></span>
+<span id="cb11-359"><a href="#cb11-359" aria-hidden="true" tabindex="-1"></a><span class="co">    'activation': ['relu'],  # One activation function</span></span>
+<span id="cb11-360"><a href="#cb11-360" aria-hidden="true" tabindex="-1"></a><span class="co">    'solver': ['adam'],  # One solver</span></span>
+<span id="cb11-361"><a href="#cb11-361" aria-hidden="true" tabindex="-1"></a><span class="co">    'max_iter': [100]  # Fewer iterations</span></span>
+<span id="cb11-362"><a href="#cb11-362" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span>
+<span id="cb11-363"><a href="#cb11-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-364"><a href="#cb11-364" aria-hidden="true" tabindex="-1"></a><span class="co"># RandomizedSearchCV for Neural Network with simplified settings</span></span>
+<span id="cb11-365"><a href="#cb11-365" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_nn = RandomizedSearchCV(</span></span>
+<span id="cb11-366"><a href="#cb11-366" aria-hidden="true" tabindex="-1"></a><span class="co">    MLPClassifier(), </span></span>
+<span id="cb11-367"><a href="#cb11-367" aria-hidden="true" tabindex="-1"></a><span class="co">    nn_param_grid, </span></span>
+<span id="cb11-368"><a href="#cb11-368" aria-hidden="true" tabindex="-1"></a><span class="co">    n_iter=2,  # Fewer iterations</span></span>
+<span id="cb11-369"><a href="#cb11-369" aria-hidden="true" tabindex="-1"></a><span class="co">    cv=2,  # Reduced cross-validation</span></span>
+<span id="cb11-370"><a href="#cb11-370" aria-hidden="true" tabindex="-1"></a><span class="co">    n_jobs=1,  # Using single job for faster execution in limited environments</span></span>
+<span id="cb11-371"><a href="#cb11-371" aria-hidden="true" tabindex="-1"></a><span class="co">    random_state=42,</span></span>
+<span id="cb11-372"><a href="#cb11-372" aria-hidden="true" tabindex="-1"></a><span class="co">    verbose=0</span></span>
+<span id="cb11-373"><a href="#cb11-373" aria-hidden="true" tabindex="-1"></a><span class="co">)</span></span>
+<span id="cb11-374"><a href="#cb11-374" aria-hidden="true" tabindex="-1"></a><span class="co">random_search_nn.fit(train_subset.drop(['Class'], axis=1), train_subset['Class'])</span></span>
+<span id="cb11-375"><a href="#cb11-375" aria-hidden="true" tabindex="-1"></a><span class="co">best_params_nn = random_search_nn.best_params_</span></span>
+<span id="cb11-376"><a href="#cb11-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-377"><a href="#cb11-377" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the best parameters for all models</span></span>
+<span id="cb11-378"><a href="#cb11-378" aria-hidden="true" tabindex="-1"></a><span class="co">print("Best parameters for Random Forest:", best_params_rf)</span></span>
+<span id="cb11-379"><a href="#cb11-379" aria-hidden="true" tabindex="-1"></a><span class="co">print("Best parameters for Decision Tree:", best_params_dt)</span></span>
+<span id="cb11-380"><a href="#cb11-380" aria-hidden="true" tabindex="-1"></a><span class="co">print("Best parameters for SVM:", best_params_svm)</span></span>
+<span id="cb11-381"><a href="#cb11-381" aria-hidden="true" tabindex="-1"></a><span class="co">print("Best parameters for Neural Network:", best_params_nn)</span></span>
+<span id="cb11-382"><a href="#cb11-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-383"><a href="#cb11-383" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can print or use the best_params_rf, best_params_svm, and best_params_nn for the best-found parameters</span></span>
+<span id="cb11-384"><a href="#cb11-384" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
+<span id="cb11-385"><a href="#cb11-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-386"><a href="#cb11-386" aria-hidden="true" tabindex="-1"></a><span class="co">Using `GridSearchCV`, we systematically work through multiple combinations of parameter tunes, cross-validating as we go to determine which tune gives the best performance.</span></span>
+<span id="cb11-387"><a href="#cb11-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-388"><a href="#cb11-388" aria-hidden="true" tabindex="-1"></a><span class="co">By the end of these steps, we will have trained four different models and optimized their hyperparameters for best performance. This careful tuning is what sets the stage for the final step: evaluating these models to select the ultimate candidate for our driving behavior prediction task.</span></span>
+<span id="cb11-389"><a href="#cb11-389" aria-hidden="true" tabindex="-1"></a><span class="co"> --&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
