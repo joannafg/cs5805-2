@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="thumbnail.jpg" style="height:50.0%" class="figure-img"></p>
+<p><img src="thumbnail.jpg" class="img-fluid figure-img" style="width:20.0%"></p>
 </figure>
 </div>
 <section id="introduction" class="level2">
@@ -302,72 +302,71 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \epsilon
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: seaborn in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (0.13.0)
-Requirement already satisfied: pandas&gt;=1.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (2.1.3)
 Requirement already satisfied: matplotlib!=3.6.1,&gt;=3.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (3.8.2)
 Requirement already satisfied: numpy!=1.24.0,&gt;=1.20 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (1.26.2)
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (6.1.1)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.1.1)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.2.0)
+Requirement already satisfied: pandas&gt;=1.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from seaborn) (2.1.3)
 Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (23.2)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (2.8.2)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (0.12.1)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (6.1.1)
 Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (4.45.1)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.4.5)
 Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (10.1.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.1.1)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (0.12.1)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.4.5)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (3.17.0)
-Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3)
 Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.2-&gt;seaborn) (2023.3)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib!=3.6.1,&gt;=3.3-&gt;seaborn) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: matplotlib in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (3.8.2)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
-Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
 Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
 Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
 Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
 Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
+Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.17.0)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: statsmodels in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (0.14.0)
-Requirement already satisfied: scipy!=1.9.2,&gt;=1.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.11.4)
-Requirement already satisfied: packaging&gt;=21.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (23.2)
-Requirement already satisfied: pandas&gt;=1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (2.1.3)
 Requirement already satisfied: patsy&gt;=0.5.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (0.5.3)
+Requirement already satisfied: packaging&gt;=21.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (23.2)
+Requirement already satisfied: scipy!=1.9.2,&gt;=1.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.11.4)
+Requirement already satisfied: pandas&gt;=1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (2.1.3)
 Requirement already satisfied: numpy&gt;=1.18 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from statsmodels) (1.26.2)
-Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2023.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2.8.2)
 Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2023.3.post1)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2.8.2)
+Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas&gt;=1.0-&gt;statsmodels) (2023.3)
 Requirement already satisfied: six in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from patsy&gt;=0.5.2-&gt;statsmodels) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: scikit-learn in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (1.3.2)
-Requirement already satisfied: scipy&gt;=1.5.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.11.4)
-Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
 Requirement already satisfied: joblib&gt;=1.1.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.3.2)
+Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
+Requirement already satisfied: scipy&gt;=1.5.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.11.4)
 Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (3.2.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: pandas in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (2.1.3)
 Requirement already satisfied: numpy&lt;2,&gt;=1.22.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (1.26.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
 Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2.8.2)
-Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.</code></pre>
@@ -1051,7 +1050,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide</span></span>
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="al">![](thumbnail.jpg)</span>{height="50%" fig-align="center"}</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="al">![](thumbnail.jpg)</span>{width="20%" fig-align="center"}</span>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
 <span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
@@ -1107,310 +1106,309 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.read_csv(<span class="st">'air_data_all.csv'</span>)</span>
-<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifying missing or infinite values</span></span>
-<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>sample_data.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values</span></span>
-<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> sample_data.isnull().<span class="bu">sum</span>()</span>
-<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a>In this code block, we first attempt to replace any infinite values with NaNs. Then, we calculate the number of missing values in each column. Depending on the nature and volume of missing data, we can either fill these gaps using statistical methods (like mean, median) or consider removing the rows/columns entirely.</span>
-<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization or Standardization of Data</span></span>
-<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a>Normalization (rescaling data to a range, like 0–1) and standardization (shifting the distribution to have a mean of zero and a standard deviation of one) are crucial for models sensitive to the scale of data, such as linear regression.</span>
-<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the dataset</span></span>
-<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(sample_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]])</span>
-<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame for further use</span></span>
-<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_data, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>])</span>
-<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a>Here, we use <span class="in">`StandardScaler`</span> from Scikit-learn to standardize the continuous variables such as temperature and pressure. This process aligns the data onto one scale, removing bias due to different units or scales.</span>
-<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transforming Categorical Data into a Usable Format</span></span>
-<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a>Many regression models require numerical input, so transforming categorical data into a numerical format is essential.</span>
-<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables for categorical data</span></span>
-<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a>wd_dummies <span class="op">=</span> pd.get_dummies(sample_data[<span class="st">'wd'</span>])</span>
-<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.concat([sample_data, wd_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a>In the above snippet, we create dummy variables for the <span class="in">`wd`</span> column (wind direction), converting it into a format that can be efficiently processed by regression algorithms.</span>
-<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visuals Showing Before and After Data Transformation</span></span>
-<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a>Visualizations are effective for demonstrating the impact of data transformation. For instance, before and after standardization, we can plot histograms of a variable to observe changes in its distribution.</span>
-<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting before and after standardization</span></span>
-<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_data[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Original TEMP'</span>)</span>
-<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a>plt.hist(scaled_df[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Standardized TEMP'</span>)</span>
-<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a>This histogram allows us to compare the distribution of the temperature data before and after standardization, showcasing the effects of our data transformation steps.</span>
-<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a>By completing these data cleaning and transformation processes, we ensure that our dataset is primed for accurate and effective regression analysis, laying a solid foundation for our subsequent modeling steps.</span>
-<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## Correlation Analysis and Multicollinearity Check</span></span>
-<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a>After preparing our dataset, the next step in our analysis involves understanding the relationships between variables using correlation analysis and checking for multicollinearity. These steps are critical for ensuring the reliability and interpretability of our regression models.</span>
-<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation Analysis and Its Importance</span></span>
-<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a>Correlation analysis helps us understand the strength and direction of the relationship between two variables. In regression analysis, it's important to identify how independent variables are related to the dependent variable and to each other.</span>
-<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing missing or infinite values from the scaled dataset</span></span>
-<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>scaled_df.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a>scaled_df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the correlation matrix for key variables</span></span>
-<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> sample_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'SO2'</span>, <span class="st">'NO2'</span>, <span class="st">'CO'</span>, <span class="st">'O3'</span>, <span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]].corr()</span>
-<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the correlation matrix using a heatmap</span></span>
-<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
-<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
-<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix of Environmental Factors and Pollutants"</span>)</span>
-<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a>In this code, we calculate and visualize the correlation matrix of key pollutants and environmental factors. This heatmap provides a clear visual representation of the relationships, where the color intensity and the value in each cell indicate the strength and direction of the correlation.</span>
-<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multicollinearity Check and Its Implications</span></span>
-<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a>Multicollinearity occurs when two or more independent variables in a regression model are highly correlated. This can lead to unreliable coefficient estimates, making it difficult to determine the effect of each independent variable.</span>
-<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
-<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a><span class="co"># Preparing data for multicollinearity check</span></span>
-<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> scaled_df[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]]</span>
-<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating VIF for each feature</span></span>
-<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'Feature'</span>] <span class="op">=</span> features.columns</span>
-<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'VIF'</span>] <span class="op">=</span> [variance_inflation_factor(features.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(features.shape[<span class="dv">1</span>])]</span>
-<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a>vif_data</span>
-<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a>Here, we calculate the Variance Inflation Factor (VIF) for each feature. A VIF value greater than 5 or 10 indicates high multicollinearity, suggesting that the variable could be linearly predicted from the others with a substantial degree of accuracy.</span>
-<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Correlation and Multicollinearity Findings</span></span>
-<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a>Visualizing these statistics can help in better understanding and communicating the findings.</span>
-<span id="cb18-192"><a href="#cb18-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing VIF values</span></span>
-<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a>plt.bar(vif_data[<span class="st">'Feature'</span>], vif_data[<span class="st">'VIF'</span>])</span>
-<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Features'</span>)</span>
-<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Variance Inflation Factor (VIF)'</span>)</span>
-<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Multicollinearity Check - VIF Values'</span>)</span>
-<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a>This bar chart provides a clear representation of the VIF values for each feature, helping us identify which variables might be contributing to multicollinearity in the model.</span>
-<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a>By conducting both correlation analysis and a multicollinearity check, we ensure the integrity and effectiveness of our regression models, setting a strong foundation for accurate and insightful analysis of the factors influencing air quality.</span>
-<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Selection</span></span>
-<span id="cb18-209"><a href="#cb18-209" aria-hidden="true" tabindex="-1"></a>Based on the results of Correlation Analysis and Multicollinearity Check. I decided to predict SO2 with 'TEMP', 'PRES', 'DEWP'. </span>
-<span id="cb18-210"><a href="#cb18-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear Regression Analysis</span></span>
-<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a>In this section, we will apply linear regression analysis to predict the concentration of sulfur dioxide (SO2) based on three key environmental factors: 'TEMP', 'PRES', and 'DEWP'. Linear regression is a fundamental statistical method used to understand the relationship between a dependent variable and one or more independent variables.</span>
-<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Linear Regression and Its Applicability</span></span>
-<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a>Linear regression is a widely used statistical technique for modeling and analyzing the relationship between a scalar response (dependent variable) and one or more explanatory variables (independent variables). The method assumes a linear relationship between the variables. In our context, we will use linear regression to understand how temperature ('TEMP'), pressure ('PRES'), and dew point ('DEWP') affect the concentration of SO2 in the air.</span>
-<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step-by-Step Linear Regression Analysis Using Jupyter Notebook</span></span>
-<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a>Now, let's conduct a linear regression analysis using Python in a Jupyter Notebook environment.</span>
-<span id="cb18-220"><a href="#cb18-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-223"><a href="#cb18-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-224"><a href="#cb18-224" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb18-225"><a href="#cb18-225" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where any of the feature columns or 'SO2' is NaN</span></span>
-<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> sample_data.dropna(subset<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'SO2'</span>])</span>
-<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the relevant columns of the filtered data</span></span>
-<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a>scaled_columns <span class="op">=</span> scaler.fit_transform(filtered_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>]])</span>
-<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame</span></span>
-<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_columns, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>])</span>
-<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining features (X) and target variable (y)</span></span>
-<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaled_df</span>
-<span id="cb18-240"><a href="#cb18-240" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> filtered_data[<span class="st">'SO2'</span>]</span>
-<span id="cb18-241"><a href="#cb18-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into training and testing sets</span></span>
-<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating and fitting the linear regression model</span></span>
-<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
-<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a>In this code, we first select our features and target variable, split the data into training and test sets, create a Linear Regression model, and then fit it to our training data.</span>
-<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Linear Regression Results and Plotting the Best Fit Line</span></span>
-<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a>Visualizing the model's predictions in comparison with the actual values is crucial for assessing its performance. We'll also plot the best-fit line to better understand the linear relationship.</span>
-<span id="cb18-254"><a href="#cb18-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting SO2 values for the test set</span></span>
-<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a>lr_y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
-<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
-<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
-<span id="cb18-264"><a href="#cb18-264" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
-<span id="cb18-265"><a href="#cb18-265" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
-<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
-<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-271"><a href="#cb18-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-272"><a href="#cb18-272" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoom in </span></span>
-<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
-<span id="cb18-275"><a href="#cb18-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-276"><a href="#cb18-276" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
-<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
-<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
-<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
-<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
-<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
-<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-285"><a href="#cb18-285" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-286"><a href="#cb18-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-287"><a href="#cb18-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a>The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.</span>
-<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating the Performance of the Linear Regression Model</span></span>
-<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a>Finally, we evaluate the performance of our model using common statistical metrics.</span>
-<span id="cb18-292"><a href="#cb18-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing performance metrics</span></span>
-<span id="cb18-297"><a href="#cb18-297" aria-hidden="true" tabindex="-1"></a>lr_mse <span class="op">=</span> mean_squared_error(y_test, lr_y_pred)</span>
-<span id="cb18-298"><a href="#cb18-298" aria-hidden="true" tabindex="-1"></a>lr_r2 <span class="op">=</span> r2_score(y_test, lr_y_pred)</span>
-<span id="cb18-299"><a href="#cb18-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>lr_mse<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>lr_r2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a>The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.</span>
-<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-306"><a href="#cb18-306" aria-hidden="true" tabindex="-1"></a>By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</span>
-<span id="cb18-307"><a href="#cb18-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-308"><a href="#cb18-308" aria-hidden="true" tabindex="-1"></a>Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:</span>
-<span id="cb18-309"><a href="#cb18-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forest Regression Analysis</span></span>
-<span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Random Forest Regression</span></span>
-<span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-314"><a href="#cb18-314" aria-hidden="true" tabindex="-1"></a>Random Forest is an ensemble learning method predominantly used for classification and regression tasks. It operates by constructing a multitude of decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Compared to linear regression, Random Forest offers several advantages:</span>
-<span id="cb18-315"><a href="#cb18-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-316"><a href="#cb18-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Non-linear Data**: It can model complex relationships between features and the target variable, which linear regression may fail to capture.</span>
-<span id="cb18-317"><a href="#cb18-317" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reducing Overfitting**: By averaging multiple decision trees, it reduces the risk of overfitting to the training data.</span>
-<span id="cb18-318"><a href="#cb18-318" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Importance of Features**: Random Forest can provide insights into the relative importance of each feature in prediction.</span>
-<span id="cb18-319"><a href="#cb18-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-320"><a href="#cb18-320" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implementing Random Forest Regression</span></span>
-<span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a>Let's implement Random Forest regression to predict the concentration of sulfur dioxide (SO2) using 'TEMP' (temperature), 'PRES' (pressure), and 'DEWP' (dew point). We have already preprocessed and scaled our dataset. Now, we'll apply Random Forest regression:</span>
-<span id="cb18-323"><a href="#cb18-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-326"><a href="#cb18-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-327"><a href="#cb18-327" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb18-328"><a href="#cb18-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-329"><a href="#cb18-329" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Random Forest model</span></span>
-<span id="cb18-330"><a href="#cb18-330" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb18-331"><a href="#cb18-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-332"><a href="#cb18-332" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
-<span id="cb18-333"><a href="#cb18-333" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span>
-<span id="cb18-334"><a href="#cb18-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-335"><a href="#cb18-335" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting the SO2 values using the test set</span></span>
-<span id="cb18-336"><a href="#cb18-336" aria-hidden="true" tabindex="-1"></a>rf_y_pred <span class="op">=</span> rf_model.predict(X_test)</span>
-<span id="cb18-337"><a href="#cb18-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-338"><a href="#cb18-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-339"><a href="#cb18-339" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualization: Feature Importance and Prediction vs Actual</span></span>
-<span id="cb18-340"><a href="#cb18-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-341"><a href="#cb18-341" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Feature Importance Plot**: This graph illustrates the relative importance of each feature in predicting the SO2 levels.</span>
-<span id="cb18-342"><a href="#cb18-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-345"><a href="#cb18-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-346"><a href="#cb18-346" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-347"><a href="#cb18-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-348"><a href="#cb18-348" aria-hidden="true" tabindex="-1"></a>feature_importances <span class="op">=</span> rf_model.feature_importances_</span>
-<span id="cb18-349"><a href="#cb18-349" aria-hidden="true" tabindex="-1"></a>plt.barh([<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>], feature_importances)</span>
-<span id="cb18-350"><a href="#cb18-350" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature Importance'</span>)</span>
-<span id="cb18-351"><a href="#cb18-351" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Feature'</span>)</span>
-<span id="cb18-352"><a href="#cb18-352" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Feature Importance in Random Forest Model'</span>)</span>
-<span id="cb18-353"><a href="#cb18-353" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-354"><a href="#cb18-354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-355"><a href="#cb18-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-356"><a href="#cb18-356" aria-hidden="true" tabindex="-1"></a>The feature importance plot shows 'TEMP' with the highest score, indicating it has the most significant impact on predicting SO2 levels, followed by 'PRES' and 'DEWP'. This suggests that temperature changes are potentially a more dominant factor in influencing SO2 concentrations in the atmosphere.</span>
-<span id="cb18-357"><a href="#cb18-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-358"><a href="#cb18-358" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Prediction vs Actual Plot**: This plot compares the actual vs. predicted SO2 levels using the Random Forest model.</span>
-<span id="cb18-359"><a href="#cb18-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-363"><a href="#cb18-363" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred)</span>
-<span id="cb18-364"><a href="#cb18-364" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
-<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
-<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: Actual vs Predicted SO2 Levels'</span>)</span>
-<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-370"><a href="#cb18-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-371"><a href="#cb18-371" aria-hidden="true" tabindex="-1"></a>The Prediction vs Actual Plot for the Random Forest model reveals a tighter clustering of data points along the line of perfect prediction compared to the Linear Regression model. This clustering indicates a higher accuracy in predictions made by the Random Forest model.</span>
-<span id="cb18-372"><a href="#cb18-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-373"><a href="#cb18-373" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparative Analysis and Conclusion</span></span>
-<span id="cb18-374"><a href="#cb18-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-375"><a href="#cb18-375" aria-hidden="true" tabindex="-1"></a>We compare the performance metrics of Random Forest and Linear Regression:</span>
-<span id="cb18-376"><a href="#cb18-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-377"><a href="#cb18-377" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random Forest**</span>
-<span id="cb18-378"><a href="#cb18-378" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 204.29218141691157</span>
-<span id="cb18-379"><a href="#cb18-379" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.5579337989410323</span>
-<span id="cb18-380"><a href="#cb18-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-381"><a href="#cb18-381" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Linear Regression**</span>
-<span id="cb18-382"><a href="#cb18-382" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 411.5799313674985</span>
-<span id="cb18-383"><a href="#cb18-383" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.10938551133078755</span>
-<span id="cb18-384"><a href="#cb18-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-385"><a href="#cb18-385" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Interpretation</span></span>
-<span id="cb18-386"><a href="#cb18-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-387"><a href="#cb18-387" aria-hidden="true" tabindex="-1"></a>The Random Forest model shows a significantly lower Mean Squared Error (MSE) and higher R² value compared to Linear Regression. This indicates that the Random Forest model fits the data better and has a greater predictive accuracy. The reduced MSE suggests that the Random Forest model's predictions are closer to the actual data. The higher R² value indicates that a larger proportion of the variance in the SO2 concentration is being explained by the model.</span>
-<span id="cb18-388"><a href="#cb18-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-389"><a href="#cb18-389" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Comparison: Prediction vs Actual Plot for Both Models</span></span>
-<span id="cb18-390"><a href="#cb18-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-391"><a href="#cb18-391" aria-hidden="true" tabindex="-1"></a>This plot will compare the predictions of both models against the actual SO2 levels. Here, 'lr_y_pred' represents the predicted values from the Linear Regression model.</span>
-<span id="cb18-392"><a href="#cb18-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-395"><a href="#cb18-395" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb18-396"><a href="#cb18-396" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, label<span class="op">=</span><span class="st">'Linear Regression'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'b'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb18-397"><a href="#cb18-397" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred, label<span class="op">=</span><span class="st">'Random Forest'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'+'</span>)</span>
-<span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
-<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
-<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Predictions: Linear Regression vs Random Forest'</span>)</span>
-<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a>The combined Prediction vs Actual Plot demonstrates a stark contrast between the two models. The Random Forest predictions are more concentrated around the line of perfect fit, while the Linear Regression predictions are more dispersed, indicating more errors in prediction. This visual reaffirms the quantitative metrics, illustrating that Random Forest provides a more accurate model for predicting SO2 levels based on 'TEMP', 'PRES', and 'DEWP'.</span>
-<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-408"><a href="#cb18-408" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb18-409"><a href="#cb18-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-410"><a href="#cb18-410" aria-hidden="true" tabindex="-1"></a>As depicted in the visualizations, there appear to be a few outliers in the graph. Conducting an outlier analysis before proceeding with modeling could potentially enhance the accuracy of our predictions.</span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.read_csv(<span class="st">'air_data_all.csv'</span>)</span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifying missing or infinite values</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a>sample_data.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values</span></span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> sample_data.isnull().<span class="bu">sum</span>()</span>
+<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a>In this code block, we first attempt to replace any infinite values with NaNs. Then, we calculate the number of missing values in each column. Depending on the nature and volume of missing data, we can either fill these gaps using statistical methods (like mean, median) or consider removing the rows/columns entirely.</span>
+<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization or Standardization of Data</span></span>
+<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>Normalization (rescaling data to a range, like 0–1) and standardization (shifting the distribution to have a mean of zero and a standard deviation of one) are crucial for models sensitive to the scale of data, such as linear regression.</span>
+<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the dataset</span></span>
+<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(sample_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]])</span>
+<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame for further use</span></span>
+<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_data, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>])</span>
+<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a>Here, we use <span class="in">`StandardScaler`</span> from Scikit-learn to standardize the continuous variables such as temperature and pressure. This process aligns the data onto one scale, removing bias due to different units or scales.</span>
+<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transforming Categorical Data into a Usable Format</span></span>
+<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a>Many regression models require numerical input, so transforming categorical data into a numerical format is essential.</span>
+<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables for categorical data</span></span>
+<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a>wd_dummies <span class="op">=</span> pd.get_dummies(sample_data[<span class="st">'wd'</span>])</span>
+<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.concat([sample_data, wd_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a>In the above snippet, we create dummy variables for the <span class="in">`wd`</span> column (wind direction), converting it into a format that can be efficiently processed by regression algorithms.</span>
+<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visuals Showing Before and After Data Transformation</span></span>
+<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a>Visualizations are effective for demonstrating the impact of data transformation. For instance, before and after standardization, we can plot histograms of a variable to observe changes in its distribution.</span>
+<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting before and after standardization</span></span>
+<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_data[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Original TEMP'</span>)</span>
+<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a>plt.hist(scaled_df[<span class="st">'TEMP'</span>], bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Standardized TEMP'</span>)</span>
+<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a>This histogram allows us to compare the distribution of the temperature data before and after standardization, showcasing the effects of our data transformation steps.</span>
+<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a>By completing these data cleaning and transformation processes, we ensure that our dataset is primed for accurate and effective regression analysis, laying a solid foundation for our subsequent modeling steps.</span>
+<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Correlation Analysis and Multicollinearity Check</span></span>
+<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a>After preparing our dataset, the next step in our analysis involves understanding the relationships between variables using correlation analysis and checking for multicollinearity. These steps are critical for ensuring the reliability and interpretability of our regression models.</span>
+<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation Analysis and Its Importance</span></span>
+<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a>Correlation analysis helps us understand the strength and direction of the relationship between two variables. In regression analysis, it's important to identify how independent variables are related to the dependent variable and to each other.</span>
+<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing missing or infinite values from the scaled dataset</span></span>
+<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a>scaled_df.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>scaled_df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the correlation matrix for key variables</span></span>
+<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> sample_data[[<span class="st">'PM2.5'</span>, <span class="st">'PM10'</span>, <span class="st">'SO2'</span>, <span class="st">'NO2'</span>, <span class="st">'CO'</span>, <span class="st">'O3'</span>, <span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]].corr()</span>
+<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the correlation matrix using a heatmap</span></span>
+<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
+<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix of Environmental Factors and Pollutants"</span>)</span>
+<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a>In this code, we calculate and visualize the correlation matrix of key pollutants and environmental factors. This heatmap provides a clear visual representation of the relationships, where the color intensity and the value in each cell indicate the strength and direction of the correlation.</span>
+<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multicollinearity Check and Its Implications</span></span>
+<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a>Multicollinearity occurs when two or more independent variables in a regression model are highly correlated. This can lead to unreliable coefficient estimates, making it difficult to determine the effect of each independent variable.</span>
+<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a><span class="co"># Preparing data for multicollinearity check</span></span>
+<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> scaled_df[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'RAIN'</span>, <span class="st">'WSPM'</span>]]</span>
+<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating VIF for each feature</span></span>
+<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'Feature'</span>] <span class="op">=</span> features.columns</span>
+<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">'VIF'</span>] <span class="op">=</span> [variance_inflation_factor(features.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(features.shape[<span class="dv">1</span>])]</span>
+<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a>vif_data</span>
+<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a>Here, we calculate the Variance Inflation Factor (VIF) for each feature. A VIF value greater than 5 or 10 indicates high multicollinearity, suggesting that the variable could be linearly predicted from the others with a substantial degree of accuracy.</span>
+<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Correlation and Multicollinearity Findings</span></span>
+<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a>Visualizing these statistics can help in better understanding and communicating the findings.</span>
+<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing VIF values</span></span>
+<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a>plt.bar(vif_data[<span class="st">'Feature'</span>], vif_data[<span class="st">'VIF'</span>])</span>
+<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Features'</span>)</span>
+<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Variance Inflation Factor (VIF)'</span>)</span>
+<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Multicollinearity Check - VIF Values'</span>)</span>
+<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a>This bar chart provides a clear representation of the VIF values for each feature, helping us identify which variables might be contributing to multicollinearity in the model.</span>
+<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a>By conducting both correlation analysis and a multicollinearity check, we ensure the integrity and effectiveness of our regression models, setting a strong foundation for accurate and insightful analysis of the factors influencing air quality.</span>
+<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Selection</span></span>
+<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a>Based on the results of Correlation Analysis and Multicollinearity Check. I decided to predict SO2 with 'TEMP', 'PRES', 'DEWP'. </span>
+<span id="cb18-209"><a href="#cb18-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-210"><a href="#cb18-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear Regression Analysis</span></span>
+<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a>In this section, we will apply linear regression analysis to predict the concentration of sulfur dioxide (SO2) based on three key environmental factors: 'TEMP', 'PRES', and 'DEWP'. Linear regression is a fundamental statistical method used to understand the relationship between a dependent variable and one or more independent variables.</span>
+<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Linear Regression and Its Applicability</span></span>
+<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a>Linear regression is a widely used statistical technique for modeling and analyzing the relationship between a scalar response (dependent variable) and one or more explanatory variables (independent variables). The method assumes a linear relationship between the variables. In our context, we will use linear regression to understand how temperature ('TEMP'), pressure ('PRES'), and dew point ('DEWP') affect the concentration of SO2 in the air.</span>
+<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step-by-Step Linear Regression Analysis Using Jupyter Notebook</span></span>
+<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a>Now, let's conduct a linear regression analysis using Python in a Jupyter Notebook environment.</span>
+<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-222"><a href="#cb18-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-223"><a href="#cb18-223" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb18-224"><a href="#cb18-224" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb18-225"><a href="#cb18-225" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where any of the feature columns or 'SO2' is NaN</span></span>
+<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> sample_data.dropna(subset<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>, <span class="st">'SO2'</span>])</span>
+<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardizing the relevant columns of the filtered data</span></span>
+<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a>scaled_columns <span class="op">=</span> scaler.fit_transform(filtered_data[[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>]])</span>
+<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting scaled data back to a DataFrame</span></span>
+<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a>scaled_df <span class="op">=</span> pd.DataFrame(scaled_columns, columns<span class="op">=</span>[<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>])</span>
+<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining features (X) and target variable (y)</span></span>
+<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaled_df</span>
+<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> filtered_data[<span class="st">'SO2'</span>]</span>
+<span id="cb18-240"><a href="#cb18-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-241"><a href="#cb18-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into training and testing sets</span></span>
+<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating and fitting the linear regression model</span></span>
+<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a>In this code, we first select our features and target variable, split the data into training and test sets, create a Linear Regression model, and then fit it to our training data.</span>
+<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Representation of Linear Regression Results and Plotting the Best Fit Line</span></span>
+<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a>Visualizing the model's predictions in comparison with the actual values is crucial for assessing its performance. We'll also plot the best-fit line to better understand the linear relationship.</span>
+<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-256"><a href="#cb18-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting SO2 values for the test set</span></span>
+<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a>lr_y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
+<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
+<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
+<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
+<span id="cb18-264"><a href="#cb18-264" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
+<span id="cb18-265"><a href="#cb18-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
+<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-271"><a href="#cb18-271" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoom in </span></span>
+<span id="cb18-272"><a href="#cb18-272" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span>
+<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">40</span>)</span>
+<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-275"><a href="#cb18-275" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the actual vs predicted values and the best-fit line</span></span>
+<span id="cb18-276"><a href="#cb18-276" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'blue'</span>)  <span class="co"># Actual vs Predicted scatter plot</span></span>
+<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2'</span>)</span>
+<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2'</span>)</span>
+<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Actual vs Predicted SO2 Concentrations'</span>)</span>
+<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the best-fit line</span></span>
+<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a>plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, <span class="dv">1</span>))(np.unique(y_test)), color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-285"><a href="#cb18-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-286"><a href="#cb18-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-287"><a href="#cb18-287" aria-hidden="true" tabindex="-1"></a>The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.</span>
+<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating the Performance of the Linear Regression Model</span></span>
+<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a>Finally, we evaluate the performance of our model using common statistical metrics.</span>
+<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-294"><a href="#cb18-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing performance metrics</span></span>
+<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a>lr_mse <span class="op">=</span> mean_squared_error(y_test, lr_y_pred)</span>
+<span id="cb18-297"><a href="#cb18-297" aria-hidden="true" tabindex="-1"></a>lr_r2 <span class="op">=</span> r2_score(y_test, lr_y_pred)</span>
+<span id="cb18-298"><a href="#cb18-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-299"><a href="#cb18-299" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>lr_mse<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>lr_r2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a>The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.</span>
+<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a>By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.</span>
+<span id="cb18-306"><a href="#cb18-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-307"><a href="#cb18-307" aria-hidden="true" tabindex="-1"></a>Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:</span>
+<span id="cb18-308"><a href="#cb18-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-309"><a href="#cb18-309" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forest Regression Analysis</span></span>
+<span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to Random Forest Regression</span></span>
+<span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a>Random Forest is an ensemble learning method predominantly used for classification and regression tasks. It operates by constructing a multitude of decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Compared to linear regression, Random Forest offers several advantages:</span>
+<span id="cb18-314"><a href="#cb18-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-315"><a href="#cb18-315" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Non-linear Data**: It can model complex relationships between features and the target variable, which linear regression may fail to capture.</span>
+<span id="cb18-316"><a href="#cb18-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reducing Overfitting**: By averaging multiple decision trees, it reduces the risk of overfitting to the training data.</span>
+<span id="cb18-317"><a href="#cb18-317" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Importance of Features**: Random Forest can provide insights into the relative importance of each feature in prediction.</span>
+<span id="cb18-318"><a href="#cb18-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-319"><a href="#cb18-319" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implementing Random Forest Regression</span></span>
+<span id="cb18-320"><a href="#cb18-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a>Let's implement Random Forest regression to predict the concentration of sulfur dioxide (SO2) using 'TEMP' (temperature), 'PRES' (pressure), and 'DEWP' (dew point). We have already preprocessed and scaled our dataset. Now, we'll apply Random Forest regression:</span>
+<span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-325"><a href="#cb18-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-326"><a href="#cb18-326" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb18-327"><a href="#cb18-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-328"><a href="#cb18-328" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Random Forest model</span></span>
+<span id="cb18-329"><a href="#cb18-329" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb18-330"><a href="#cb18-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-331"><a href="#cb18-331" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
+<span id="cb18-332"><a href="#cb18-332" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span>
+<span id="cb18-333"><a href="#cb18-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-334"><a href="#cb18-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting the SO2 values using the test set</span></span>
+<span id="cb18-335"><a href="#cb18-335" aria-hidden="true" tabindex="-1"></a>rf_y_pred <span class="op">=</span> rf_model.predict(X_test)</span>
+<span id="cb18-336"><a href="#cb18-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-337"><a href="#cb18-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-338"><a href="#cb18-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualization: Feature Importance and Prediction vs Actual</span></span>
+<span id="cb18-339"><a href="#cb18-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-340"><a href="#cb18-340" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Feature Importance Plot**: This graph illustrates the relative importance of each feature in predicting the SO2 levels.</span>
+<span id="cb18-341"><a href="#cb18-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-344"><a href="#cb18-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-345"><a href="#cb18-345" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-346"><a href="#cb18-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-347"><a href="#cb18-347" aria-hidden="true" tabindex="-1"></a>feature_importances <span class="op">=</span> rf_model.feature_importances_</span>
+<span id="cb18-348"><a href="#cb18-348" aria-hidden="true" tabindex="-1"></a>plt.barh([<span class="st">'TEMP'</span>, <span class="st">'PRES'</span>, <span class="st">'DEWP'</span>], feature_importances)</span>
+<span id="cb18-349"><a href="#cb18-349" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature Importance'</span>)</span>
+<span id="cb18-350"><a href="#cb18-350" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Feature'</span>)</span>
+<span id="cb18-351"><a href="#cb18-351" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Feature Importance in Random Forest Model'</span>)</span>
+<span id="cb18-352"><a href="#cb18-352" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-353"><a href="#cb18-353" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-354"><a href="#cb18-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-355"><a href="#cb18-355" aria-hidden="true" tabindex="-1"></a>The feature importance plot shows 'TEMP' with the highest score, indicating it has the most significant impact on predicting SO2 levels, followed by 'PRES' and 'DEWP'. This suggests that temperature changes are potentially a more dominant factor in influencing SO2 concentrations in the atmosphere.</span>
+<span id="cb18-356"><a href="#cb18-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-357"><a href="#cb18-357" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Prediction vs Actual Plot**: This plot compares the actual vs. predicted SO2 levels using the Random Forest model.</span>
+<span id="cb18-358"><a href="#cb18-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-361"><a href="#cb18-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred)</span>
+<span id="cb18-363"><a href="#cb18-363" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
+<span id="cb18-364"><a href="#cb18-364" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
+<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: Actual vs Predicted SO2 Levels'</span>)</span>
+<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-370"><a href="#cb18-370" aria-hidden="true" tabindex="-1"></a>The Prediction vs Actual Plot for the Random Forest model reveals a tighter clustering of data points along the line of perfect prediction compared to the Linear Regression model. This clustering indicates a higher accuracy in predictions made by the Random Forest model.</span>
+<span id="cb18-371"><a href="#cb18-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-372"><a href="#cb18-372" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparative Analysis and Conclusion</span></span>
+<span id="cb18-373"><a href="#cb18-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-374"><a href="#cb18-374" aria-hidden="true" tabindex="-1"></a>We compare the performance metrics of Random Forest and Linear Regression:</span>
+<span id="cb18-375"><a href="#cb18-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-376"><a href="#cb18-376" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random Forest**</span>
+<span id="cb18-377"><a href="#cb18-377" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 204.29218141691157</span>
+<span id="cb18-378"><a href="#cb18-378" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.5579337989410323</span>
+<span id="cb18-379"><a href="#cb18-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-380"><a href="#cb18-380" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Linear Regression**</span>
+<span id="cb18-381"><a href="#cb18-381" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>MSE: 411.5799313674985</span>
+<span id="cb18-382"><a href="#cb18-382" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>R²: 0.10938551133078755</span>
+<span id="cb18-383"><a href="#cb18-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-384"><a href="#cb18-384" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Interpretation</span></span>
+<span id="cb18-385"><a href="#cb18-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-386"><a href="#cb18-386" aria-hidden="true" tabindex="-1"></a>The Random Forest model shows a significantly lower Mean Squared Error (MSE) and higher R² value compared to Linear Regression. This indicates that the Random Forest model fits the data better and has a greater predictive accuracy. The reduced MSE suggests that the Random Forest model's predictions are closer to the actual data. The higher R² value indicates that a larger proportion of the variance in the SO2 concentration is being explained by the model.</span>
+<span id="cb18-387"><a href="#cb18-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-388"><a href="#cb18-388" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Comparison: Prediction vs Actual Plot for Both Models</span></span>
+<span id="cb18-389"><a href="#cb18-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-390"><a href="#cb18-390" aria-hidden="true" tabindex="-1"></a>This plot will compare the predictions of both models against the actual SO2 levels. Here, 'lr_y_pred' represents the predicted values from the Linear Regression model.</span>
+<span id="cb18-391"><a href="#cb18-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-394"><a href="#cb18-394" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb18-395"><a href="#cb18-395" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, lr_y_pred, label<span class="op">=</span><span class="st">'Linear Regression'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'b'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb18-396"><a href="#cb18-396" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, rf_y_pred, label<span class="op">=</span><span class="st">'Random Forest'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'+'</span>)</span>
+<span id="cb18-397"><a href="#cb18-397" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Actual SO2 Levels'</span>)</span>
+<span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Predicted SO2 Levels'</span>)</span>
+<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Predictions: Linear Regression vs Random Forest'</span>)</span>
+<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a>The combined Prediction vs Actual Plot demonstrates a stark contrast between the two models. The Random Forest predictions are more concentrated around the line of perfect fit, while the Linear Regression predictions are more dispersed, indicating more errors in prediction. This visual reaffirms the quantitative metrics, illustrating that Random Forest provides a more accurate model for predicting SO2 levels based on 'TEMP', 'PRES', and 'DEWP'.</span>
+<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
+<span id="cb18-408"><a href="#cb18-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-409"><a href="#cb18-409" aria-hidden="true" tabindex="-1"></a>As depicted in the visualizations, there appear to be a few outliers in the graph. Conducting an outlier analysis before proceeding with modeling could potentially enhance the accuracy of our predictions.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
