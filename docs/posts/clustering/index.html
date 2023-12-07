@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joanna Fang">
-<meta name="dcterms.date" content="2024-05-08">
+<meta name="dcterms.date" content="2023-11-29">
 
 <title>Ziming’s Journey in Machine Learning - Clustering</title>
 <style>
@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 8, 2024</p>
+        <p class="date">November 29, 2023</p>
       </div>
     </div>
     
@@ -227,16 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#conclusions-and-insights" id="toc-conclusions-and-insights" class="nav-link" data-scroll-target="#conclusions-and-insights">Conclusions and Insights</a>
   <ul class="collapse">
   <li><a href="#key-findings-from-the-optimized-clustering" id="toc-key-findings-from-the-optimized-clustering" class="nav-link" data-scroll-target="#key-findings-from-the-optimized-clustering">Key Findings from the Optimized Clustering</a></li>
-  <li><a href="#practical-implications-in-real-world-scenarios" id="toc-practical-implications-in-real-world-scenarios" class="nav-link" data-scroll-target="#practical-implications-in-real-world-scenarios">Practical Implications in Real-World Scenarios</a></li>
-  <li><a href="#the-importance-of-data-driven-decision-making" id="toc-the-importance-of-data-driven-decision-making" class="nav-link" data-scroll-target="#the-importance-of-data-driven-decision-making">The Importance of Data-Driven Decision-Making</a></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final Thoughts</a></li>
-  </ul></li>
-  <li><a href="#section-8-future-directions" id="toc-section-8-future-directions" class="nav-link" data-scroll-target="#section-8-future-directions">Section 8: Future Directions</a>
-  <ul class="collapse">
-  <li><a href="#expanding-the-research-horizon" id="toc-expanding-the-research-horizon" class="nav-link" data-scroll-target="#expanding-the-research-horizon">Expanding the Research Horizon</a></li>
-  <li><a href="#leveraging-other-machine-learning-models" id="toc-leveraging-other-machine-learning-models" class="nav-link" data-scroll-target="#leveraging-other-machine-learning-models">Leveraging Other Machine Learning Models</a></li>
-  <li><a href="#the-evolving-role-of-machine-learning-in-driving-behavior-analysis" id="toc-the-evolving-role-of-machine-learning-in-driving-behavior-analysis" class="nav-link" data-scroll-target="#the-evolving-role-of-machine-learning-in-driving-behavior-analysis">The Evolving Role of Machine Learning in Driving Behavior Analysis</a></li>
-  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding Thoughts</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -332,15 +322,15 @@ WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: matplotlib in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (3.8.2)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
 Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.4.5)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (3.1.1)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (6.1.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (2.8.2)
 Requirement already satisfied: cycler&gt;=0.10 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.2.0)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (23.2)
 Requirement already satisfied: pillow&gt;=8 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (10.1.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (4.45.1)
 Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from matplotlib) (1.26.2)
 Requirement already satisfied: zipp&gt;=3.1.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.17.0)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.15.0)
@@ -353,25 +343,25 @@ WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: scikit-learn in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (1.3.2)
-Requirement already satisfied: scipy&gt;=1.5.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.11.4)
-Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
 Requirement already satisfied: joblib&gt;=1.1.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.3.2)
 Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (3.2.0)
+Requirement already satisfied: scipy&gt;=1.5.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.11.4)
+Requirement already satisfied: numpy&lt;2.0,&gt;=1.17.3 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from scikit-learn) (1.26.2)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: pandas in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (2.1.3)
-Requirement already satisfied: numpy&lt;2,&gt;=1.22.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (1.26.2)
-Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
 Requirement already satisfied: tzdata&gt;=2022.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2023.3.post1)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: numpy&lt;2,&gt;=1.22.4 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from pandas) (1.26.2)
 Requirement already satisfied: six&gt;=1.5 in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.15.0)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: kneed in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (0.8.5)
-Requirement already satisfied: scipy&gt;=1.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from kneed) (1.11.4)
 Requirement already satisfied: numpy&gt;=1.14.2 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from kneed) (1.26.2)
+Requirement already satisfied: scipy&gt;=1.0.0 in /Users/zimingfang/Library/Python/3.9/lib/python/site-packages (from kneed) (1.11.4)
 WARNING: You are using pip version 21.2.4; however, version 23.3.1 is available.
 You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.</code></pre>
 </div>
@@ -597,67 +587,13 @@ You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/b
 <section id="key-findings-from-the-optimized-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="key-findings-from-the-optimized-clustering">Key Findings from the Optimized Clustering</h3>
 <p>Our journey through clustering revealed several important insights:</p>
-<ol type="1">
-<li><strong>Optimal Cluster Number</strong>: Moving from a 3-cluster model to a 4-cluster model, as suggested by the Elbow Method and validated by <code>kneed</code>, allowed us to uncover a more intricate structure within the driving behavior data.</li>
-<li><strong>Granularity in Clustering</strong>: The additional cluster provided a finer categorization of driving behaviors, which could lead to more nuanced and accurate insights into different driving styles.</li>
-<li><strong>Data-Driven Approach</strong>: This project highlighted the importance of a data-driven approach in clustering. While initial assumptions based on labeled data provided a starting point, it was the analysis of the inherent data structure that ultimately guided our clustering strategy.</li>
-</ol>
-</section>
-<section id="practical-implications-in-real-world-scenarios" class="level3">
-<h3 class="anchored" data-anchor-id="practical-implications-in-real-world-scenarios">Practical Implications in Real-World Scenarios</h3>
-<p>The implications of our findings extend far beyond this analysis:</p>
-<ul>
-<li><strong>Enhanced Driver Safety Systems</strong>: By understanding nuanced driving behaviors, automotive manufacturers and researchers can develop more sophisticated driver safety systems that cater to different driving styles.</li>
-<li><strong>Targeted Driver Training Programs</strong>: The insights from clustering can inform targeted training programs that address specific driving behavior patterns, thereby enhancing road safety.</li>
-<li><strong>Insurance and Risk Assessment</strong>: The identification of different driving behaviors can be instrumental in risk assessment for car insurance companies, enabling them to tailor policies based on individual driving patterns.</li>
-</ul>
-</section>
-<section id="the-importance-of-data-driven-decision-making" class="level3">
-<h3 class="anchored" data-anchor-id="the-importance-of-data-driven-decision-making">The Importance of Data-Driven Decision-Making</h3>
-<p>This project served as a reminder of the critical role of data-driven decision-making in machine learning:</p>
 <ul>
 <li><strong>Beyond Assumptions</strong>: While assumptions and labels can provide direction, they should not be the sole basis for decision-making in clustering problems.</li>
 <li><strong>Embracing Flexibility in Analysis</strong>: Machine learning, especially unsupervised learning like clustering, requires an openness to adapt analysis strategies based on what the data reveals.</li>
 <li><strong>Iterative Process</strong>: Optimization in machine learning is an iterative process. It often involves revisiting and refining models as new data or techniques become available.</li>
 </ul>
-</section>
-<section id="final-thoughts" class="level3">
-<h3 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h3>
 <p>Our journey through clustering driving behaviors illustrates the dynamic and iterative nature of machine learning. By embracing a data-driven approach, we were able to uncover more about the dataset than what was initially apparent. Such methodologies are not just limited to driving behavior analysis but are applicable across various domains where data-driven insights are crucial.</p>
 <p>As we continue to advance in the field of machine learning, the lessons learned here about the importance of flexibility, iteration, and data-driven analysis will remain fundamental to unlocking the full potential of our data.</p>
-</section>
-</section>
-<section id="section-8-future-directions" class="level2">
-<h2 class="anchored" data-anchor-id="section-8-future-directions">Section 8: Future Directions</h2>
-<p>As we wrap up our exploration into clustering driving behaviors, it’s essential to look ahead and consider the avenues for further research and development in this field. The journey we’ve embarked on opens up a myriad of possibilities, each holding the potential to deepen our understanding of driving behaviors and enhance the applications of machine learning in this domain.</p>
-<section id="expanding-the-research-horizon" class="level3">
-<h3 class="anchored" data-anchor-id="expanding-the-research-horizon">Expanding the Research Horizon</h3>
-<ol type="1">
-<li><strong>Integrating More Complex Data</strong>: Future studies could integrate more complex data types, such as video feeds, GPS data, or real-time traffic information. This would allow for a more comprehensive analysis of driving behaviors, taking into account environmental and situational variables.</li>
-<li><strong>Exploring Time-Series Analysis</strong>: Given that driving data is inherently time-sequential, applying time-series analysis could uncover patterns that static clustering might miss. Techniques like recurrent neural networks (RNNs) or Long Short-Term Memory (LSTM) networks could be particularly useful.</li>
-<li><strong>Incorporating Weather and Road Conditions</strong>: Adding weather and road condition data could offer insights into how external factors influence driving behaviors, leading to more robust driver safety systems.</li>
-</ol>
-</section>
-<section id="leveraging-other-machine-learning-models" class="level3">
-<h3 class="anchored" data-anchor-id="leveraging-other-machine-learning-models">Leveraging Other Machine Learning Models</h3>
-<p>While KMeans has proven effective in our analysis, other machine learning models might offer different perspectives:</p>
-<ul>
-<li><strong>Hierarchical Clustering</strong>: This method could provide a more nuanced view of how different driving behaviors are related or clustered in a hierarchical manner.</li>
-<li><strong>Density-Based Clustering (like DBSCAN)</strong>: Such models could be more adept at handling outliers and varying cluster densities, which are common in real-world driving data.</li>
-</ul>
-</section>
-<section id="the-evolving-role-of-machine-learning-in-driving-behavior-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="the-evolving-role-of-machine-learning-in-driving-behavior-analysis">The Evolving Role of Machine Learning in Driving Behavior Analysis</h3>
-<p>The field of machine learning is continuously evolving, and its application in understanding driving behaviors is no exception. As technology advances, so too does our ability to capture and analyze increasingly complex data. This evolution promises not only more sophisticated analytical techniques but also more personalized and adaptive applications in automotive technology.</p>
-<ul>
-<li><strong>Personalized Driver Assistance Systems</strong>: By understanding individual driving patterns, future driver assistance systems could adapt to the unique style of each driver, enhancing both safety and driving experience.</li>
-<li><strong>Contribution to Autonomous Vehicle Development</strong>: Insights from clustering driving behaviors can inform the development of more sophisticated and safer autonomous driving systems.</li>
-<li><strong>Dynamic Insurance Models</strong>: Machine learning could enable the development of dynamic insurance models that adapt to individual driving behaviors, offering more personalized insurance policies.</li>
-</ul>
-</section>
-<section id="concluding-thoughts" class="level3">
-<h3 class="anchored" data-anchor-id="concluding-thoughts">Concluding Thoughts</h3>
-<p>Our journey through clustering driving behaviors is just a glimpse into the potential of machine learning in this field. As we continue to gather more data and develop more advanced analytical tools, our understanding and application of these insights will only deepen. The road ahead is promising, and the continuous evolution of machine learning will undoubtedly play a central role in shaping the future of driving behavior analysis.</p>
 
 
 <!-- -->
