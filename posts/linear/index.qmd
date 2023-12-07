@@ -1,7 +1,7 @@
 ---
 title: "3\\. Linear and Nonlinear Regression"
 author: "Joanna Fang"
-date: "2023-11-29"
+date: "2023-11-28"
 categories: [ml, code, linear regression, nonlinear regression, pollution]
 jupyter: python3
 format:
@@ -18,7 +18,7 @@ format:
 
 # Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide
 
-![](thumbnail.jpg){height="50%" fig-align="center"}
+![](thumbnail.jpg){width="50%" fig-align="center"}
 
 ## Introduction
 
@@ -36,13 +36,9 @@ $$
 Here, \( Y \) is the pollutant concentration we want to predict, \( X_1, X_2, ..., X_n \) are the environmental factors, \( \beta_0, \beta_1, ..., \beta_n \) are the coefficients to be estimated, and \( \epsilon \) is the error term.
 
 ### Random Forest Regression
-Random Forest, on the other hand, is a type of ensemble learning method, particularly useful for non-linear relationships. It operates by constructing multiple decision trees during training and outputting the mean prediction of the individual trees. This method is beneficial for handling complex interactions between variables and can provide more accurate predictions for complex datasets like those in air quality studies.
+In this blog, we'll harness the power of Random Forest—an ensemble learning method ideal for complex datasets with non-linear relationships—to predict air quality. Starting with an exploration of the `air_data_all.csv` dataset, we'll guide you through using Random Forest and other regression techniques in a Jupyter Notebook to analyze environmental conditions and temporal factors. By the end, you'll be well-equipped to apply these methods in Python for comprehensive environmental data analysis.
 
-The purpose of this blog is to provide a step-by-step guide on how to use these methods, utilizing a Jupyter Notebook, to predict pollutant concentrations. We'll start by exploring our dataset, `air_data_all.csv`, which includes a variety of environmental conditions and temporal factors, and then apply these regression techniques to gain insights into the factors affecting air quality.
-
-By the end of this blog, you'll have a clearer understanding of how to implement these techniques in Python and interpret their results, equipping you with the tools needed for insightful environmental data analysis.
-
-## 1. Understanding the Dataset
+## Understanding the Dataset
 
 Before delving into regression models, it's essential to familiarize ourselves with the dataset at hand—`air_data_all.csv`. This dataset contains hourly air quality measurements and meteorological data from Beijing, spanning from March 1st, 2013, to February 28th, 2017. The dataset is sourced from the Beijing Municipal Environmental Monitoring Center and is matched with meteorological data from the China Meteorological Administration. However, it's important to note that missing data points are marked as NA. Link to dataset is https://archive.ics.uci.edu/dataset/501/beijing+multi+site+air+quality+data. 
 
@@ -57,42 +53,7 @@ Each column in the dataset serves a specific purpose:
 3. **Meteorological Data (TEMP, PRES, DEWP, RAIN, wd, WSPM)**: Weather conditions significantly impact pollutant dispersion and concentration.
 4. **Station**: This column identifies the monitoring site, facilitating the study of geographical variations in air quality.
 
-### Initial Insights and Challenges
-Upon initial examination, it's evident that the dataset offers a comprehensive foundation for in-depth analysis. However, several challenges may arise:
-
-- **Missing Data**: Handling missing values is imperative to prevent biases in the models.
-- **High Dimensionality**: The dataset's numerous variables may lead to multicollinearity issues, where variables are highly correlated.
-- **Non-linear Relationships**: Linear models may not capture all pollutant-environmental interactions, requiring more complex approaches like Random Forest.
-
-In the upcoming sections, we will address these challenges while preparing the data for regression analysis. By the end of this process, we will be well-equipped to employ linear and Random Forest regression for accurate pollutant concentration predictions.
-
-## 2. Selecting Target Pollutants
-
-In our journey to understand and predict air quality, selecting the right target pollutants is crucial. For this analysis, we will focus on the following pollutants: PM2.5, PM10, SO2, NO2, CO, and O3. Let's delve into the criteria and rationale behind choosing these specific pollutants.
-
-### Criteria for Selecting Target Pollutants
-The selection of target pollutants is based on the following criteria:
-
-1. **Health Impact**: Pollutants known to have significant health effects are prioritized.
-2. **Prevalence and Relevance**: Common pollutants in urban and industrial areas are selected due to their higher relevance.
-3. **Data Availability**: Pollutants with consistent and reliable data within the dataset are chosen to ensure the accuracy of the analysis.
-
-### Rationale Behind the Selection
-Each selected pollutant has its unique importance in air quality analysis:
-
-- **PM2.5 and PM10 (Particulate Matter)**: These are tiny particles in the air that reduce visibility and cause the air to appear hazy when levels are elevated. PM2.5 and PM10 are known for their ability to penetrate deep into the lungs and even into the bloodstream, causing respiratory and cardiovascular issues.
-
-- **SO2 (Sulfur Dioxide)**: A gas typically produced by burning fossil fuels containing sulfur. It's associated with acid rain and has health implications, especially for individuals with asthma.
-
-- **NO2 (Nitrogen Dioxide)**: Primarily gets into the air from the burning of fuel. NO2 forms from emissions from cars, trucks and buses, power plants, and off-road equipment. It's linked to various respiratory problems.
-
-- **CO (Carbon Monoxide)**: A colorless, odorless gas that is harmful when inhaled in large amounts. It's released from vehicles and other combustion sources and can cause harmful health effects by reducing the amount of oxygen that can be transported in the bloodstream.
-
-- **O3 (Ozone)**: At ground level, ozone is a harmful air pollutant and a significant component of smog. It's not emitted directly into the air but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC) in the presence of sunlight.
-
-By focusing on these pollutants, we can provide a comprehensive analysis of air quality and its health implications. Next, we will perform correlation analysis and multicollinearity checks to understand how these pollutants interact with each other and with different environmental factors.
-
-## 3. Data Cleaning and Transformation
+## Data Cleaning and Transformation
 
 Before delving into sophisticated regression models, it's imperative to prepare our dataset, "air_data_all.csv," for analysis. This stage, known as data cleaning and transformation, involves several key steps to ensure the data's integrity and usability.
 
@@ -110,7 +71,12 @@ import sys
 # Import necessary libraries
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
 
+```{python}
 # Load the dataset
 sample_data = pd.read_csv('air_data_all.csv')
 
@@ -121,14 +87,12 @@ sample_data.replace([np.inf, -np.inf], np.nan, inplace=True)
 missing_values = sample_data.isnull().sum()
 ```
 
-In this code block, we first replace any infinite values with NaNs. Then, we calculate the number of missing values in each column. Depending on the nature and volume of missing data, we can either fill these gaps using statistical methods (like mean, median) or consider removing the rows/columns entirely.
+In this code block, we first attempt to replace any infinite values with NaNs. Then, we calculate the number of missing values in each column. Depending on the nature and volume of missing data, we can either fill these gaps using statistical methods (like mean, median) or consider removing the rows/columns entirely.
 
 ### Normalization or Standardization of Data
 Normalization (rescaling data to a range, like 0–1) and standardization (shifting the distribution to have a mean of zero and a standard deviation of one) are crucial for models sensitive to the scale of data, such as linear regression.
 
 ```{python}
-from sklearn.preprocessing import StandardScaler
-
 # Standardizing the dataset
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(sample_data[['TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']])
@@ -154,8 +118,6 @@ In the above snippet, we create dummy variables for the `wd` column (wind direct
 Visualizations are effective for demonstrating the impact of data transformation. For instance, before and after standardization, we can plot histograms of a variable to observe changes in its distribution.
 
 ```{python}
-import matplotlib.pyplot as plt
-
 # Plotting before and after standardization
 plt.hist(sample_data['TEMP'], bins=30, alpha=0.5, label='Original TEMP')
 plt.hist(scaled_df['TEMP'], bins=30, alpha=0.5, label='Standardized TEMP')
@@ -167,7 +129,7 @@ This histogram allows us to compare the distribution of the temperature data bef
 
 By completing these data cleaning and transformation processes, we ensure that our dataset is primed for accurate and effective regression analysis, laying a solid foundation for our subsequent modeling steps.
 
-## 4. Correlation Analysis and Multicollinearity Check
+## Correlation Analysis and Multicollinearity Check
 
 After preparing our dataset, the next step in our analysis involves understanding the relationships between variables using correlation analysis and checking for multicollinearity. These steps are critical for ensuring the reliability and interpretability of our regression models.
 
@@ -178,9 +140,6 @@ Correlation analysis helps us understand the strength and direction of the relat
 # Removing missing or infinite values from the scaled dataset
 scaled_df.replace([np.inf, -np.inf], np.nan, inplace=True)
 scaled_df.dropna(inplace=True)
-
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # Calculating the correlation matrix for key variables
 corr_matrix = sample_data[['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']].corr()
@@ -232,7 +191,7 @@ By conducting both correlation analysis and a multicollinearity check, we ensure
 ### Feature Selection
 Based on the results of Correlation Analysis and Multicollinearity Check. I decided to predict SO2 with 'TEMP', 'PRES', 'DEWP'. 
 
-## 5. Linear Regression Analysis
+## Linear Regression Analysis
 
 In this section, we will apply linear regression analysis to predict the concentration of sulfur dioxide (SO2) based on three key environmental factors: 'TEMP', 'PRES', and 'DEWP'. Linear regression is a fundamental statistical method used to understand the relationship between a dependent variable and one or more independent variables.
 
@@ -325,7 +284,7 @@ By following these steps, we can use linear regression to effectively predict en
 
 Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:
 
-## 6. Random Forest Regression Analysis
+## Random Forest Regression Analysis
 
 ### Introduction to Random Forest Regression
 

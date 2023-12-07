@@ -1,7 +1,7 @@
 ---
 title: "1\\. Probability Theory and Random Variables"
 author: "Joanna Fang"
-date: "2023-11-28"
+date: "2023-11-20"
 categories: [code, probability, email traffic]
 jupyter: python3
 format:
