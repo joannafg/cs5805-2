@@ -1,8 +1,8 @@
 ---
-title: "Anomaly/Outlier Detection"
+title: "5. Anomaly/Outlier Detection"
 author: "Joanna Fang"
-date: "2023-12-07"
-categories: [ml, code, linear regression, nonlinear regression, pollution]
+date: "2023-12-06"
+categories: [ml, code, anomaly detection, outlier detection, pollution]
 jupyter: python3
 format:
   html: 
@@ -35,7 +35,27 @@ Our primary goal is to detect unusual patterns or outliers in air quality data t
 The first step in our data science journey involves getting acquainted with the dataset's structure and characteristics. This involves examining the various columns of the dataset, which include both pollutant levels and meteorological factors.
 
 ```{python}
+# Install and import all libraries
+import sys
+!{sys.executable} -m pip install seaborn
+!{sys.executable} -m pip install matplotlib
+!{sys.executable} -m pip install scikit-learn
+!{sys.executable} -m pip install pandas
+!{sys.executable} -m pip install numpy
+
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.decomposition import PCA
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import IsolationForest
+```
+
+```{python}
 sample_data_org = pd.read_csv('air_data_all.csv')
 sample_data_org.head()
 ```
@@ -43,7 +63,7 @@ sample_data_org.head()
 By running this code, we get a glimpse of the first few rows of our dataset, allowing us to understand the types of data we will be working with.
 
 ### Handling Missing Data and Categorical Variables
-Dealing with missing data and categorical variables is a crucial part of data preprocessing. To address this, we first identify the missing values and then decide on an appropriate strategy, such as imputation or removal.
+Dealing with missing data and categorical variables is a crucial part of data preprocessing. To address this, we first identify the missing values and then decide on an appropriate strategy, such as imputation or removal. However, in later processing, we realized we hadn't done enough here. 
 
 ```{python}
 missing_values = sample_data_org.isnull().sum()
@@ -51,14 +71,6 @@ missing_values
 ```
 
 ```{python}
-import seaborn as sns
-import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.decomposition import PCA
-from sklearn.pipeline import Pipeline
-
 # Remove rows with missing values
 sample_data = sample_data_org.dropna()
 
@@ -103,15 +115,14 @@ For categorical variables like wind direction, we use encoding techniques to con
 Given the varying scales of our numerical features, normalization or standardization becomes necessary. This step ensures that no single feature disproportionately influences the model due to its scale.
 
 ```{python}
-from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(sample_data[['PM2.5', 'PM10', 'TEMP', 'PRES']])
 ```
 
 ### Feature Selection and Engineering
-Finally, we perform feature selection and engineering. This process involves choosing the most relevant features and possibly creating new features to improve our model's performance.
+Finally, we perform feature selection and engineering. This process involves attempting to choose the most relevant features and possibly creating new features to improve our model's performance.
 
-1. **Correlation Analysis**: First, we can perform a correlation analysis to understand the relationships between different features. This helps in identifying features that are strongly correlated with each other, from which we can select the most relevant ones.
+1. **Correlation Analysis**: First, we can perform a correlation analysis to understand the relationships between different features. This can help in identifying features that are strongly correlated with each other, from which we can select the most relevant ones.
 
 ```{python}
 # Now perform the correlation analysis on the numerical data
@@ -123,37 +134,33 @@ sns.heatmap(corr, annot=True, fmt=".2f")
 plt.show()
 ```
 
-    This code generates a heatmap of the correlations between different features. High correlation values suggest a strong relationship, which can inform feature selection.
+The heatmap visualizes the correlation coefficients between different variables related to air quality and weather conditions. The scale on the right indicates the strength of the correlation, ranging from -1 (a perfect negative correlation) to 1 (a perfect positive correlation). Dark red shades indicate strong positive correlations, whereas dark blue shades represent strong negative correlations. Most variables do not exhibit a strong correlation with each other, as indicated by the shades of white (near-zero correlation). This kind of visualization helps to identify relationships between variables, which can be further investigated for causal connections or dependencies.
 
 2. **Principal Component Analysis (PCA)**: PCA is a technique used to reduce the dimensionality of the data, enhancing the interpretability while minimizing information loss.
 
 ```{python}
-from sklearn.decomposition import PCA
-
 pca = PCA(n_components=0.95) # Retain 95% of the variance
 principal_components = pca.fit_transform(scaled_data)
 ```
 
-    This code applies PCA to the scaled data, reducing the number of features while retaining 95% of the variance in the data.
+This code applies PCA to the scaled data, reducing the number of features while retaining 95% of the variance in the data.
 
-3. **Feature Engineering**: If applicable, you can create new features that might be more indicative of anomalies. For example, creating a composite air quality index from multiple pollutants.
+3. **Feature Engineering**: Here, we are attempting to create a new feature that might be more indicative of anomalies by creating a composite air quality index from multiple pollutants.
 
 ```{python}
 sample_data['Air_Quality_Index'] = sample_data['PM2.5'] * 0.4 + sample_data['PM10'] * 0.2 + sample_data['NO2'] * 0.2 + sample_data['SO2'] * 0.1 + sample_data['CO'] * 0.1
 ```
 
-    This code creates a new feature, 'Air_Quality_Index', as a weighted sum of various pollutants, hypothesizing that this composite index might be a more effective predictor of anomalies.
+This code creates a new feature, 'Air_Quality_Index', as a weighted sum of various pollutants, hypothesizing that this composite index might be a more effective predictor of anomalies.
 
-Through these steps, we refine our dataset to include the most relevant features for anomaly detection, enhancing the model's accuracy and efficiency.
+Through these steps, we attempted to refine our dataset to include the most relevant features for anomaly detection, enhancing the model's accuracy and efficiency.
 
 ## Anomaly Detection Algorithms and Model Training and Evaluation
 
 ### Choosing the Anomaly Detection Algorithm: Isolation Forest
-For our project on air pollution data, we have opted for the Isolation Forest algorithm due to its efficiency and effectiveness, especially in dealing with large and high-dimensional datasets like ours. 
+After trying out other models, which took more than 5 minutes to run, for our project on air pollution data, we have opted for the Isolation Forest algorithm due to its efficiency and effectiveness, especially in dealing with large and high-dimensional datasets like ours.  
 
 ```{python}
-from sklearn.ensemble import IsolationForest
-
 iso_forest = IsolationForest(n_estimators=100, contamination=0.1, random_state=42)
 ```
 
@@ -162,39 +169,31 @@ iso_forest = IsolationForest(n_estimators=100, contamination=0.1, random_state=4
 We split our dataset into training and test sets, ensuring that the model is evaluated on unseen data, reflecting its performance in real-world scenarios.
 
 ```{python}
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-import pandas as pd
 # Handling NaN Values with Imputation
 # Impute missing values and then scale the numerical columns
 num_pipeline = Pipeline([
     ('imputer', SimpleImputer(strategy='mean')),  # Replace missing values with mean
     ('std_scaler', StandardScaler())
 ])
-
 # Apply the pipeline to the numerical columns
 numerical_cols = sample_data_org.select_dtypes(include=['int64', 'float64']).columns
 sample_data_org[numerical_cols] = num_pipeline.fit_transform(sample_data_org[numerical_cols])
-
 # One-hot encode the categorical columns
 categorical_cols = sample_data_org.select_dtypes(include=['object']).columns
 sample_data_org = pd.get_dummies(sample_data_org, columns=categorical_cols, drop_first=True)
 
-from sklearn.model_selection import train_test_split
-
+# Spliting the Dataset 
 X_train, X_test = train_test_split(sample_data_org, test_size=0.3, random_state=42)
 ```
 
 ### Training the Model
-The training process involves fitting the Isolation Forest model to our training data. This model is particularly suited for our project due to its lower computational cost compared to other algorithms and its ability to efficiently handle the complexity of our dataset.
+The training process involves fitting the Isolation Forest model to our training data.
 
 ```{python}
 iso_forest.fit(X_train)
 ```
 
 ### Evaluation Metrics
-In evaluating our model, we focus on metrics such as precision, recall, F1-score, and the ROC curve. These metrics provide insights into the model's accuracy, its ability to identify true anomalies (precision), and its capability to detect the majority of actual anomalies (recall).
 
 ### Model Evaluation and Insights
 After training, we assess the model's performance on the test set. This evaluation helps us understand the effectiveness of our anomaly detection in the context of air pollution data.
@@ -205,8 +204,6 @@ In an unsupervised dataset scenario, where we don't have labeled data (`y_test`)
 First, use the model to predict anomalies in your test set. The Isolation Forest model marks an anomaly with -1 and normal with 1.
 
 ```{python}
-import numpy as np
-
 # Predict anomalies on the test set
 anomalies = iso_forest.predict(X_test)
 
@@ -215,7 +212,7 @@ anomalies = np.where(anomalies == -1, 1, 0)
 ```
 
 #### Analyzing Detected Anomalies
-The next step is to analyze these detected anomalies. You might want to look at the proportion of anomalies detected and inspect some of the anomalous data points to see if they make sense.
+The next step is to analyze these detected anomalies. 
 
 ```{python}
 # Count the number of anomalies detected
@@ -242,8 +239,6 @@ print(anomalous_data.sample(min(10, len(anomalous_data))))  # Display up to 10 a
 
 ## Visualization of Anomalies
 
-In our journey to understand and analyze air pollution data, visualizations play a crucial role, especially when it comes to highlighting and interpreting anomalies. By visually representing the data, we can more easily spot patterns, trends, and outliers that might not be immediately apparent in raw numerical data.
-
 ### Creating Visualizations
 
 To showcase the detected anomalies, we employ various types of visualizations. Here, we'll focus on two primary types: scatter plots and heatmaps. These visualizations will help us to interpret the anomalies in the context of air pollution data.
@@ -252,10 +247,6 @@ To showcase the detected anomalies, we employ various types of visualizations. H
 Scatter plots are excellent for visualizing the relationship between two variables and identifying points that stand out from the pattern.
 
 ```{python}
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Assuming 'PM2.5' and 'TEMP' are columns in your dataset
 plt.figure(figsize=(10, 6))
 sns.scatterplot(data=anomalous_data, x='TEMP', y='PM2.5', hue='Anomaly')
 plt.title('Scatter Plot of PM2.5 vs Temperature')
@@ -264,7 +255,7 @@ plt.ylabel('PM2.5')
 plt.show()
 ```
 
-In this scatter plot, we plot 'PM2.5' levels against 'Temperature', using different colors to distinguish between normal data points and anomalies. Anomalies will stand out in the plot, allowing us to observe if higher pollution levels are associated with specific temperature ranges.
+The scatter plot visualizes PM2.5 levels against temperature, with each point representing an observation. The data points are standardized, as indicated by the temperature axis ranging from approximately -2 to 2. A dense clustering of points suggests that lower PM2.5 levels are common across the temperature range, with a noticeable spread in higher PM2.5 levels at mid-range temperatures. Points that stand out from the dense cloud indicate potential anomalies with higher PM2.5 levels, which could be of interest for further investigation into air quality issues at different temperatures.
 
 #### Heatmaps
 Heatmaps are useful for understanding the distribution and concentration of data points across two dimensions.
@@ -281,17 +272,7 @@ plt.title('Heatmap of Pollutant Levels in Anomalous Data (Sampled)')
 plt.show()
 ```
 
-This heatmap focuses on the levels of various pollutants in the data points identified as anomalies. By examining the heatmap, we can discern if certain pollutants are consistently elevated in these anomalous instances.
-
-### Significance of Visualizations
-
-Visualizations enable us to:
-
-- **Quickly Identify Anomalies**: Graphical representations make it easier to spot outliers or unusual patterns in the data, which might be indicative of environmental issues or data collection anomalies.
-
-- **Understand Relationships and Patterns**: Visualizations help in understanding the relationships between different environmental variables and how these relationships might contribute to anomalous pollution levels.
-
-- **Communicate Findings**: Graphs and charts are effective tools for communicating our findings to a broader audience, including those without a technical background, such as policymakers or the general public.
+The heatmap depicts pollutant levels in a subset of data identified as anomalous, with rows representing individual instances and columns for various pollutants. The color scale, ranging from dark purple to bright orange, illustrates the intensity of pollutant levels, with orange indicating higher concentrations. The stark contrast across the rows, primarily in the deep purple range, suggests that most selected data points do not have extremely high pollutant levels. However, occasional streaks of orange and red reveal instances where one or more pollutants reach notably higher levels, warranting closer scrutiny for potential environmental health concerns.
 
 ## Threshold Tuning
 
@@ -302,8 +283,6 @@ In the realm of anomaly detection, particularly with methods like the Isolation 
 Threshold tuning involves adjusting the parameters that define what we consider to be anomalous. In the case of the Isolation Forest, this often revolves around the `contamination` parameter, which represents the proportion of outliers we expect in the data.
 
 ```{python}
-from sklearn.ensemble import IsolationForest
-
 # Adjusting the contamination parameter
 contamination_rate = 0.05  # Example rate
 iso_forest = IsolationForest(contamination=contamination_rate)
@@ -372,3 +351,9 @@ When we delve into the sample of detected anomalies, several key observations em
 - **Public Awareness**: Disseminating information about such high pollution episodes can raise public awareness and encourage preventive measures, especially for vulnerable populations.
 
 In summary, our analysis using the Isolation Forest model provides us with valuable insights into the air quality data, highlighting instances of unusually high pollution levels. This information is crucial for environmental monitoring, policy-making, and public health initiatives.
+
+## Reference 
+- https://www.knowledgehut.com/blog/data-science/machine-learning-for-anomaly-detection 
+- https://www.techtarget.com/searchenterpriseai/definition/anomaly-detection
+- https://medium.com/@corymaklin/isolation-forest-799fceacdda4
+- OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
