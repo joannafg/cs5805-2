@@ -275,3 +275,12 @@ To demonstrate the practical application of our theoretical analysis, let's comp
 ## Conclusion
 
 Throughout this exploration, we've uncovered the Poisson distribution's powerful utility in analyzing and forecasting infrequent but regular events, exemplified by email reception rates. This transition from the Binomial distribution, as visually depicted, underscores the Poisson distribution's efficiency in scenarios with numerous trials and low success probabilities. In professional domains such as customer service, IT, and communications, it aids in workload management and resource allocation, ensuring adaptability. Likewise, in personal life, it assists in time and expectation management. This journey through probability and statistics highlights the Poisson distribution's practical significance as a tool for deciphering our world, revealing hidden patterns in daily events like email flows. Ultimately, it's not just a formula but a perspective enriching our personal and professional toolkits.
+
+## References 
+- https://annisap.medium.com/probability-theory-in-machine-learning-an-example-with-exponential-distributions-585eed56d48c
+- https://towardsdatascience.com/understanding-random-variables-and-probability-distributions-1ed1daf2e66
+- https://jonathan-hui.medium.com/probability-in-machine-learning-deep-learning-a2acdd793f18
+- https://www.analyticsvidhya.com/blog/2021/04/probability-theory-basics-in-machine-learning/
+- https://machinelearningmastery.com/discrete-probability-distributions-for-machine-learning/
+- https://github.com/jonkrohn/ML-foundations/blob/master/notebooks/5-probability.ipynb
+- OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
