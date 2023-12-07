@@ -18,7 +18,7 @@ format:
 
 # Predicting Air Pollutant Concentrations Using Linear and Random Forest Regression: A Jupyter Notebook Guide
 
-![](thumbnail.jpg){width="20%" fig-align="center"}
+![](thumbnail.jpg){width="50%" fig-align="center"}
 
 ## Introduction
 
@@ -74,6 +74,12 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.ensemble import RandomForestRegressor
+
 ```
 
 ```{python}
@@ -125,9 +131,7 @@ plt.legend()
 plt.show()
 ```
 
-This histogram allows us to compare the distribution of the temperature data before and after standardization, showcasing the effects of our data transformation steps.
-
-By completing these data cleaning and transformation processes, we ensure that our dataset is primed for accurate and effective regression analysis, laying a solid foundation for our subsequent modeling steps.
+This histogram compares the distribution of original and standardized temperature values, highlighting the effect of standardization in centering the data around zero. 
 
 ## Correlation Analysis and Multicollinearity Check
 
@@ -151,14 +155,12 @@ plt.title("Correlation Matrix of Environmental Factors and Pollutants")
 plt.show()
 ```
 
-In this code, we calculate and visualize the correlation matrix of key pollutants and environmental factors. This heatmap provides a clear visual representation of the relationships, where the color intensity and the value in each cell indicate the strength and direction of the correlation.
+In this code, we calculate and visualize the correlation matrix of key pollutants and environmental factors. This heatmap displays the relationship between various environmental factors and pollutants. Each cell shows the correlation coefficient between two variables, ranging from -1 to 1. Positive values (red) indicate a positive correlation, while negative values (blue) suggest a negative correlation. The strongest positive correlations are among PM2.5, PM10, NO2, and CO, suggesting they often increase together. Temperature (TEMP) has a notably high negative correlation with pressure (PRES) and dew point (DEWP), and a positive correlation with O3, indicating that as temperature rises, O3 levels tend to increase, while PRES and DEWP decrease.
 
 ### Multicollinearity Check and Its Implications
 Multicollinearity occurs when two or more independent variables in a regression model are highly correlated. This can lead to unreliable coefficient estimates, making it difficult to determine the effect of each independent variable.
 
 ```{python}
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-
 # Preparing data for multicollinearity check
 features = scaled_df[['TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']]
 
@@ -170,7 +172,7 @@ vif_data['VIF'] = [variance_inflation_factor(features.values, i) for i in range(
 vif_data
 ```
 
-Here, we calculate the Variance Inflation Factor (VIF) for each feature. A VIF value greater than 5 or 10 indicates high multicollinearity, suggesting that the variable could be linearly predicted from the others with a substantial degree of accuracy.
+Here, we calculate the Variance Inflation Factor (VIF) for each feature. The VIF values indicate the level of multicollinearity among different climate features in a dataset. A VIF value greater than 5 typically suggests high multicollinearity, where the feature might be predicted by other features in the model. Here, 'TEMP' shows a VIF of over 5, indicating potential redundancy. 'PRES' and 'DEWP' have moderate VIF values, which suggest some correlation with other variables but not as strongly as 'TEMP'. 'RAIN' and 'WSPM' have low VIF values, suggesting they offer unique information not heavily collinear with other features.
 
 ### Visual Representation of Correlation and Multicollinearity Findings
 Visualizing these statistics can help in better understanding and communicating the findings.
@@ -184,9 +186,7 @@ plt.title('Multicollinearity Check - VIF Values')
 plt.show()
 ```
 
-This bar chart provides a clear representation of the VIF values for each feature, helping us identify which variables might be contributing to multicollinearity in the model.
-
-By conducting both correlation analysis and a multicollinearity check, we ensure the integrity and effectiveness of our regression models, setting a strong foundation for accurate and insightful analysis of the factors influencing air quality.
+This bar chart provides a clear representation of the VIF values for each feature.
 
 ### Feature Selection
 Based on the results of Correlation Analysis and Multicollinearity Check. I decided to predict SO2 with 'TEMP', 'PRES', 'DEWP'. 
@@ -202,10 +202,6 @@ Linear regression is a widely used statistical technique for modeling and analyz
 Now, let's conduct a linear regression analysis using Python in a Jupyter Notebook environment.
 
 ```{python}
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
-
 # Filter out rows where any of the feature columns or 'SO2' is NaN
 filtered_data = sample_data.dropna(subset=['TEMP', 'PRES', 'DEWP', 'SO2'])
 
@@ -264,7 +260,7 @@ plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, lr_y_pred, 1))(np.uniqu
 plt.show()
 ```
 
-The scatter plot shows the actual vs. predicted SO2 values, and the red line represents the linear fit, providing a visual indication of how well the model predicts SO2 concentration.
+The scatter plot displays the relationship between actual and predicted SO2 concentrations. The red line represents the ideal situation where the predicted values perfectly match the actual values. The dense cluster of points near the bottom left indicates that for lower actual SO2 values, the model's predictions are quite concentrated, suggesting accuracy in this range. However, as actual SO2 levels increase, the model's predictions spread out and deviate from the red line, indicating less accuracy. Especially for very high actual SO2 values, the model seems to underpredict, as shown by the points far below the red line.
 
 ### Evaluating the Performance of the Linear Regression Model
 Finally, we evaluate the performance of our model using common statistical metrics.
@@ -280,13 +276,13 @@ print(f"R² Score: {lr_r2}")
 
 The Mean Squared Error (MSE) provides an average of the squares of the errors, essentially quantifying the difference between predicted and actual values. The R² Score measures the proportion of the variance in the dependent variable that is predictable from the independent variables.
 
-By following these steps, we can use linear regression to effectively predict environmental factors' impact on air quality, specifically sulfur dioxide concentrations, and evaluate the accuracy of our predictions.
+The MSE of 411.5799 suggests that the predictions of the model are, on average, about 411.58 units squared away from the actual values, which indicates a significant error in the context of the data. The R² score of approximately 0.109 means that only about 10.94% of the variance in the dependent variable is predictable from the independent variables, suggesting the model has limited predictive power in this context.
 
-Sure, I'll help you generate text for the "Random Forest Regression Analysis" section of your blog. Here's the content for that section:
-
-## Random Forest Regression Analysis
+## Nonlinear Regression - Random Forest Regression Analysis
 
 ### Introduction to Random Forest Regression
+
+Having explored the linear regression model, we now turn our attention to nonlinear regression to capture the more complex relationships within our data.
 
 Random Forest is an ensemble learning method predominantly used for classification and regression tasks. It operates by constructing a multitude of decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Compared to linear regression, Random Forest offers several advantages:
 
@@ -299,8 +295,6 @@ Random Forest is an ensemble learning method predominantly used for classificati
 Let's implement Random Forest regression to predict the concentration of sulfur dioxide (SO2) using 'TEMP' (temperature), 'PRES' (pressure), and 'DEWP' (dew point). We have already preprocessed and scaled our dataset. Now, we'll apply Random Forest regression:
 
 ```{python}
-from sklearn.ensemble import RandomForestRegressor
-
 # Create a Random Forest model
 rf_model = RandomForestRegressor(random_state=0)
 
@@ -316,8 +310,6 @@ rf_y_pred = rf_model.predict(X_test)
 1. **Feature Importance Plot**: This graph illustrates the relative importance of each feature in predicting the SO2 levels.
 
 ```{python}
-import matplotlib.pyplot as plt
-
 feature_importances = rf_model.feature_importances_
 plt.barh(['TEMP', 'PRES', 'DEWP'], feature_importances)
 plt.xlabel('Feature Importance')
@@ -377,3 +369,12 @@ The combined Prediction vs Actual Plot demonstrates a stark contrast between the
 ### Limitation
 
 As depicted in the visualizations, there appear to be a few outliers in the graph. Conducting an outlier analysis before proceeding with modeling could potentially enhance the accuracy of our predictions.
+
+## Conclusion 
+In our blog, we compared linear and Random Forest regression for predicting air pollutant concentrations, highlighting the strengths of Random Forest in capturing complex, non-linear interactions within environmental data. The examination of various pollutants and environmental conditions using comprehensive regression models in Python provided deep insights. Ultimately, our exploration revealed Random Forest's superior predictive performance over linear regression, underscored by its lower Mean Squared Error and higher R² value, showcasing its robustness in modeling air quality data.
+
+## References 
+- https://www.geeksforgeeks.org/ml-linear-regression/
+- https://cnvrg.io/random-forest-regression/
+- OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
+- https://www.kaggle.com/datasets/outofskills/driving-behavior
