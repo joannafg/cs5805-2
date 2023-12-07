@@ -1,5 +1,5 @@
 ---
-title: "5. Anomaly/Outlier Detection"
+title: "5\\. Anomaly/Outlier Detection"
 author: "Joanna Fang"
 date: "2023-12-06"
 categories: [ml, code, anomaly detection, outlier detection, pollution]

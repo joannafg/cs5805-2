@@ -161,6 +161,13 @@
     "text": "Based on our analysis of the air pollution data using the Isolation Forest model, we’ve uncovered some intriguing insights. Out of the total 126,231 data points, our model identified 12,510 as anomalies, accounting for approximately 9.91% of the dataset. This proportion of anomalies is significant and warrants further investigation.\n\n\nWhen we delve into the sample of detected anomalies, several key observations emerge:\n\nElevated Pollutant Levels: Many of the anomalies exhibit unusually high levels of pollutants such as PM2.5, PM10, NO2, and CO. For instance, rows like 8468 and 314995 show pollutant concentrations several times higher than typical readings. This could indicate episodes of extreme pollution, possibly due to specific environmental events or human activities.\nMeteorological Influences: The anomalies also reveal interesting patterns in meteorological conditions. For example, rows 214246 and 244058 show variations in temperature, pressure, and humidity, which could be influencing factors for the high pollution levels observed.\nStation-Specific Anomalies: The data points flagged as anomalies are distributed across different monitoring stations, as seen in the ‘station’ columns. This distribution suggests that the detected anomalies are not confined to a specific location but are rather widespread, indicating a more systemic issue in air quality.\nTemporal Patterns: The presence of anomalies across different years, months, and hours, such as in rows 216296 and 392113, hints at temporal patterns in air pollution. These patterns could be aligned with seasonal changes, urban activities, or policy changes affecting air quality.\n\n\n\n\n\nEnvironmental Policy and Health: The identified anomalies are crucial for understanding the dynamics of air pollution. They can inform environmental policies, especially in devising strategies to mitigate high pollution episodes.\nFurther Research: These findings can be a starting point for more detailed research. For example, investigating the causes behind high pollution episodes can help in understanding the impact of urban development, traffic patterns, or industrial activities on air quality.\nPublic Awareness: Disseminating information about such high pollution episodes can raise public awareness and encourage preventive measures, especially for vulnerable populations.\n\nIn summary, our analysis using the Isolation Forest model provides us with valuable insights into the air quality data, highlighting instances of unusually high pollution levels. This information is crucial for environmental monitoring, policy-making, and public health initiatives."
   },
   {
+    "objectID": "posts/outlier4/index.html#reference",
+    "href": "posts/outlier4/index.html#reference",
+    "title": "5. Anomaly/Outlier Detection",
+    "section": "",
+    "text": "https://www.knowledgehut.com/blog/data-science/machine-learning-for-anomaly-detection https://www.techtarget.com/searchenterpriseai/definition/anomaly-detection https://medium.com/@corymaklin/isolation-forest-799fceacdda4 OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com"
+  },
+  {
     "objectID": "posts/classification2/index.html",
     "href": "posts/classification2/index.html",
     "title": "4. Classification",
@@ -238,6 +245,13 @@
     "text": "In summarizing our findings, the machine learning models developed to classify driving behavior as SLOW, NORMAL, or AGGRESSIVE revealed critical insights. The evaluation metrics and confusion matrices indicated that our models predominantly predicted the NORMAL class while failing to recognize SLOW and AGGRESSIVE behaviors. The accuracy across the models ranged from approximately 26% to 41%, with the SVM model achieving the highest accuracy. However, the precision and recall scores were low for all models, indicating a significant area for improvement.\n\n\nThe limitations of our current approach are evident:\n\nClass Imbalance: The models’ tendency to predict mostly the NORMAL class suggests a possible class imbalance.\nModel Overfitting: The poor generalization to other classes may also indicate overfitting to the majority class.\nFeature Representation: The current features may not sufficiently represent the characteristics unique to each class.\n\n\n\n\nSeveral improvements can be proposed:\n\nData Resampling: Implementing techniques like SMOTE or random oversampling to balance the class distribution could be beneficial.\nFeature Engineering: Developing more sophisticated features or utilizing feature selection methods to capture more nuanced patterns of aggressive driving.\nModel Complexity: Exploring more complex models or deep learning approaches that might capture the intricacies in the data better.\nExtended Hyperparameter Tuning: Conducting a more thorough hyperparameter optimization, given more computational time and resources.\n\nIn conclusion, while the current models have provided a foundation, further work is needed to develop a robust classifier that can accurately identify various driving behaviors, which is crucial for enhancing road safety and reducing accidents."
   },
   {
+    "objectID": "posts/classification2/index.html#reference",
+    "href": "posts/classification2/index.html#reference",
+    "title": "4. Classification",
+    "section": "",
+    "text": "https://builtin.com/data-science/supervised-machine-learning-classification\nhttps://www.analyticsvidhya.com/blog/2021/09/a-complete-guide-to-understand-classification-in-machine-learning/\nOpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com\nhttps://www.kaggle.com/datasets/outofskills/driving-behavior"
+  },
+  {
     "objectID": "posts/linear/index.html",
     "href": "posts/linear/index.html",
     "title": "Linear and Nonlinear Regression",
@@ -306,19 +320,5 @@
     "title": "Blog",
     "section": "",
     "text": ":::{#quarto-listing-pipeline .hidden} \\(e = mC^2\\)\n:::{.hidden render-id=“pipeline-listing-listing”}\n:::{.list .quarto-listing-default}\n\n\n  \n\n\n\n\nProbability Theory and Random Variables\n\n\n\n\n\n\n\ncode\n\n\nprobability\n\n\nemail traffic\n\n\n\n\n\n\n\n\n\n\n\nNov 28, 2023\n\n\nJoanna Fang\n\n\n\n\n\n\n  \n\n\n\n\nLinear and Nonlinear Regression\n\n\n\n\n\n\n\nml\n\n\ncode\n\n\nlinear regression\n\n\nnonlinear regression\n\n\npollution\n\n\n\n\n\n\n\n\n\n\n\nNov 29, 2023\n\n\nJoanna Fang\n\n\n\n\n\n\n  \n\n\n\n\nClustering\n\n\n\n\n\n\n\nml\n\n\ncode\n\n\nclustering\n\n\ndriving\n\n\nkaggle\n\n\n\n\n\n\n\n\n\n\n\nNov 29, 2023\n\n\nJoanna Fang\n\n\n\n\n\n\n  \n\n\n\n\n\nClassification\n\n\n\n\n\n\n\nml\n\n\ncode\n\n\nclassification\n\n\ndriving\n\n\nkaggle\n\n\n\n\n\n\n\n\n\n\n\nNov 30, 2023\n\n\nJoanna Fang\n\n\n\n\n\n\n  \n\n\n\n\n\nAnomaly/Outlier Detection\n\n\n\n\n\n\n\nml\n\n\ncode\n\n\nanomaly detection\n\n\noutlier detection\n\n\npollution\n\n\n\n\n\n\n\n\n\n\n\nDec 6, 2023\n\n\nJoanna Fang\n\n\n\n\n:::\n\n\n\nNo matching items\n\n:::\n:::"
-  },
-  {
-    "objectID": "posts/outlier4/index.html#reference",
-    "href": "posts/outlier4/index.html#reference",
-    "title": "5. Anomaly/Outlier Detection",
-    "section": "",
-    "text": "https://www.knowledgehut.com/blog/data-science/machine-learning-for-anomaly-detection https://www.techtarget.com/searchenterpriseai/definition/anomaly-detection https://medium.com/@corymaklin/isolation-forest-799fceacdda4 OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com"
-  },
-  {
-    "objectID": "posts/classification2/index.html#reference",
-    "href": "posts/classification2/index.html#reference",
-    "title": "4. Classification",
-    "section": "",
-    "text": "https://builtin.com/data-science/supervised-machine-learning-classification\nhttps://www.analyticsvidhya.com/blog/2021/09/a-complete-guide-to-understand-classification-in-machine-learning/\nOpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com\nhttps://www.kaggle.com/datasets/outofskills/driving-behavior"
   }
 ]
