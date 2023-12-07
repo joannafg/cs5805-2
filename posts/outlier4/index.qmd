@@ -1,7 +1,7 @@
 ---
 title: "Anomaly/Outlier Detection"
 author: "Joanna Fang"
-date: "2023-12-06"
+date: "2023-12-07"
 categories: [ml, code, linear regression, nonlinear regression, pollution]
 jupyter: python3
 format:
