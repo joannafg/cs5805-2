@@ -38,20 +38,11 @@ In the world of machine learning, the choice of dataset is as crucial as the alg
 
 This dataset offers a detailed glimpse into various aspects of driving, captured through different features:
 
-- **Acceleration (AccX, AccY, AccZ)**: These features measure the vehicle's acceleration in meters per second squared ($$m/s^2$$) along the X, Y, and Z axes. Acceleration data is crucial for understanding sudden movements and changes in driving speed.
-- **Rotation (GyroX, GyroY, GyroZ)**: Here, we have the vehicle's angular velocity around the X, Y, and Z axes, measured in degrees per second ($$°/s$$). This data helps in identifying steering patterns and gauging the stability of the vehicle during various maneuvers.
+- **Acceleration (AccX, AccY, AccZ)**: These features measure the vehicle's acceleration in meters per second squared ($m/s^2$) along the X, Y, and Z axes. Acceleration data is crucial for understanding sudden movements and changes in driving speed.
+- **Rotation (GyroX, GyroY, GyroZ)**: Here, we have the vehicle's angular velocity around the X, Y, and Z axes, measured in degrees per second ($°/s$). This data helps in identifying steering patterns and gauging the stability of the vehicle during various maneuvers.
 - **Classification Labels (SLOW, NORMAL, AGGRESSIVE)**: Each data point is tagged with one of these labels. It's important to note that in clustering, such labels are not typically required. However, in our case, these labels will serve as a benchmark, enabling us to compare our unsupervised learning results with pre-defined categories.
 
 This dataset not only provides a foundation for applying clustering techniques but also allows us to explore how well unsupervised learning can mirror human-labeled classifications.
-
-### Tools and Libraries
-
-Our analysis will be powered by several key tools and libraries, each bringing its own strengths to the table:
-
-- **Python**: Our language of choice, renowned for its ease of use and strong community support, especially in data science.
-- **Scikit-learn**: A powerful Python library for machine learning. We will use its clustering algorithms, specifically KMeans, to group our data.
-- **Matplotlib**: This library will help us in visualizing our data and the results of our clustering, making the insights more accessible.
-- **kneed**: An invaluable tool when it comes to determining the optimal number of clusters. It programmatically identifies the 'elbow point' in our dataset, a crucial step in ensuring our clustering approach is as effective as possible.
 
 In the next sections, we'll dive into the process of applying these tools to our dataset, starting with our initial approach and gradually moving towards a more refined, data-driven methodology.
 
@@ -113,7 +104,7 @@ plt.title('Initial Clustering with 3 Clusters')
 plt.show()
 ```
 
-This visualization plots the scaled acceleration data on the X and Y axes, colored by the assigned cluster. It provides a first glimpse into how the data points are grouped by the algorithm.
+This visualization plots the scaled acceleration data on the X and Y axes, colored by the assigned cluster. 
 
 ### Limitations of the Initial Approach
 
@@ -121,7 +112,7 @@ While starting with three clusters seemed logical, this approach had its limitat
 
 In the following section, we explore how we addressed these limitations by seeking an optimal number of clusters beyond the confines of the initial labeled categories.
 
-## Realizing the Need for Optimization
+## The Need for Optimization
 
 After the initial clustering, a crucial question arose: were three clusters truly representative of the driving behaviors in our dataset? This led us to the concept of cluster optimization, a pivotal step in ensuring that our machine learning model accurately reflects the complexities of the data.
 
@@ -138,19 +129,13 @@ Our initial model with three clusters was a natural starting point, mirroring th
 
 These considerations led us to explore beyond the confines of the three predefined categories, seeking a more data-driven approach to determine the number of clusters.
 
-### Embracing the Elbow Method
-
-The Elbow Method emerged as our tool of choice for finding the optimal number of clusters. It involves plotting the model's performance (measured in terms of Sum of Squared Errors, or SSE) against a range of cluster numbers. The 'elbow point' in this plot, where the rate of decrease in SSE sharply changes, indicates the optimal cluster count.
-
-In the next section, we'll delve into how we applied the Elbow Method to our dataset, using a combination of scikit-learn and the `kneed` package to not just visualize but also programmatically identify the elbow point, marking a significant step in refining our clustering model.
-
 ## Implementing the Elbow Method
 
 With the realization that our initial model might not optimally capture the driving behaviors in our dataset, we turned to the Elbow Method. This technique is a cornerstone in determining the appropriate number of clusters in unsupervised learning, particularly in KMeans clustering.
 
 ### Understanding the Elbow Method
 
-The Elbow Method is a heuristic used in cluster analysis to determine the number of clusters in a dataset. The method involves running the clustering algorithm multiple times, each time with a different number of clusters ($$ k $$), and calculating the Sum of Squared Errors (SSE) for each. SSE is defined as the sum of the squared distances between each member of a cluster and its centroid. As $$ k $$ increases, SSE tends to decrease as the clusters will be smaller and tighter. However, after a certain point, the marginal decrease in SSE with increasing $$ k $$ becomes insignificant, forming an 'elbow' in the plot. This point is considered the optimal number of clusters.
+The Elbow Method is a heuristic used in cluster analysis to determine the number of clusters in a dataset. The method involves running the clustering algorithm multiple times, each time with a different number of clusters ($ k $), and calculating the Sum of Squared Errors (SSE) for each. SSE is defined as the sum of the squared distances between each member of a cluster and its centroid. As $ k $ increases, SSE tends to decrease as the clusters will be smaller and tighter. However, after a certain point, the marginal decrease in SSE with increasing $ k $ becomes insignificant, forming an 'elbow' in the plot. This point is considered the optimal number of clusters.
 
 ### Applying the Elbow Method
 
@@ -266,10 +251,6 @@ In the final section, we will summarize our findings, reflect on the journey, an
 
 ## Conclusions and Insights
 
-As we conclude our exploration into clustering driving behaviors using the Kaggle dataset, it's crucial to reflect on the key insights gained and the broader implications of our findings.
-
-### Key Findings from the Optimized Clustering
-
 Our journey through clustering revealed several important insights:
 
 - **Beyond Assumptions**: While assumptions and labels can provide direction, they should not be the sole basis for decision-making in clustering problems.
@@ -279,3 +260,12 @@ Our journey through clustering revealed several important insights:
 Our journey through clustering driving behaviors illustrates the dynamic and iterative nature of machine learning. By embracing a data-driven approach, we were able to uncover more about the dataset than what was initially apparent. Such methodologies are not just limited to driving behavior analysis but are applicable across various domains where data-driven insights are crucial.
 
 As we continue to advance in the field of machine learning, the lessons learned here about the importance of flexibility, iteration, and data-driven analysis will remain fundamental to unlocking the full potential of our data.
+
+## References 
+- https://developers.google.com/machine-learning/clustering/overview
+- https://www.geeksforgeeks.org/clustering-in-machine-learning/
+- https://machinelearningmastery.com/clustering-algorithms-with-python/
+- https://realpython.com/k-means-clustering-python/
+- https://www.youtube.com/watch?v=ht7geyMAFfA
+- OpenAI. (2023). ChatGPT [Large language model]. https://chat.openai.com
+- https://www.kaggle.com/datasets/outofskills/driving-behavior
