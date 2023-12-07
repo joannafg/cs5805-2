@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joannafg.github.io/cs5805-2/about.html</loc>
-    <lastmod>2023-12-07T05:31:17.291Z</lastmod>
+    <lastmod>2023-12-07T09:48:54.196Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805-2/posts/clustering/index.html</loc>
-    <lastmod>2023-12-07T05:31:10.201Z</lastmod>
+    <lastmod>2023-12-07T09:48:50.574Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805-2/posts/probability/index.html</loc>
-    <lastmod>2023-12-07T05:30:52.345Z</lastmod>
+    <lastmod>2023-12-07T09:48:42.961Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joannafg.github.io/cs5805-2/posts/outlier4/index.html</loc>
+    <lastmod>2023-12-07T09:48:34.933Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805-2/posts/classification2/index.html</loc>
-    <lastmod>2023-12-07T05:30:43.215Z</lastmod>
+    <lastmod>2023-12-07T09:48:39.001Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805-2/posts/linear/index.html</loc>
-    <lastmod>2023-12-07T05:31:01.606Z</lastmod>
+    <lastmod>2023-12-07T09:48:46.869Z</lastmod>
   </url>
   <url>
     <loc>https://joannafg.github.io/cs5805-2/index.html</loc>
-    <lastmod>2023-12-07T05:31:15.524Z</lastmod>
+    <lastmod>2023-12-07T09:48:53.255Z</lastmod>
   </url>
 </urlset>
