@@ -3,8 +3,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/probability/index.html",
-      "/posts/clustering/index.html",
       "/posts/linear/index.html",
+      "/posts/clustering/index.html",
       "/posts/classification2/index.html",
       "/posts/outlier4/index.html"
     ]
