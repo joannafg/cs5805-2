@@ -4,13 +4,13 @@ project:
 
 website:
   title: "Ziming's Journey in Machine Learning"
-  repo-url: https://github.com/joannafg/cs5805
+  repo-url: https://github.com/joannafg/cs5805-2
   repo-actions: [edit, issue]
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/joannafg/cs5805
+        href: https://github.com/joannafg/cs5805-2
       - icon: linkedin
         href: https://www.linkedin.com/in/joanna-fang-6122ba182/
 format:
